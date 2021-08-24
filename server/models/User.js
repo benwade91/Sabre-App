@@ -18,18 +18,14 @@ const userSchema = new Schema({
     required: true,
     unique: true,
     match: [/.+@.+\..+/, "Must match an email address!"],
-    // validate: {
-    //   validator: () => Promise.resolve(false),
-    //   message: 'Email validation failed'
-    // }
   },
   password: {
     type: String,
     required: true,
     minlength: 6,
   },
-  parkingPlace: [{ type: Schema.Types.ObjectId, ref: "ParkingPlace" }],
-  bookings: [{ type: Schema.Types.ObjectId, ref: "Reservation" }],
+  privateMessages: [{ type: Schema.Types.ObjectId, ref: "PrivateMessage" }],
+  posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
 });
 
 // set up pre-save middleware to create password
