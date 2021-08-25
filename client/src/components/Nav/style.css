@@ -1,0 +1,34 @@
+header {
+    margin-top: 5px;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+}
+
+img {
+    height: 100%;
+}
+
+.menuButton {
+    margin-right: 1%;
+}
+
+.dropDown {
+    position: absolute;
+    display: flex;
+    margin-left: 55%;
+    width: 38%;
+    justify-content: center;
+}
+
+.menuItemContainer{
+    width: 100%;
+}
+
+.menuItem {
+    width: 100%;
+    border: black solid 1px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}

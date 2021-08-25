@@ -1,12 +1,13 @@
 import React from 'react'
-import Login from '../../components/Login'
+// import Login from '../../components/Login'
+import Nav from '../../components/Nav'
 
 const Home = () => {
     return (
-        <div>
-            Hello World
-            <Login />
-        </div>
+        <>
+          <Nav />
+          <div className='heroSection'></div>
+        </>
     )
 }
 

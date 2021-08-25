@@ -2,7 +2,8 @@ import { useReducer } from "react";
 import {
     SET_CURRENT_USER,
     REDIRECT_ON_LOGIN,
-    SET_LOADING
+    SET_LOADING,
+    OPEN_MENU
 } from "./actions";
 
 export const reducer = (state, action) => {
@@ -22,6 +23,11 @@ export const reducer = (state, action) => {
                 ...state,
                 currentUser: action.currentUser
             }
+        case OPEN_MENU:
+                return {
+                    ...state,
+                    menu: !state.menu
+                }
         default:
             return state;
     }

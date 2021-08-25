@@ -39,12 +39,14 @@ const Login = () => {
             }
         }
     };
-
+    
     return (
         <form>
             <input onChange={handleChange} type="text" placeholder='email' name='email' />
             <input onChange={handleChange} type="password" placeholder='password' name='password' />
             <button onClick={handleFormSubmit}>Login</button>
+            {error && <h1>there was an error logging in</h1>}
+            {state.currentUser && <h1>{state.currentUser.firstName}</h1>}
         </form>
     )
 }

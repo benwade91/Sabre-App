@@ -7,6 +7,7 @@ import {
   Switch,
 } from "react-router-dom";
 import { StoreProvider } from "../utils/GlobalState";
+import './style.css'
 
 import Home from "../pages/Home";
 import NoMatch from "../pages/NoMatch";
