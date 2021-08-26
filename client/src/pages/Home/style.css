@@ -1,0 +1,11 @@
+.mainMenu {
+    margin-top: 5vh;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+}
+.mainMenuBtn {
+    width: 40%;
+    height: 50px;
+    margin: 10px auto;
+}
