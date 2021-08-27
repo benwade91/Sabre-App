@@ -1,11 +1,15 @@
 .mainMenu {
-    margin-top: 5vh;
-    display: flex;
+    margin: 5% 8% 0;
+    display: grid;
+    grid-template-columns: 50% [col-start] 50% [col-start];
     flex-wrap: wrap;
-    width: 100vw;
 }
 .mainMenuBtn {
-    width: 40%;
+    border-radius: 10px;
+    margin: 15px auto;
+    background-color: whitesmoke;
+}
+.mainMenuBtnPng{
+    padding: 5px;
     height: 50px;
-    margin: 10px auto;
 }

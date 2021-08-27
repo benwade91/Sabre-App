@@ -2,3 +2,8 @@
     margin: 0;
     padding: 0;
 }
+
+.appEnclosure {
+    max-width: 500px;
+    margin: 0 auto;
+}
