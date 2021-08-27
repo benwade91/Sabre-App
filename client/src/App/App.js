@@ -10,6 +10,7 @@ import { StoreProvider } from "../utils/GlobalState";
 import './style.css'
 
 import Home from "../pages/Home";
+import Announcements from '../pages/Announcements';
 import NoMatch from "../pages/NoMatch";
 
 const client = new ApolloClient({
@@ -34,7 +35,7 @@ function App() {
           <StoreProvider>
             <Switch>
               <Route exact path="/" component={Home}></Route>
-
+              <Route exact path="/announcements" component={Announcements}></Route>
               <Route component={NoMatch} />
             </Switch>
           </StoreProvider>
