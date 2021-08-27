@@ -12,21 +12,29 @@ import settingsPng from './images/settings.png'
 const Home = () => {
     return (
         <>
-          <Nav />
-          <div className='mainMenu'>
-              <button className='mainMenuBtn announcementsBtn'>
-              <img className='mainMenuBtnPng' src={announcementPng} alt="announcements"/>
-              </button>
-              <button className='mainMenuBtn myMessagesBtn'>
-              <img className='mainMenuBtnPng' src={myMessagesPng} alt="private messages"/>
-              </button>
-              <button className='mainMenuBtn messageBoardBtn'>
-              <img className='mainMenuBtnPng' src={messageBoardPng} alt="team message board"/>
-              </button>
-              <button className='mainMenuBtn settingsBtn'>
-              <img className='mainMenuBtnPng' src={settingsPng} alt="settings"/>
-              </button>
-          </div>
+            <Nav />
+            <div className='mainMenu'>
+                <Link className='mainMenuBtnCase' to='/announcements'>
+                    <button className='mainMenuBtn announcementsBtn'>
+                        <img className='mainMenuBtnPng' src={announcementPng} alt="announcements" />
+                    </button>
+                </Link>
+                <Link className='mainMenuBtnCase'>
+                    <button className='mainMenuBtn myMessagesBtn'>
+                        <img className='mainMenuBtnPng' src={myMessagesPng} alt="private messages" />
+                    </button>
+                </Link>
+                <Link className='mainMenuBtnCase'>
+                    <button className='mainMenuBtn messageBoardBtn'>
+                        <img className='mainMenuBtnPng' src={messageBoardPng} alt="team message board" />
+                    </button>
+                </Link>
+                <Link className='mainMenuBtnCase'>
+                    <button className='mainMenuBtn settingsBtn'>
+                        <img className='mainMenuBtnPng' src={settingsPng} alt="settings" />
+                    </button>
+                </Link>
+            </div>
         </>
     )
 }

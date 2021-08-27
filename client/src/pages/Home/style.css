@@ -4,6 +4,9 @@
     grid-template-columns: 50% [col-start] 50% [col-start];
     flex-wrap: wrap;
 }
+.mainMenuBtnCase{
+    margin: auto;
+}
 .mainMenuBtn {
     border-radius: 10px;
     margin: 15px auto;
