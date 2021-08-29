@@ -1,5 +1,5 @@
 header {
-    margin-top: 5px;
+    margin:6px 5px 0;
     height: 70px;
     display: flex;
     justify-content: space-between;
@@ -10,7 +10,7 @@ img {
 }
 
 .menuButton {
-    margin-right: 1%;
+    margin-right: 0;
 }
 
 .dropDown {

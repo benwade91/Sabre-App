@@ -1,18 +1,3 @@
-.mainMenu {
-    margin: 5% 8% 0;
-    display: grid;
-    grid-template-columns: 50% [col-start] 50% [col-start];
-    flex-wrap: wrap;
-}
-.mainMenuBtnCase{
-    margin: auto;
-}
-.mainMenuBtn {
-    border-radius: 10px;
-    margin: 15px auto;
-    background-color: whitesmoke;
-}
-.mainMenuBtnPng{
-    padding: 5px;
-    height: 50px;
+.homePage {
+    height: 80vh;
 }

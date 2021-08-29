@@ -11,7 +11,12 @@ import './style.css'
 
 import Home from "../pages/Home";
 import Announcements from '../pages/Announcements';
+import MessageBoard from '../pages/MessageBoard'
+import MyMessages from '../pages/MyMessages'
+import Settings from '../pages/Settings'
 import NoMatch from "../pages/NoMatch";
+import Nav from '../components/Nav'
+import Footer from '../components/Footer'
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -31,14 +36,21 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className='appEnclosure'>
-          <StoreProvider>
+      <div className='app'>
+        <StoreProvider>
+            <Nav />
+          <div className='appEnclosure'>
             <Switch>
               <Route exact path="/" component={Home}></Route>
               <Route exact path="/announcements" component={Announcements}></Route>
+              <Route exact path="/my-messages" component={MyMessages}></Route>
+              <Route exact path="/message-board" component={MessageBoard}></Route>
+              <Route exact path="/settings" component={Settings}></Route>
               <Route component={NoMatch} />
             </Switch>
-          </StoreProvider>
+          </div>
+            <Footer />
+        </StoreProvider>
         </div>
       </Router>
     </ApolloProvider>
