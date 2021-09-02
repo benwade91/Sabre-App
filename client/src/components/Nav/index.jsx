@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from "react-router-dom";
 import { OPEN_MENU } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
-import logo from './sabre_logo.png'
+import logo from './images/sabre_logo.png'
+import menu from './images/menu.png'
 import './style.css'
 
 const Nav = () => {
@@ -19,9 +20,9 @@ const Nav = () => {
     return (<>
         <header>
             <Link to='/'>
-                <img src={logo} alt="Sabre Logo" />
+                <img className='sabreLogo' src={logo} alt="Sabre Logo" />
             </Link>
-            <button className='menuButton' onClick={handleMenu}>menu</button>
+            <button className='menuDropBtn' onClick={handleMenu}><img className='menuDropPng' src={menu} alt=""/></button>
         </header>
         <div className='dropDown'>
         {state.menu && <div className='menuItemContainer'>

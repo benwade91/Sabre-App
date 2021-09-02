@@ -3,19 +3,27 @@ header {
     height: 70px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
-img {
-    height: 100%;
+.sabreLogo {
+    height: 40px;
+    margin-left: 10px;
 }
 
-.menuButton {
+.menuDropBtn {
     margin-right: 0;
+    height: fit-content;
+}
+.menuDropPng{
+    height: 20px;
+    padding: 10px;
 }
 
 .dropDown {
     position: absolute;
     display: flex;
+    margin-top: -10px;
     margin-left: 55%;
     width: 38%;
     justify-content: center;
