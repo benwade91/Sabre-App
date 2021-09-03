@@ -13,7 +13,7 @@ const resolvers = {
         return userdata;
       }
 
-      throw new AuthenticationError("Not logged in");
+      throw new AuthenticationError("Error verifying user");
     },
 
     getAllPosts: async (parent) => {

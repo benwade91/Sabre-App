@@ -11,6 +11,7 @@ const postSchema = new Schema({
     required: true,
     trim: true,
   },
+  announcement: Boolean,
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
