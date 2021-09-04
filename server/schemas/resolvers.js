@@ -16,6 +16,16 @@ const resolvers = {
       throw new AuthenticationError("Error verifying user");
     },
 
+    getComments: async ( parent, idList) => {
+      const comments = await Comment.find({
+        "_id": {$in: idList}
+      }).populate({
+        path: "comment",
+        moddel: "Comment",
+      });
+      return comments
+    },
+
     getAllPosts: async (parent) => {
       const posts = await Post.find().populate({
         path: "post",
