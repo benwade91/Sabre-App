@@ -1,5 +1,5 @@
 const {AuthenticationError} = require("apollo-server-express");
-const {User, Post} = require("../models");
+const {User, Post, Comment} = require("../models");
 const {signToken} = require("../utils/auth");
 
 const resolvers = {
@@ -21,7 +21,7 @@ const resolvers = {
         "_id": {$in: idList}
       }).populate({
         path: "comment",
-        moddel: "Comment",
+        model: "Comment",
       });
       return comments
     },
@@ -46,6 +46,17 @@ const resolvers = {
       });
 
       return post;
+    },
+
+    getPostByGym: async (parent, what_Gym) => {
+      console.log(what_Gym)
+      const posts = await Post.where(what_Gym)
+      .populate({
+        path: "post",
+        model: "Post",
+      });
+
+      return posts;
     },
   },
 

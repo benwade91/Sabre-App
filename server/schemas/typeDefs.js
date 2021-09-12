@@ -16,6 +16,13 @@ const typeDefs = gql`
     content: String
     announcement: Boolean
     user: User
+    whatGym: String
+  }
+  type Comment {
+    _id: ID
+    content: String
+    likes: [User]
+    user: User
   }
   type Auth {
     token: ID
@@ -26,6 +33,8 @@ const typeDefs = gql`
     user: User
     getAllPosts: [Post]
     getPostById(_id: ID!): Post
+    getPostByGym(whatGym:String!): [Post]
+    getComments: [Comment!]
   }
 
   type Mutation {
@@ -47,6 +56,7 @@ const typeDefs = gql`
       title: String!
       content: String!
       announcement: Boolean!
+      whatGym: String!
     ): Post
 
     editExistingPost(
@@ -54,6 +64,7 @@ const typeDefs = gql`
       title: String
       content: String
       announcement: Boolean
+      whatGym: String
     ): Post
 
     login(email: String!, password: String!): Auth

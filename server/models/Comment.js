@@ -1,17 +1,17 @@
 const { Schema, model } = require("mongoose");
 
 const commentSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true,
-  },
   content: {
     type: String,
     required: true,
     trim: true,
   },
-  likes: Number,
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",

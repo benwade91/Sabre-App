@@ -17,12 +17,11 @@ const postSchema = new Schema({
     ref: "User",
     required: true,
   },
-  inventory: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Comment",
-    },
-  ]
+  whatGym: {
+    type: String,
+    required: true,
+    trim: true,
+  },
 });
 
 const Post = model("Post", postSchema);
