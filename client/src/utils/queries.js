@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-export const QUERY_USER = gql`
+export const QUERY_USER = gql `
   {
     user {
       _id
@@ -9,4 +9,18 @@ export const QUERY_USER = gql`
       email
     }
   }
+`;
+
+export const QUERY_ALL_POSTS = gql `
+{
+  getAllPosts{
+  title
+  content
+  announcement
+  whatGym
+  user{
+    _id
+  }
+}
+}
 `;
