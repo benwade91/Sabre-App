@@ -2,12 +2,13 @@ import gql from "graphql-tag";
 
 export const QUERY_USER = gql `
   {
-    user {
+    user{
       _id
       username
       administrator
       email
       posts{
+        _id
         title
       }
     }
@@ -23,6 +24,7 @@ export const QUERY_ALL_POSTS = gql `
   whatGym
   user{
     _id
+    username
   }
 }
 }

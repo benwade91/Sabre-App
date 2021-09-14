@@ -8,6 +8,20 @@ const typeDefs = gql`
     administrator: Boolean
     email: String
     posts: [Post]
+    privateMessages: [Message]
+    beltColor: String
+  }
+
+  type MessageThread {
+    _id: ID
+    content: [Message]
+    users: [User]
+  }
+
+  type Message {
+    _id: ID
+    content: String
+    user: User
   }
 
   type Post {
@@ -18,12 +32,14 @@ const typeDefs = gql`
     user: User
     whatGym: String
   }
+
   type Comment {
     _id: ID
     content: String
     likes: [User]
     user: User
   }
+
   type Auth {
     token: ID
     user: User
@@ -36,6 +52,7 @@ const typeDefs = gql`
     getPostById(_id: ID!): Post
     getPostByGym(whatGym:String!): [Post]
     getComments: [Comment!]
+    getMessageThread(_id: ID!): MessageThread
   }
 
   type Mutation {
@@ -67,6 +84,18 @@ const typeDefs = gql`
       announcement: Boolean
       whatGym: String
     ): Post
+
+    addNewMessageThread(
+      _id: ID
+      content: [ID]
+      users:[ID]
+    ): MessageThread
+
+    addNewMessage(
+      _id: ID
+      content: String!
+      user: ID!
+    ): MessageThread
 
     login(email: String!, password: String!): Auth
   }

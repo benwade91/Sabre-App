@@ -25,6 +25,7 @@ const postSchema = new Schema({
     required: true,
     trim: true,
   },
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 const Post = model("Post", postSchema);

@@ -4,7 +4,7 @@ const {signToken} = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    user: async (parent, context) => {
+    user: async (parent, args, context) => {
       if (context.user) {
         const userdata = await User.findById({
             _id: context.user._id
@@ -14,7 +14,7 @@ const resolvers = {
             path:"posts",
             model: "Post",
           })
-        console.log(userdata)
+        // console.log("heres stuff", userdata)
         return userdata;
       }
 
@@ -48,6 +48,9 @@ const resolvers = {
       const posts = await Post.find().populate({
         path: "post",
         model: "Post",
+      }).populate({
+        path: "user",
+        model: "User",
       });
 
       return posts;
@@ -73,8 +76,15 @@ const resolvers = {
         path: "post",
         model: "Post",
       });
-
       return posts;
+    },
+
+    getMessageThread: async (parent, {_id}) => {
+      const messageThread = await MessageThread.findById({_id})
+      .populate({
+        path: "content",
+      });
+      return messageThread;
     },
   },
 
@@ -128,6 +138,36 @@ const resolvers = {
         return post;
       }
 
+      throw new AuthenticationError("Not logged in");
+    },
+
+    // STILL HAVE TO FIGURE OUT HOW TO ADD BOTH USERS WHEN UPDATING USER MODEL
+
+    addNewMessageThread: async (parent, args, context) => {
+      if (context.user) {
+        const messageThread = await MessageThread.create({
+          ...args
+        });
+        await User.findByIdAndUpdate(
+          { _id: args._id },
+          { $push: { privateMessages: messageThread._id } }
+        );
+        return messageThread;
+      }
+      throw new AuthenticationError("Not logged in");
+    },
+
+    addNewMessage: async (parent, args, context) => {
+      if (context.user) {
+        const message = await Message.create({
+          ...args
+        });
+        await MessageThread.findByIdAndUpdate(
+          { _id: args._id },
+          { $push: { content: message._id } }
+        );
+        return message;
+      }
       throw new AuthenticationError("Not logged in");
     },
 

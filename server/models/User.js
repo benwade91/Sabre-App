@@ -14,13 +14,14 @@ const userSchema = new Schema({
     unique: true,
     match: [/.+@.+\..+/, "Must match an email address!"],
   },
+  beltColor: String,
   administrator: Boolean,
   password: {
     type: String,
     required: true,
     minlength: 6,
   },
-  privateMessages: [{ type: Schema.Types.ObjectId, ref: "PrivateMessage" }],
+  privateMessages: [{ type: Schema.Types.ObjectId, ref: "MessageThread" }],
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
 });
 
