@@ -2,7 +2,7 @@ import React from 'react'
 
 const Post = (props) => {
     const {content, title,user,whatGym } = props.props;
-    console.log(user);
+    
     return (
         <div className='postBody'>
         <h1>{title}</h1>

@@ -19,23 +19,43 @@ export const LOGIN_USER = gql `
 
 export const ADD_USER = gql `
   mutation addUser(
-    $firstName: String!
-    $lastName: String!
+    $username: String!
     $email: String!
     $password: String!
   ) {
     addUser(
-      firstName: $firstName
-      lastName: $lastName
+      username: $username
       email: $email
       password: $password
     ) {
       token
       user {
         _id
-        firstName
-        lastName
+        username
       }
     }
   }
+`;
+
+export const ADD_POST = gql`
+mutation addNewPost(
+  $title: String!
+  $content: String!
+  $announcement: Boolean!
+  $whatGym:String!
+){
+  addNewPost(
+    title: $title
+    content:$content
+    announcement:$announcement
+    whatGym:$whatGym
+  ){
+    _id
+    title
+    content
+    user{
+      _id
+    }
+  }
+}
 `;

@@ -5,9 +5,9 @@ const MessageBoard = () => {
     const [state, dispatch] = useStoreContext();
 
     console.log(state);
-    
+
     return <div>
-My Messages
+        My Messages
     </div>
 }
 

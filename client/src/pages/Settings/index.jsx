@@ -3,7 +3,7 @@ import Login from '../../components/Login'
 
 const MessageBoard = () => {
     return <div>
-<Login/>
+        <Login />
     </div>
 }
 
