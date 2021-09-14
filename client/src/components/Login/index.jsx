@@ -33,6 +33,7 @@ const Login = () => {
                 })
                 Auth.login(data.login.token);
                 Auth.loggedIn() && console.log('logged in');
+                setFormState({ email: "", password: "" });
             }
             catch (e) {
                 console.error(e);
@@ -46,7 +47,7 @@ const Login = () => {
             <input onChange={handleChange} type="password" placeholder='password' name='password' />
             <button onClick={handleFormSubmit}>Login</button>
             {error && <h1>there was an error logging in</h1>}
-            {state.currentUser && <h1>{state.currentUser.firstName}</h1>}
+            {state.currentUser && <h1>{state.currentUser.username}</h1>}
         </form>
     )
 }

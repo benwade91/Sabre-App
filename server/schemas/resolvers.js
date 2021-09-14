@@ -10,10 +10,28 @@ const resolvers = {
             _id: context.user._id
           })
           .select("-__v -password")
+          .populate({
+            path:"posts",
+            model: "Post",
+          })
+        console.log(userdata)
         return userdata;
       }
 
       throw new AuthenticationError("Error verifying user");
+    },
+
+    getUserById: async (parent, {
+      _id
+    }) => {
+      const user = await User.findById({
+        _id
+      }).populate({
+        path: "posts",
+        model: "Post",
+      });
+
+      return user;
     },
 
     getComments: async ( parent, idList) => {
@@ -90,7 +108,7 @@ const resolvers = {
         });
         await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { post: post._id } }
+          { $push: { posts: post._id } }
         );
 
         return post;

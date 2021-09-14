@@ -4,9 +4,12 @@ export const QUERY_USER = gql `
   {
     user {
       _id
-      firstName
-      lastName
+      username
+      administrator
       email
+      posts{
+        title
+      }
     }
   }
 `;

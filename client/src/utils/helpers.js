@@ -12,7 +12,7 @@ export function formatDate(str) {
 // store data from database queries in indexedDB
 export function idbPromise(storeName, method, object) {
     return new Promise((resolve, reject) => {
-        const request = window.indexedDB.open("parking-pal", 1);
+        const request = window.indexedDB.open("sabre-chat", 1);
 
         // create variables for database, transaction, object store
         let db, tx, store;

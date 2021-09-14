@@ -1,8 +1,9 @@
 import React from 'react';
+import Login from '../../components/Login'
 
 const MessageBoard = () => {
     return <div>
-Settings
+<Login/>
     </div>
 }
 
