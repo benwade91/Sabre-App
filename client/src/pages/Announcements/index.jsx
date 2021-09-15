@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 import {QUERY_ALL_POSTS , QUERY_USER} from '../../utils/queries';
 
 const Announcements = () => {
-    const { loading: loading, data: postData } = useQuery(QUERY_ALL_POSTS);
+    const { loading, data: postData } = useQuery(QUERY_ALL_POSTS);
     const { loading: loadingUser, data: userData } = useQuery(QUERY_USER);
     
     console.log(postData)

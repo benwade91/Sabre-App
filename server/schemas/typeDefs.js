@@ -22,6 +22,7 @@ const typeDefs = gql`
     _id: ID
     content: String
     user: User
+    seen: Boolean
   }
 
   type Post {
@@ -95,6 +96,7 @@ const typeDefs = gql`
       _id: ID
       content: String!
       user: ID!
+      seen: Boolean
     ): MessageThread
 
     login(email: String!, password: String!): Auth

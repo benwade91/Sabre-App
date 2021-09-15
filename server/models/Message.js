@@ -14,6 +14,7 @@ const {
       ref: "User",
       required: true,
     },
+    seen: false,
   });
   
   const Message = model("Message", messageSchema);
