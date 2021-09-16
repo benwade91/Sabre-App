@@ -4,6 +4,7 @@ import { SET_CURRENT_USER } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
+import './style.css';
 
 const Login = () => {
 
@@ -41,14 +42,24 @@ const Login = () => {
         }
     };
     
+    const tempClick = (event) => {
+        event.preventDefault();
+        console.log('signUp');
+    }
+
     return (
-        <form>
-            <input onChange={handleChange} type="text" placeholder='email' name='email' />
-            <input onChange={handleChange} type="password" placeholder='password' name='password' />
-            <button onClick={handleFormSubmit}>Login</button>
-            {error && <h1>there was an error logging in</h1>}
+        <div className='signInFormContainer'>
+        <form className='signInForm'>
+            <input className='signInInput' autoComplete='email' onChange={handleChange} type="text" placeholder='email' name='email' />
+            <input className='signInInput' autoComplete='current-password' onChange={handleChange} type="password" placeholder='password' name='password' />
+            <div className='buttonContainer'>
+            <button className='loginBtn' onClick={handleFormSubmit}>Login</button>
+            <button className='loginBtn signUp' onClick={tempClick}>Sign-up</button>
+            </div>
+            {error && <h1>Try Again</h1>}
             {state.currentUser && <h1>{state.currentUser.username}</h1>}
         </form>
+        </div>
     )
 }
 

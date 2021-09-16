@@ -1,9 +1,10 @@
 import React from 'react';
-import Login from '../../components/Login'
+import Auth from '../../utils/auth';
+import './style.css'
 
 const MessageBoard = () => {
-    return <div>
-        <Login />
+    return <div className='settingsPage'>
+        <button className='logOutBtn' onClick={Auth.logout}>Log-out</button>
     </div>
 }
 

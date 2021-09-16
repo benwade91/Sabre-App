@@ -1,0 +1,8 @@
+.settingsPage{
+    display: flex;
+    justify-content: center;
+}
+.logOutBtn{
+    height: 40px;
+    padding: 10px;
+}
