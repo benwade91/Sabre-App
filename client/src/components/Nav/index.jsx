@@ -24,7 +24,7 @@ const Nav = () => {
                 <img className='sabreLogo' src={logo} alt="Sabre Logo" />
             </Link>
             {/* <div className='menuDropBtn' onClick={handleMenu}> */}
-            <Link to='my-messages'>
+            <Link to='/my-messages'>
             <img className='messagePng' src={messenger} alt="messages"/>
             </Link>
             {/* </div> */}

@@ -17,8 +17,8 @@ const Home = () => {
                     </div>
                 </Link>
 
-                <Link className='mainMenuBtnCase' to='/my-messages'>
-                    <div className='mainMenuBtn myMessagesBtn'>
+                <Link className='mainMenuBtnCase' to='/new-post'>
+                    <div className='mainMenuBtn'>
                         <img className='mainMenuBtnPng' src={createPostPng} alt="private messages" />
                     </div>
                 </Link>
