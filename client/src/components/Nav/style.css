@@ -7,7 +7,7 @@ header {
 }
 
 .sabreLogo {
-    height: 40px;
+    height: 50px;
     margin-left: 10px;
 }
 
@@ -15,8 +15,8 @@ header {
     margin-right: 0;
     height: fit-content;
 }
-.menuDropPng{
-    height: 20px;
+.messagePng{
+    height: 35px;
     padding: 10px;
 }
 

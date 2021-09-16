@@ -1,6 +1,7 @@
 .mainMenu {
     display: flex;
-    margin-top: -50px;
+    margin-top: -25px;
+    border-top: black 1px solid;
 }
 .mainMenuBtnCase{
     margin: auto;
@@ -8,9 +9,9 @@
 .mainMenuBtn {
     border-radius: 10px;
     margin: 15px auto;
-    background-color: whitesmoke;
+    background-color: #fff;
 }
 .mainMenuBtnPng{
-    padding: 5px;
-    height: 50px;
+    padding: 3px;
+    height: 35px;
 }
