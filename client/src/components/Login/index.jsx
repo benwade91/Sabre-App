@@ -5,6 +5,7 @@ import { useStoreContext } from "../../utils/GlobalState";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import './style.css';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
 
@@ -54,7 +55,8 @@ const Login = () => {
             <input className='signInInput' autoComplete='current-password' onChange={handleChange} type="password" placeholder='password' name='password' />
             <div className='buttonContainer'>
             <button className='loginBtn' onClick={handleFormSubmit}>Login</button>
-            <button className='loginBtn signUp' onClick={tempClick}>Sign-up</button>
+            {/* <button className='loginBtn signUp' onClick={tempClick}>Sign-up</button> */}
+            <Link className='loginBtn signUp' to="/signup">Sign-up</Link>
             </div>
             {error && <h1>Try Again</h1>}
             {state.currentUser && <h1>{state.currentUser.username}</h1>}

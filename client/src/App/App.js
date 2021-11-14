@@ -18,6 +18,7 @@ import NewPost from '../pages/NewPost';
 import NoMatch from "../pages/NoMatch";
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
+import { Signup } from "../pages/Signup";
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -48,6 +49,7 @@ function App() {
               <Route exact path="/message-board" component={MessageBoard}></Route>
               <Route exact path="/new-post" component={NewPost}></Route>
               <Route exact path="/settings" component={Settings}></Route>
+              <Route exact path="/signup" component={Signup}></Route>
               <Route component={NoMatch} />
             </Switch>
           </div>
