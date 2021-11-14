@@ -1,7 +1,8 @@
 .mainMenu {
     display: flex;
-    margin-top: -25px;
+    /* margin-top: -25px; */
     border-top: black 1px solid;
+    height: 8vh;
 }
 .mainMenuBtnCase{
     margin: auto;
