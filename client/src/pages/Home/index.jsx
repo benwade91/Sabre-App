@@ -8,7 +8,7 @@ const Home = () => {
     return (
         <>
         {!Auth.loggedIn() && <Login />}
-            <img src={schedule} className='schedulePng' alt="gym schedule"/>
+            {/* <img src={schedule} className='schedulePng' alt="gym schedule"/> */}
         </>
     )
 }

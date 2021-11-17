@@ -5,7 +5,8 @@ import { useStoreContext } from "../../utils/GlobalState";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link , Redirect} from 'react-router-dom';
+import { Form, Button, Alert } from 'react-bootstrap';
 
 const Login = () => {
 
@@ -30,19 +31,20 @@ const Login = () => {
                     variables: { ...formState }
                 });
                 dispatch({
-                  type: SET_CURRENT_USER,
-                  currentUser: data.login.user
+                    type: SET_CURRENT_USER,
+                    currentUser: data.login.user
                 })
                 Auth.login(data.login.token);
                 Auth.loggedIn() && console.log('logged in');
                 setFormState({ email: "", password: "" });
+                return <Redirect to="/message-board"/>
             }
             catch (e) {
                 console.error(e);
             }
         }
     };
-    
+
     const tempClick = (event) => {
         event.preventDefault();
         console.log('signUp');
@@ -50,17 +52,26 @@ const Login = () => {
 
     return (
         <div className='signInFormContainer'>
-        <form className='signInForm'>
-            <input className='signInInput' autoComplete='email' onChange={handleChange} type="text" placeholder='email' name='email' />
-            <input className='signInInput' autoComplete='current-password' onChange={handleChange} type="password" placeholder='password' name='password' />
-            <div className='buttonContainer'>
-            <button className='loginBtn' onClick={handleFormSubmit}>Login</button>
-            {/* <button className='loginBtn signUp' onClick={tempClick}>Sign-up</button> */}
-            <Link className='loginBtn signUp' to="/signup">Sign-up</Link>
-            </div>
-            {error && <h1>Try Again</h1>}
-            {state.currentUser && <h1>{state.currentUser.username}</h1>}
-        </form>
+
+            
+
+            {error && <Alert className='mx-5' variant='warning'>
+                We werent able to find an account with thiose credentials! Try again!
+            </Alert>}
+            <Form className='signInForm'>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control type="email" placeholder="Enter email" onChange={handleChange} name='email' value={formState.email}/>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" placeholder="Password" onChange={handleChange} name='password' value={formState.password}/>
+                </Form.Group>
+                <Button variant="primary" type="submit" onClick={handleFormSubmit}>
+                    Login
+                </Button>
+            </Form>
         </div>
     )
 }

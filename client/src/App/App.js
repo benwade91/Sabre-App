@@ -19,6 +19,7 @@ import NoMatch from "../pages/NoMatch";
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import { Signup } from "../pages/Signup";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const client = new ApolloClient({
   request: (operation) => {

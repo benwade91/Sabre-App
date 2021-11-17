@@ -1,36 +1,35 @@
-.signInFormContainer{
-    display: flex;
-   justify-content: center;
-    height: 30vh;
-    margin: 20px 0;
-}
-
-.signInForm{
+.signInFormContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    width: 200px;
-    padding: 10px;
+    /* height: 30vh; */
+    margin: 50% 20px;
+}
+
+.signInForm {
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-evenly;
+    width: 200px; */
+    padding: 10px; 
     border: solid black 1px;
     border-radius: 5px;
 }
 
-.signInInput{
+.signInInput {
     height: 30px;
 }
 
-.buttonContainer{
+.buttonContainer {}
 
-}
-
-.loginBtn{
+.loginBtn {
     height: 40px;
     padding: 10px;
     margin: 0 10px;
 }
 
-.signUp{
+.signUp {
     background-color: blue;
     color: white;
     border-radius: 3px;
