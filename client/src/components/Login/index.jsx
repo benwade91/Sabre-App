@@ -5,8 +5,10 @@ import { useStoreContext } from "../../utils/GlobalState";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import './style.css';
-import { Link , Redirect} from 'react-router-dom';
+import { Link, Redirect, Route } from 'react-router-dom';
 import { Form, Button, Alert } from 'react-bootstrap';
+import auth from '../../utils/auth';
+
 
 const Login = () => {
 
@@ -37,7 +39,6 @@ const Login = () => {
                 Auth.login(data.login.token);
                 Auth.loggedIn() && console.log('logged in');
                 setFormState({ email: "", password: "" });
-                return <Redirect to="/message-board"/>
             }
             catch (e) {
                 console.error(e);
@@ -45,28 +46,28 @@ const Login = () => {
         }
     };
 
-    const tempClick = (event) => {
-        event.preventDefault();
-        console.log('signUp');
-    }
+    // const tempClick = (event) => {
+    //     event.preventDefault();
+    //     console.log('signUp');
+    // }
 
     return (
         <div className='signInFormContainer'>
 
-            
-
+        {Auth.loggedIn() && <Redirect to='/message-board'/>}
+        
             {error && <Alert className='mx-5' variant='warning'>
                 We werent able to find an account with thiose credentials! Try again!
             </Alert>}
             <Form className='signInForm'>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" onChange={handleChange} name='email' value={formState.email}/>
+                    <Form.Control type="email" placeholder="Enter email" onChange={handleChange} name='email' value={formState.email} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" onChange={handleChange} name='password' value={formState.password}/>
+                    <Form.Control type="password" placeholder="Password" onChange={handleChange} name='password' value={formState.password} />
                 </Form.Group>
                 <Button variant="primary" type="submit" onClick={handleFormSubmit}>
                     Login

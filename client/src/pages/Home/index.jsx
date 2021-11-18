@@ -7,7 +7,7 @@ import Auth from '../../utils/auth';
 const Home = () => {
     return (
         <>
-        {!Auth.loggedIn() && <Login />}
+        <Login />
             {/* <img src={schedule} className='schedulePng' alt="gym schedule"/> */}
         </>
     )

@@ -5,9 +5,11 @@ header {
     justify-content: space-between;
     align-items: center;
 }
-
+.nav{
+    height: 9vh;
+}
 .sabreLogo {
-    height: 50px;
+    height: 8vh;
     margin-left: 10px;
 }
 
