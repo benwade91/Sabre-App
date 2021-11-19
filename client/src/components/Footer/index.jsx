@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import './style.css';
-
+import { useStoreContext } from '../../utils/GlobalState';
 import homePng from './images/home.png'
 import createPostPng from './images/add.png'
 import announcementPng from './images/bell.png'
 import settingsPng from './images/settings.png'
 
 const Home = () => {
+    const [state, dispatch] = useStoreContext();
+
     return (
-        <>
+        <>{state.currentUser &&
             <div className='mainMenu'>
                 <Link className='mainMenuBtnCase' to='/message-board'>
                     <div className='mainMenuBtn messageBoardBtn'>
@@ -34,7 +36,7 @@ const Home = () => {
                         <img className='mainMenuBtnPng' src={settingsPng} alt="settings" />
                     </div>
                 </Link>
-            </div>
+            </div>}
         </>
     )
 }

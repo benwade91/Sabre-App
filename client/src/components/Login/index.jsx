@@ -5,7 +5,7 @@ import { useStoreContext } from "../../utils/GlobalState";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import './style.css';
-import { Link, Redirect, Route } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Form, Button, Alert } from 'react-bootstrap';
 import auth from '../../utils/auth';
 
@@ -37,7 +37,7 @@ const Login = () => {
                     currentUser: data.login.user
                 })
                 Auth.login(data.login.token);
-                Auth.loggedIn() && console.log('logged in');
+                Auth.loggedIn() && console.log(state);
                 setFormState({ email: "", password: "" });
             }
             catch (e) {
