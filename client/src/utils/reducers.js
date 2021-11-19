@@ -3,7 +3,8 @@ import {
     SET_CURRENT_USER,
     REDIRECT_ON_LOGIN,
     SET_LOADING,
-    OPEN_MENU
+    OPEN_MENU,
+    LOGIN_STATUS
 } from "./actions";
 
 export const reducer = (state, action) => {
@@ -27,6 +28,11 @@ export const reducer = (state, action) => {
                 return {
                     ...state,
                     menu: !state.menu
+                }
+        case LOGIN_STATUS:
+                return {
+                    ...state,
+                    loggedIn: action.loggedIn
                 }
         default:
             return state;

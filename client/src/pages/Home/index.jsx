@@ -1,8 +1,8 @@
 import React from 'react';
 import './style.css';
-import schedule from './images/schedule.png';
+// import schedule from './images/schedule.png';
 import Login from '../../components/Login';
-import Auth from '../../utils/auth';
+// import Auth from '../../utils/auth';
 
 const Home = () => {
     return (

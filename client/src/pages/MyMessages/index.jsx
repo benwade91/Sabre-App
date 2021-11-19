@@ -2,7 +2,7 @@ import React from 'react';
 import { useStoreContext } from "../../utils/GlobalState";
 
 const MessageBoard = () => {
-    const [state, dispatch] = useStoreContext();
+    const [state, ] = useStoreContext();
 
     console.log(state);
 

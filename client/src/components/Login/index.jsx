@@ -1,21 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useMutation } from "@apollo/react-hooks";
-import { SET_CURRENT_USER } from "../../utils/actions";
+import { LOGIN_STATUS, SET_CURRENT_USER } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import './style.css';
 import { Redirect } from 'react-router-dom';
 import { Form, Button, Alert } from 'react-bootstrap';
-import auth from '../../utils/auth';
+
 
 
 const Login = () => {
 
     const [formState, setFormState] = useState({ email: "", password: "" });
-    const [errFlags, setErrFlags] = useState({ emailError: false });
+    const [errFlags,] = useState({ emailError: false });
     const [login, { error }] = useMutation(LOGIN_USER);
-    const [state, dispatch] = useStoreContext();
+    const [, dispatch] = useStoreContext();
 
     const handleChange = event => {
         // destructure event target
@@ -37,7 +37,7 @@ const Login = () => {
                     currentUser: data.login.user
                 })
                 Auth.login(data.login.token);
-                Auth.loggedIn() && console.log(state);
+                // Auth.loggedIn() && console.log(state);
                 setFormState({ email: "", password: "" });
             }
             catch (e) {
@@ -46,16 +46,11 @@ const Login = () => {
         }
     };
 
-    // const tempClick = (event) => {
-    //     event.preventDefault();
-    //     console.log('signUp');
-    // }
-
     return (
         <div className='signInFormContainer'>
 
-        {Auth.loggedIn() && <Redirect to='/message-board'/>}
-        
+            {Auth.loggedIn() && <Redirect to='/message-board' />}
+
             {error && <Alert className='mx-5' variant='warning'>
                 We werent able to find an account with thiose credentials! Try again!
             </Alert>}
@@ -69,9 +64,14 @@ const Login = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" onChange={handleChange} name='password' value={formState.password} />
                 </Form.Group>
-                <Button variant="primary" type="submit" onClick={handleFormSubmit}>
-                    Login
-                </Button>
+                <div className='buttonflex'>
+                    <Button className='mx-1' variant='primary' type="submit" onClick={handleFormSubmit}>
+                        Login
+                    </Button>
+                    <Button className='mx-1' variant="outline-success" type='button' onClick={() => window.location = '/signup'}>
+                        Sign up
+                    </Button>
+                </div>
             </Form>
         </div>
     )

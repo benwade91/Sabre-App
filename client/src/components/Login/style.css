@@ -22,7 +22,9 @@
     height: 30px;
 }
 
-/* .buttonContainer {} */
+.buttonflex {
+    display: flex;
+}
 
 .loginBtn {
     height: 40px;

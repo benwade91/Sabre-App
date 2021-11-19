@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { OPEN_MENU } from "../../utils/actions";
-import { useStoreContext } from "../../utils/GlobalState";
+// import { OPEN_MENU } from "../../utils/actions";
+// import { useStoreContext } from "../../utils/GlobalState";
 import logo from './images/sabre_logo_w_name.png';
-import messenger from './images/messenger.png';
+// import messenger from './images/messenger.png';
 import './style.css';
 // import Auth from "../../utils/auth";
 

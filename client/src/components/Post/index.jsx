@@ -8,6 +8,7 @@ const Post = (props) => {
         <h1>{title}</h1>
         <p>{content}</p>
         <p>{whatGym}</p>
+        <p>{user}</p>
         </div>
     )
 }

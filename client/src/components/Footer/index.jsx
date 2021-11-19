@@ -2,16 +2,18 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import './style.css';
 import { useStoreContext } from '../../utils/GlobalState';
-import homePng from './images/home.png'
-import createPostPng from './images/add.png'
-import announcementPng from './images/bell.png'
-import settingsPng from './images/settings.png'
+import homePng from './images/home.png';
+import createPostPng from './images/add.png';
+import announcementPng from './images/bell.png';
+import settingsPng from './images/settings.png';
+import Auth from '../../utils/auth';
 
 const Home = () => {
-    const [state, dispatch] = useStoreContext();
+    const [state,] = useStoreContext();
+    console.log(state);
 
     return (
-        <>{state.currentUser &&
+        <>{state.loggedIn &&
             <div className='mainMenu'>
                 <Link className='mainMenuBtnCase' to='/message-board'>
                     <div className='mainMenuBtn messageBoardBtn'>
