@@ -7,15 +7,15 @@ import Auth from "../../utils/auth";
 
 const MessageBoard = () => {
     const { loading, data } = useQuery(QUERY_ALL_POSTS);
-    console.log(data)
+    // console.log(data)
     const [, dispatch] = useStoreContext();
-    
+
     useEffect(() => {
         Auth.loggedIn() && dispatch({
             type: LOGIN_STATUS,
             loggedIn: true
         })
-    })
+    },[])
 
     return <div>
         {loading ? <h1>LOADING</h1>

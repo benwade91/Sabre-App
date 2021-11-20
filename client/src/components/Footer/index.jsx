@@ -8,7 +8,7 @@ import announcementPng from './images/bell.png';
 import settingsPng from './images/settings.png';
 import Auth from '../../utils/auth';
 
-const Home = () => {
+const Footer = () => {
     const [state,] = useStoreContext();
     console.log(state);
 
@@ -44,4 +44,4 @@ const Home = () => {
 }
 
 
-export default Home;
+export default Footer;
