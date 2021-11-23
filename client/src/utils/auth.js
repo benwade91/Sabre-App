@@ -1,7 +1,5 @@
 import decode from "jwt-decode";
 
-const sabreToken = "token1"
-
 class AuthService {
     // retrieve token data
     getProfile() {
@@ -28,17 +26,17 @@ class AuthService {
 
     // retrieve user token from localStorage
     getToken() {
-        return localStorage.getItem(sabreToken);
+        return localStorage.getItem("id_token");
     }
 
     // save user token to localStorage
     login(idToken) {
-        localStorage.setItem(sabreToken, idToken);
+        localStorage.setItem("id_token", idToken);
     }
 
     // clear user token and profile data from localStorage
     logout() {
-        localStorage.removeItem(sabreToken);
+        localStorage.removeItem("id_token");
         window.location.assign("/");
     }
 }

@@ -49,7 +49,7 @@ const Login = () => {
     return (
         <div className='signInFormContainer'>
 
-            {Auth.loggedIn() && <Redirect to='/message-board' />}
+            {Auth.loggedIn() && window.location.assign('/message-board') }
 
             {error && <Alert className='mx-5' variant='warning'>
                 We werent able to find an account with thiose credentials! Try again!

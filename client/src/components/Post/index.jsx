@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, } from 'react';
 import { Card, Form, Button } from 'react-bootstrap'
 import { useStoreContext } from "../../utils/GlobalState";
+
 
 const Post = (props) => {
     const { content, title, user, whatGym } = props.props;
     const [chat, setChat] = useState(false)
     const [commentState, setCommentState] = useState({ comment: ""});
-    const [state, dispatch] = useStoreContext();
+    // const [state, dispatch] = useStoreContext();
 
     const handleChange = event => {
         // destructure event target
@@ -17,7 +18,7 @@ const Post = (props) => {
 
     const handleCommentSubmit = () => {
         console.log(commentState.comment)
-        console.log(state.currentUser.username)
+        // console.log(state.currentUser.username)
     }
 
     return (<>

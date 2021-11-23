@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import './style.css';
 import { useStoreContext } from '../../utils/GlobalState';
@@ -6,14 +6,24 @@ import homePng from './images/home.png';
 import createPostPng from './images/add.png';
 import announcementPng from './images/bell.png';
 import settingsPng from './images/settings.png';
-import Auth from '../../utils/auth';
+import { useQuery } from "@apollo/react-hooks";
+import { QUERY_USER } from '../../utils/queries';
+import { SET_CURRENT_USER } from "../../utils/actions";
 
 const Footer = () => {
-    const [state,] = useStoreContext();
-    console.log(state);
+    const [state, dispatch] = useStoreContext();
+    const { data } = useQuery(QUERY_USER);
+
+    useEffect(()=> {
+        dispatch({
+            type: SET_CURRENT_USER,
+            currentUser: data.user
+        })
+    },[data])
+    console.log(state.currentUser);
 
     return (
-        <>{state.loggedIn &&
+        <>
             <div className='mainMenu'>
                 <Link className='mainMenuBtnCase' to='/message-board'>
                     <div className='mainMenuBtn messageBoardBtn'>
@@ -38,7 +48,7 @@ const Footer = () => {
                         <img className='mainMenuBtnPng' src={settingsPng} alt="settings" />
                     </div>
                 </Link>
-            </div>}
+            </div>
         </>
     )
 }

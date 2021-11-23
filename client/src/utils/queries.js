@@ -29,3 +29,17 @@ export const QUERY_ALL_POSTS = gql `
 }
 }
 `;
+
+export const QUERY_USER_BY_ID = gql `
+query getUserById($_id:ID!){
+    getUserById(_id:$_id){
+    username,
+    administrator,
+    email,
+    posts{
+      _id
+      title
+    }
+    _id
+  }}
+`;

@@ -20,11 +20,12 @@ import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import { Signup } from "../pages/Signup";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Auth from '../utils/auth';
 
 const client = new ApolloClient({
   request: (operation) => {
     const token = localStorage.getItem("id_token");
-
+    console.log(token)
     operation.setContext({
       headers: {
         authorization: token ? `Bearer ${token}` : "",
@@ -35,8 +36,9 @@ const client = new ApolloClient({
 });
 
 
+
 function App() {
-  
+
   return (
     <ApolloProvider client={client}>
       <Router>
@@ -55,7 +57,7 @@ function App() {
               <Route component={NoMatch} />
             </Switch>
           </div>
-            <Footer />
+          {Auth.loggedIn() && <Footer />}
         </StoreProvider>
         </div>
       </Router>
