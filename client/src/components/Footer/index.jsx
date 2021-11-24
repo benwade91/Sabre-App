@@ -14,12 +14,12 @@ const Footer = () => {
     const [state, dispatch] = useStoreContext();
     const { data } = useQuery(QUERY_USER);
 
-    useEffect(()=> {
-        dispatch({
+    useEffect(() => {
+        data && dispatch({
             type: SET_CURRENT_USER,
             currentUser: data.user
         })
-    },[data])
+    }, [data])
     console.log(state.currentUser);
 
     return (

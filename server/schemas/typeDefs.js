@@ -46,6 +46,12 @@ const typeDefs = gql`
     user: User
   }
 
+  type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+  }
+
   type Query {
     user: User
     getUserById(_id: ID!): User
@@ -98,6 +104,8 @@ const typeDefs = gql`
       user: ID!
       seen: Boolean
     ): MessageThread
+
+    singleUpload(file: Upload!): File!
 
     login(email: String!, password: String!): Auth
   }
