@@ -8,6 +8,7 @@ export const LOGIN_USER = gql `
         _id
         username
         administrator
+        beltColor
         email
         posts{
           _id
@@ -21,12 +22,14 @@ export const ADD_USER = gql `
   mutation addUser(
     $username: String!
     $administrator: Boolean!
+    $beltColor: String!
     $email: String!
     $password: String!
   ) {
     addUser(
       username: $username
       administrator: $administrator
+      beltColor: $beltColor
       email: $email
       password: $password
     ) {

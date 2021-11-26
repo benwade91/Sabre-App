@@ -68,6 +68,7 @@ const typeDefs = gql`
       email: String!
       administrator: Boolean!
       password: String!
+      beltColor: String!
     ): Auth
 
     editUser(

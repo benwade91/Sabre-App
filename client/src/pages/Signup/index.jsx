@@ -10,9 +10,9 @@ import { Redirect } from 'react-router-dom';
 
 
 export const Signup = () => {
-    const [formState, setFormState] = useState({ username: "", email: "", password1: "", password2: "", error: undefined});
-    const [errFlags, ] = useState({ emailError: false });
-    const [createUser,  ] = useMutation(ADD_USER);
+    const [formState, setFormState] = useState({ username: "", beltColor:'White', email: "", password1: "", password2: "", error: undefined });
+    const [errFlags,] = useState({ emailError: false });
+    const [createUser,] = useMutation(ADD_USER);
     const [state, dispatch] = useStoreContext();
 
     const handleChange = event => {
@@ -21,8 +21,9 @@ export const Signup = () => {
         // update state
         setFormState({ ...formState, [name]: value });
     };
-
+    
     const handleFormSubmit = async event => {
+        console.log(formState)
         event.preventDefault();
         // if no errors, await response from backend, get token, and login
         if (!errFlags.emailError) {
@@ -31,6 +32,7 @@ export const Signup = () => {
                     variables: {
                         username: formState.username,
                         administrator: false,
+                        beltColor: formState.beltColor,
                         email: formState.email,
                         password: formState.password1
                     }
@@ -39,9 +41,8 @@ export const Signup = () => {
                     type: SET_CURRENT_USER,
                     currentUser: data.addUser
                 })
-                console.log(state);
                 Auth.login(data.addUser.token);
-                Auth.loggedIn() && console.log(state);
+                window.location.assign('/message-board')
                 // setFormState({ email: "", password: "" });
             }
             catch (e) {
@@ -53,17 +54,26 @@ export const Signup = () => {
 
     return (
         <div className='signup-page'>
-        {Auth.loggedIn() && <Redirect to='/message-board'/>}
             <div className="signup-form">
                 <h2>Register</h2>
                 <p className="hint-text">Create your account.</p>
                 {formState.error && <Alert className='mx-5' variant='warning'>
-                {formState.error}
-            </Alert>}
+                    {formState.error}
+                </Alert>}
                 <Form>
 
                     <FloatingLabel label='Username' controlId="floatingInput" className="mb-3">
                         <Form.Control onChange={handleChange} name='username' type="text" placeholder="Username" value={formState.username} />
+                    </FloatingLabel>
+
+                    <FloatingLabel className="mb-3" controlId="floatingSelect" label="Belt Level">
+                        <Form.Select onChange={handleChange} name='beltColor' aria-label="Floating label select example">
+                            <option value="White">White</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Purple">Purple</option>
+                            <option value="Brown">Brown</option>
+                            <option value="Black">Black</option>
+                        </Form.Select>
                     </FloatingLabel>
 
                     <FloatingLabel label='Email' controlId="floatingInput" className="mb-3">
