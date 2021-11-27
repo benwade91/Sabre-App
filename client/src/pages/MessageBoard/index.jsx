@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_ALL_POSTS } from '../../utils/queries';
-import { LOGIN_STATUS, SET_CURRENT_USER } from "../../utils/actions";
-import { useStoreContext } from "../../utils/GlobalState";
+// import { LOGIN_STATUS, SET_CURRENT_USER } from "../../utils/actions";
+// import { useStoreContext } from "../../utils/GlobalState";
 // import Auth from "../../utils/auth";
 import Post from '../../components/Post';
 
 const MessageBoard = () => {
     const { loading, data } = useQuery(QUERY_ALL_POSTS);
-    // console.log(data)
-    const [, dispatch] = useStoreContext();
+    // data && console.log(data.getAllPosts.slice(0))
+    // const [, dispatch] = useStoreContext();
 
     // useEffect(() => {
     //     Auth.loggedIn() && dispatch({

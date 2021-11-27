@@ -6,6 +6,11 @@ const commentSchema = new Schema({
     required: true,
     trim: true,
   },
+  username: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   likes: [
     {
       type: Schema.Types.ObjectId,
@@ -17,6 +22,11 @@ const commentSchema = new Schema({
     ref: "User",
     required: true,
   },
+  post: {
+    type: Schema.Types.ObjectId,
+    ref: "Post",
+    required: true,
+  }
 });
 
 const Comment = model("Comment", commentSchema);

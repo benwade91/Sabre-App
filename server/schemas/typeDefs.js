@@ -32,6 +32,7 @@ const typeDefs = gql`
     announcement: Boolean
     user: User
     whatGym: String
+    comments: [Comment]
   }
 
   type Comment {
@@ -39,6 +40,8 @@ const typeDefs = gql`
     content: String
     likes: [User]
     user: User
+    username: String
+    post: Post
   }
 
   type Auth {
@@ -58,7 +61,7 @@ const typeDefs = gql`
     getAllPosts: [Post]
     getPostById(_id: ID!): Post
     getPostByGym(whatGym:String!): [Post]
-    getComments: [Comment!]
+    getComments: [Comment]
     getMessageThread(_id: ID!): MessageThread
   }
 
@@ -83,6 +86,7 @@ const typeDefs = gql`
       content: String!
       announcement: Boolean!
       whatGym: String!
+      comments: [ID]
     ): Post
 
     editExistingPost(
@@ -92,6 +96,14 @@ const typeDefs = gql`
       announcement: Boolean
       whatGym: String
     ): Post
+
+    addNewComment(
+      content: String!
+      likes: [ID]
+      user: ID
+      username: String
+      post: ID!
+    ): Comment
 
     addNewMessageThread(
       _id: ID

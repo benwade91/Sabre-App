@@ -6,14 +6,14 @@ import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../../utils/mutations';
 import { SET_CURRENT_USER } from '../../utils/actions';
 import Auth from '../../utils/auth';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 
 export const Signup = () => {
     const [formState, setFormState] = useState({ username: "", beltColor:'White', email: "", password1: "", password2: "", error: undefined });
     const [errFlags,] = useState({ emailError: false });
     const [createUser,] = useMutation(ADD_USER);
-    const [state, dispatch] = useStoreContext();
+    const [, dispatch] = useStoreContext();
 
     const handleChange = event => {
         // destructure event target

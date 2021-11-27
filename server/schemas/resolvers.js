@@ -52,6 +52,9 @@ const resolvers = {
       }).populate({
         path: "user",
         model: "User",
+      }).populate({
+        path: "comments",
+        model: "Comment",
       });
 
       return posts;
@@ -65,6 +68,9 @@ const resolvers = {
       }).populate({
         path: "post",
         model: "Post",
+      }).populate({
+        path: "comments",
+        model: "Comment",
       });
 
       return post;
@@ -156,6 +162,25 @@ const resolvers = {
           { new: true }
         );
         return post;
+      }
+
+      throw new AuthenticationError("Not logged in");
+    },
+
+    addNewComment: async (parent, args, context) => {
+      if (context.user) {
+        console.log(context.user.username);
+        const comment = await Comment.create({
+          ...args,
+          user: context.user._id,
+          username: context.user.username,
+        });
+        await Post.findByIdAndUpdate(
+          { _id: args.post },
+          { $push: { comments: comment._id } }
+        );
+
+        return comment;
       }
 
       throw new AuthenticationError("Not logged in");

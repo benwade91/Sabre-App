@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useMutation } from "@apollo/react-hooks";
-import { LOGIN_STATUS, SET_CURRENT_USER } from "../../utils/actions";
+import { SET_CURRENT_USER } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
 import { LOGIN_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import './style.css';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import { Form, Button, Alert } from 'react-bootstrap';
 
 
