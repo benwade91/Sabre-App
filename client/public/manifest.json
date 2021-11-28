@@ -10,21 +10,22 @@
     {
       "src": "android-chrome-192x192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192 96x96"
     },
     {
-      "src": "/android-chrome-256x256.png",
+      "src": "android-chrome-256x256.png",
       "sizes": "256x256",
       "type": "image/png"
   },
     {
       "src": "512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512 384x384"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
-  "theme_color": "#000000",
+  "orientation": "portrait",
+  "theme_color": "#fff",
   "background_color": "#ffffff"
 }

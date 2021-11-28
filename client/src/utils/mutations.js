@@ -64,3 +64,13 @@ mutation addNewPost(
   }
 }
 `;
+
+export const SINGLE_UPLOAD = gql`
+  mutation($file: Upload!) {
+    uploadFile(file: $file) {
+      filename
+      mimetype
+      path
+    }
+  }
+`;

@@ -1,7 +1,27 @@
 const {AuthenticationError} = require("apollo-server-express");
 const {User, Post, Comment, MessageThread, Message} = require("../models");
 const {signToken} = require("../utils/auth");
-const {GraphQLUpload} = require('graphql-upload');
+
+const shortid = require("shortid");
+const { createWriteStream, mkdir } = require("fs");
+const File = require("../models/File");
+const storeUpload = async ({ createReadStream, filename, mimetype }) => {
+  const id = shortid.generate();
+  const path = `images/${id}-${filename}`;
+  // (createWriteStream) writes our file to the images directory
+  return new Promise((resolve, reject) =>
+  createReadStream
+      .pipe(createWriteStream(path))
+      .on("finish", () => resolve({ id, path, filename, mimetype }))
+      .on("error", reject)
+  );
+};
+const processUpload = async (upload) => {
+  const { createReadStream, filename, mimetype } = await upload;
+  // const stream = createReadStream();
+  const file = await storeUpload({ createReadStream, filename, mimetype });
+  return file;
+};
 
 const resolvers = {
   Query: {
@@ -93,26 +113,19 @@ const resolvers = {
       });
       return messageThread;
     },
+    // uploads: (parent, args) => Image.find({}),
   },
-
-  Upload: GraphQLUpload,
 
   Mutation: {
 
-    singleUpload: async (parent, { file }) => {
-      const { createReadStream, filename, mimetype, encoding } = await file;
-
-      // Invoking the `createReadStream` will return a Readable Stream.
-      // See https://nodejs.org/api/stream.html#stream_readable_streams
-      const stream = createReadStream();
-
-      // This is purely for demonstration purposes and will overwrite the
-      // local-file-output.txt in the current working directory on EACH upload.
-      const out = require('fs').createWriteStream('local-file-output.txt');
-      stream.pipe(out);
-      await finished(out);
-
-      return { filename, mimetype, encoding };
+    uploadFile: async (_, { file }) => {
+      mkdir("images", { recursive: true }, (err) => {
+        if (err) throw err;
+      });
+      const upload = await processUpload(file);
+      // save our file to the mongodb
+      await File.create(upload);
+      return upload;
     },
 
     addUser: async (parent, args) => {

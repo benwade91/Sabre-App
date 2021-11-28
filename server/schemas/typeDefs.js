@@ -52,7 +52,7 @@ const typeDefs = gql`
   type File {
     filename: String!
     mimetype: String!
-    encoding: String!
+    path: String!
   }
 
   type Query {
@@ -63,6 +63,7 @@ const typeDefs = gql`
     getPostByGym(whatGym:String!): [Post]
     getComments: [Comment]
     getMessageThread(_id: ID!): MessageThread
+    files: [File!]
   }
 
   type Mutation {
@@ -118,10 +119,17 @@ const typeDefs = gql`
       seen: Boolean
     ): MessageThread
 
-    singleUpload(file: Upload!): File!
+    uploadFile(file: Upload!): File
 
     login(email: String!, password: String!): Auth
   }
+
+  type UploadedFileResponse {
+      filename: String!
+      mimetype: String!
+      encoding: String!
+      url: String!
+    }
 `;
 
 module.exports = typeDefs;
