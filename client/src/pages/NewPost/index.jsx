@@ -44,6 +44,7 @@ const NewPost = () => {
                 }
             });
             console.log('it worked!');
+            window.location = '/message-board';
         }
         catch (e) {
             console.error(e);

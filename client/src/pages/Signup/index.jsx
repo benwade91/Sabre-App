@@ -10,7 +10,7 @@ import Auth from '../../utils/auth';
 
 
 export const Signup = () => {
-    const [formState, setFormState] = useState({ username: "", beltColor:'White', email: "", password1: "", password2: "", error: undefined });
+    const [formState, setFormState] = useState({ username: "", beltColor:'White', whatGym: '', email: "", password1: "", password2: "", error: undefined });
     const [errFlags,] = useState({ emailError: false });
     const [createUser,] = useMutation(ADD_USER);
     const [, dispatch] = useStoreContext();
@@ -26,7 +26,10 @@ export const Signup = () => {
         console.log(formState)
         event.preventDefault();
         // if no errors, await response from backend, get token, and login
-        if (!errFlags.emailError) {
+        if(formState.password1 !== formState.password2){
+            setFormState({ ...formState, error: 'Passwords do not match' });
+        }
+        else if (!errFlags.emailError) {
             try {
                 const { data } = await createUser({
                     variables: {
@@ -34,7 +37,8 @@ export const Signup = () => {
                         administrator: false,
                         beltColor: formState.beltColor,
                         email: formState.email,
-                        password: formState.password1
+                        password: formState.password1,
+                        whatGym: formState.whatGym
                     }
                 });
                 dispatch({
@@ -76,6 +80,18 @@ export const Signup = () => {
                         </Form.Select>
                     </FloatingLabel>
 
+                    <FloatingLabel className="mb-3" controlId="floatingSelect" label="Home Gym">
+                        <Form.Select onChange={handleChange} name='whatGym' aria-label="Floating label select example">
+                            <option value="Sabre">Sabre</option>
+                            <option value="T4L">T4L</option>
+                            <option value="East Bay Academy">East Bay Academy</option>
+                            <option value="Dumlao's">Dumlao's</option>
+                            <option value="Big Break">Big Break</option>
+                            <option value="Rooted">Rooted</option>
+                            <option value="Visitor">Visitor</option>
+                        </Form.Select>
+                    </FloatingLabel>
+
                     <FloatingLabel label='Email' controlId="floatingInput" className="mb-3">
                         <Form.Control onChange={handleChange} name='email' type="email" placeholder="Enter email" value={formState.email} />
                     </FloatingLabel>
@@ -89,8 +105,11 @@ export const Signup = () => {
                     </FloatingLabel>
 
                     <div className='text-center'>
-                        <Button className='mx-auto btn-lg' variant="success" type="submit" onClick={handleFormSubmit}>
+                        <Button className='mx-1' variant="success" type="submit" onClick={handleFormSubmit}>
                             Sign Up
+                        </Button>
+                        <Button className='mx-1' variant="outline-primary" type="submit" onClick={()=> {window.location = "/login";}}>
+                            Log In
                         </Button>
                     </div>
 
