@@ -25,7 +25,7 @@ import Auth from '../utils/auth';
 const client = new ApolloClient({
   request: (operation) => {
     const token = localStorage.getItem("id_token");
-    console.log(token)
+    // console.log(token)
     operation.setContext({
       headers: {
         authorization: token ? `Bearer ${token}` : "",

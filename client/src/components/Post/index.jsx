@@ -1,14 +1,16 @@
 import React, { useState, } from 'react';
 import { Card, Form, Button, FloatingLabel } from 'react-bootstrap'
 import { Comment } from '../Comment'
-
+import { Image } from 'cloudinary-react';
+import './style.css';
 
 const Post = (props) => {
-    const { content, user, whatGym, comments } = props.props;
+    const { content, user, whatGym, comments, photoID } = props.props;
     const [chat, setChat] = useState(false)
     const [commentsVisible, setCommentsVisible] = useState(false)
     const [commentState, setCommentState] = useState({ comment: "" });
-    // const [state, dispatch] = useStoreContext();
+    
+    {photoID && console.log(photoID);}
 
     const handleChange = event => {
         // destructure event target
@@ -43,6 +45,9 @@ const Post = (props) => {
             </Card.Header>
 
             <Card.Body>
+
+            {photoID && <Image className='postImg' cloudName={"benwade"} publicId={photoID}></Image>}
+
                 <Card.Text>{content}</Card.Text>
                 {comments.length > 0 && !commentsVisible && <Button onClick={() => setCommentsVisible(true)} variant="outline-secondary" size="sm">{comments.length} Comments</Button>}
                 {commentsVisible && comments.map((comment, index) => <Comment key={index} props={comment} />)}

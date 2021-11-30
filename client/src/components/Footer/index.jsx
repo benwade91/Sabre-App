@@ -11,16 +11,17 @@ import { QUERY_USER } from '../../utils/queries';
 import { SET_CURRENT_USER } from "../../utils/actions";
 
 const Footer = () => {
-    const [state, dispatch] = useStoreContext();
+    const [, dispatch] = useStoreContext();
     const { data } = useQuery(QUERY_USER);
 
+    // console.log(data);
     useEffect(() => {
         data && dispatch({
             type: SET_CURRENT_USER,
             currentUser: data.user
         })
     }, [data, dispatch])
-    console.log(state.currentUser);
+    // console.log(state.currentUser);
 
     return (
         <>

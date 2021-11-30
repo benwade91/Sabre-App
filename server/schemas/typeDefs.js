@@ -1,12 +1,16 @@
-const { gql } = require("apollo-server-express");
+const {
+  gql
+} = require("apollo-server-express");
 
 
-const typeDefs = gql`
+const typeDefs = gql `
+
   type User {
     _id: ID
     username: String
     administrator: Boolean
     email: String
+    whatGym: String
     posts: [Post]
     privateMessages: [Message]
     beltColor: String
@@ -29,6 +33,7 @@ const typeDefs = gql`
     _id: ID
     title: String
     content: String
+    photoID: String
     announcement: Boolean
     user: User
     whatGym: String
@@ -49,12 +54,6 @@ const typeDefs = gql`
     user: User
   }
 
-  type File {
-    filename: String!
-    mimetype: String!
-    path: String!
-  }
-
   type Query {
     user: User
     getUserById(_id: ID!): User
@@ -63,13 +62,14 @@ const typeDefs = gql`
     getPostByGym(whatGym:String!): [Post]
     getComments: [Comment]
     getMessageThread(_id: ID!): MessageThread
-    files: [File!]
   }
 
   type Mutation {
+
     addUser(
       username: String!
       email: String!
+      whatGym: String
       administrator: Boolean!
       password: String!
       beltColor: String!
@@ -78,13 +78,15 @@ const typeDefs = gql`
     editUser(
       username: String
       email: String
+      whatGym: String
       administrator: Boolean
       password: String
     ): Auth
 
     addNewPost(
-      title: String!
+      title: String
       content: String!
+      photoID: String
       announcement: Boolean!
       whatGym: String!
       comments: [ID]
@@ -119,17 +121,9 @@ const typeDefs = gql`
       seen: Boolean
     ): MessageThread
 
-    uploadFile(file: Upload!): File
-
     login(email: String!, password: String!): Auth
   }
 
-  type UploadedFileResponse {
-      filename: String!
-      mimetype: String!
-      encoding: String!
-      url: String!
-    }
 `;
 
 module.exports = typeDefs;

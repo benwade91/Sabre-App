@@ -16,6 +16,7 @@ const userSchema = new Schema({
   },
   beltColor: String,
   administrator: Boolean,
+  whatGym: String,
   password: {
     type: String,
     required: true,

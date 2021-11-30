@@ -24,12 +24,14 @@ export const ADD_USER = gql `
     $administrator: Boolean!
     $beltColor: String!
     $email: String!
+    $whatGym: String!
     $password: String!
   ) {
     addUser(
       username: $username
       administrator: $administrator
       beltColor: $beltColor
+      whatGym: $whatGym
       email: $email
       password: $password
     ) {
@@ -44,14 +46,16 @@ export const ADD_USER = gql `
 
 export const ADD_POST = gql`
 mutation addNewPost(
-  $title: String!
+  $title: String
   $content: String!
+  $photoID: String
   $announcement: Boolean!
   $whatGym:String!
 ){
   addNewPost(
     title: $title
     content:$content
+    photoID: $photoID
     announcement:$announcement
     whatGym:$whatGym
   ){
@@ -63,14 +67,4 @@ mutation addNewPost(
     }
   }
 }
-`;
-
-export const SINGLE_UPLOAD = gql`
-  mutation($file: Upload!) {
-    uploadFile(file: $file) {
-      filename
-      mimetype
-      path
-    }
-  }
 `;

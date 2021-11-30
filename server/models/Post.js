@@ -6,8 +6,12 @@ const {
 const postSchema = new Schema({
   title: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
+  },
+  photoID: {
+    type: String,
+    required: false
   },
   content: {
     type: String,
@@ -25,7 +29,10 @@ const postSchema = new Schema({
     required: true,
     trim: true,
   },
-  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: "Comment"
+  }],
 });
 
 const Post = model("Post", postSchema);

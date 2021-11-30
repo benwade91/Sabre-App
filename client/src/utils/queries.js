@@ -5,6 +5,7 @@ export const QUERY_USER = gql `
     user{
       _id
       username
+      whatGym
       administrator
       beltColor
       email
@@ -20,6 +21,7 @@ export const QUERY_ALL_POSTS = gql `
 {
   getAllPosts{
   title
+  photoID
   content
   announcement
   whatGym
@@ -41,6 +43,7 @@ query getUserById($_id:ID!){
     username
     administrator
     beltColor
+    whatGym
     email
     posts{
       _id

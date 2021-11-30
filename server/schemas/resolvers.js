@@ -2,27 +2,6 @@ const {AuthenticationError} = require("apollo-server-express");
 const {User, Post, Comment, MessageThread, Message} = require("../models");
 const {signToken} = require("../utils/auth");
 
-const shortid = require("shortid");
-const { createWriteStream, mkdir } = require("fs");
-const File = require("../models/File");
-const storeUpload = async ({ createReadStream, filename, mimetype }) => {
-  const id = shortid.generate();
-  const path = `images/${id}-${filename}`;
-  // (createWriteStream) writes our file to the images directory
-  return new Promise((resolve, reject) =>
-  createReadStream
-      .pipe(createWriteStream(path))
-      .on("finish", () => resolve({ id, path, filename, mimetype }))
-      .on("error", reject)
-  );
-};
-const processUpload = async (upload) => {
-  const { createReadStream, filename, mimetype } = await upload;
-  // const stream = createReadStream();
-  const file = await storeUpload({ createReadStream, filename, mimetype });
-  return file;
-};
-
 const resolvers = {
   Query: {
     user: async (parent, args, context) => {
@@ -113,20 +92,9 @@ const resolvers = {
       });
       return messageThread;
     },
-    // uploads: (parent, args) => Image.find({}),
   },
 
   Mutation: {
-
-    uploadFile: async (_, { file }) => {
-      mkdir("images", { recursive: true }, (err) => {
-        if (err) throw err;
-      });
-      const upload = await processUpload(file);
-      // save our file to the mongodb
-      await File.create(upload);
-      return upload;
-    },
 
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -182,7 +150,6 @@ const resolvers = {
 
     addNewComment: async (parent, args, context) => {
       if (context.user) {
-        console.log(context.user.username);
         const comment = await Comment.create({
           ...args,
           user: context.user._id,
