@@ -29,6 +29,9 @@ export const Signup = () => {
         if(formState.password1 !== formState.password2){
             setFormState({ ...formState, error: 'Passwords do not match' });
         }
+        else if(formState.whatGym == ''){
+            setFormState({ ...formState, error: 'Select a gym option!' });
+        }
         else if (!errFlags.emailError) {
             try {
                 const { data } = await createUser({
@@ -50,8 +53,13 @@ export const Signup = () => {
                 // setFormState({ email: "", password: "" });
             }
             catch (e) {
-                console.error(e);
-                setFormState({ ...formState, error: 'Something went wrong!' });
+                let errorMsg = e.graphQLErrors[0].message
+                if (errorMsg.includes('E11000 duplicate key')){
+                    setFormState({ ...formState, error: 'Theres already an account with that email!' });
+                }else {
+                    setFormState({ ...formState, error: 'Something went wrong!' });
+
+                }
             }
         }
     };
@@ -82,6 +90,7 @@ export const Signup = () => {
 
                     <FloatingLabel className="mb-3" controlId="floatingSelect" label="Home Gym">
                         <Form.Select onChange={handleChange} name='whatGym' aria-label="Floating label select example">
+                            <option>Select your home gym</option>
                             <option value="Sabre">Sabre</option>
                             <option value="T4L">T4L</option>
                             <option value="East Bay Academy">East Bay Academy</option>

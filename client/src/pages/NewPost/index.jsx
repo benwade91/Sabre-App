@@ -16,10 +16,9 @@ const NewPost = () => {
     const handleDrop = async files => {
         setFile(files[0])
     }
-
+console.log(data.user);
     const handleChange = event => {
         setContent(event.target.value)
-        console.log(content);
     }
 
     const submit = async () => {
@@ -43,7 +42,7 @@ const NewPost = () => {
                 }
             });
             console.log('it worked!');
-            window.location = '/message-board';
+            // window.location = '/message-board';
         }
         catch (e) {
             console.error(e);
