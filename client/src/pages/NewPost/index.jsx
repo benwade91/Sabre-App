@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FloatingLabel, Form, Button } from 'react-bootstrap'
 import { useMutation, useQuery } from "@apollo/client";
 import axios from 'axios'
-import Dropzone, { useDropzone } from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
 import './style.css'
 import { ADD_POST } from '../../utils/mutations';
 import { QUERY_USER } from '../../utils/queries';
@@ -28,7 +28,6 @@ const NewPost = () => {
             const formData = new FormData()
             formData.append('file', file)
             formData.append('upload_preset', "tq0g6exd")
-            console.log(file);
             const response = await axios.post(`https://api.cloudinary.com/v1_1/benwade/image/upload`, formData)
             photoID = response.data.public_id;
             console.log(response);
@@ -39,7 +38,7 @@ const NewPost = () => {
                 variables: {
                     content: content,
                     photoID: photoID,
-                    whatGym: 'Sabre',
+                    whatGym: data.user.whatGym,
                     announcement: false
                 }
             });
@@ -60,9 +59,6 @@ const NewPost = () => {
         </li>
     ));
 
-    // if (loading) return <div>Loading...</div>;
-    // if (error) return <div>{JSON.stringify(error, null, 2)}</div>;
-
     return <>
 
         <Form className='m-3'>
@@ -82,14 +78,25 @@ const NewPost = () => {
                 <Form.Control type="file" onChange={e => console.log(e)} accept="image/*" />
             </Form.Group> */}
 
-            <Dropzone onDrop={handleDrop}>
+                {file == null && <div onDrop={handleDrop} {...getRootProps({ className: 'dropzone' })}>
+                    <input accept="image/png, image/jpeg" {...getInputProps()} />
+                    <p>click here to add an image</p>
+                </div>}
+                <aside>
+                    <ul>{files}</ul>
+                </aside>
+
+
+            {/* <Dropzone onDrop={handleDrop}>
                 {({ getRootProps, getInputProps }) => (
                     <div className='dropzone' {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        <p>Drag 'n' drop some files here, or click to select files</p>
+                        <input accept="image/*" {...getInputProps()} />
+                        <p>click here to add an image</p>
                     </div>
                 )}
-            </Dropzone>
+            </Dropzone> */}
+
+            {console.log(files)}
 
             <Button onClick={submit}>Post</Button>
         </Form>

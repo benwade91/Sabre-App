@@ -108,7 +108,7 @@ export const Signup = () => {
                         <Button className='mx-1' variant="success" type="submit" onClick={handleFormSubmit}>
                             Sign Up
                         </Button>
-                        <Button className='mx-1' variant="outline-primary" type="submit" onClick={()=> {window.location = "/login";}}>
+                        <Button className='mx-1' variant="outline-primary" type="button" onClick={()=> {window.location = "/";}}>
                             Log In
                         </Button>
                     </div>

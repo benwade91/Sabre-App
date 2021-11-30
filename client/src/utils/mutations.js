@@ -68,3 +68,24 @@ mutation addNewPost(
   }
 }
 `;
+
+export const ADD_COMMENT = gql`
+mutation addNewComment(
+  $content: String!
+  $likes: [ID]
+  $post:ID!
+){
+  addNewComment(
+    content:$content
+    likes:$likes
+    post:$post
+  ){
+    _id
+    content
+    user{
+      _id
+      username
+    }
+  }
+}
+`;

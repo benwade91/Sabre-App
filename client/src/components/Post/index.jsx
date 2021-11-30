@@ -3,25 +3,29 @@ import { Card, Form, Button, FloatingLabel } from 'react-bootstrap'
 import { Comment } from '../Comment'
 import { Image } from 'cloudinary-react';
 import './style.css';
+import { ADD_COMMENT } from '../../utils/mutations';
+import { useMutation } from "@apollo/client";
 
 const Post = (props) => {
-    const { content, user, whatGym, comments, photoID } = props.props;
+    const { content, user, whatGym, comments, photoID, _id } = props.props;
     const [chat, setChat] = useState(false)
     const [commentsVisible, setCommentsVisible] = useState(false)
     const [commentState, setCommentState] = useState({ comment: "" });
-    
-    {photoID && console.log(photoID);}
+    const [createComment,] = useMutation(ADD_COMMENT);
 
     const handleChange = event => {
-        // destructure event target
-        const { value } = event.target;
-        // update state
-        setCommentState({ ...commentState, comment: value });
+        setCommentState(event.target.value);
     };
 
     const handleCommentSubmit = () => {
-        console.log(commentState.comment)
-        // console.log(state.currentUser.username)
+        console.log('clicked')
+        createComment({
+                variables: {
+                    content: commentState,
+                    post: _id
+                }
+            });
+        window.location = '/message-board'
     }
 
     const handleSelect = e => {
@@ -31,7 +35,6 @@ const Post = (props) => {
     }
     const handleBlur = e => {
         e.target.style.height = '9vh';
-        setChat(false)
     }
 
     return (<>
@@ -52,7 +55,7 @@ const Post = (props) => {
                 {comments.length > 0 && !commentsVisible && <Button onClick={() => setCommentsVisible(true)} variant="outline-secondary" size="sm">{comments.length} Comments</Button>}
                 {commentsVisible && comments.map((comment, index) => <Comment key={index} props={comment} />)}
             </Card.Body>
-
+            <Form className='m-1'>
             {comments.length === 0 ? <FloatingLabel controlId="floatingTextarea2" label='Comment'>
                 <Form.Control
                     as="textarea"
@@ -84,11 +87,11 @@ const Post = (props) => {
             </FloatingLabel>}
 
 
-            {chat && <Form className='m-1'>
+            {chat && 
                 <Button onClick={handleCommentSubmit} variant="primary" type="button">
-                    Send
-                </Button>
-            </Form>}
+                    Comment
+                </Button>}
+            </Form>
         </Card>
     </>
 
