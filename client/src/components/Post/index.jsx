@@ -31,7 +31,7 @@ const Post = (props) => {
 
     const handleSelect = e => {
         e.target.style.height = 'inherit';
-        e.target.style.height = `${e.target.scrollHeight}px`;
+        // e.target.style.height = `${e.target.scrollHeight}px`;
         setChat(true)
     }
     const handleBlur = e => {

@@ -47,7 +47,8 @@ const NewPost = () => {
                     announcement: false
                 }
             });
-            window.location = '/message-board';
+            console.log('posted');
+            // window.location = '/message-board';
         }
         catch (e) {
             console.error(e);
