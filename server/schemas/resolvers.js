@@ -147,6 +147,14 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
+    
+    deletePost: async (parent, args, context) => {
+      if (context.user) {
+        const {_id} = args;
+        const post = await Post.findByIdAndDelete(_id);
+        return post;
+      }
+    },
 
     addNewComment: async (parent, args, context) => {
       if (context.user) {

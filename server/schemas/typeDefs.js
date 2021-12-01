@@ -100,6 +100,8 @@ const typeDefs = gql `
       whatGym: String
     ): Post
 
+    deletePost(_id: ID!):Post
+
     addNewComment(
       content: String!
       likes: [ID]

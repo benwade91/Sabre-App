@@ -3,8 +3,9 @@ import { Card, Form, Button, FloatingLabel } from 'react-bootstrap'
 import { Comment } from '../Comment'
 import { Image } from 'cloudinary-react';
 import './style.css';
-import { ADD_COMMENT } from '../../utils/mutations';
-import { useMutation } from "@apollo/client";
+import { ADD_COMMENT, DELETE_POST } from '../../utils/mutations';
+import { useMutation, useQuery } from "@apollo/client";
+import { QUERY_USER } from '../../utils/queries';
 
 const Post = (props) => {
     const { content, user, whatGym, comments, photoID, _id } = props.props;
@@ -12,7 +13,14 @@ const Post = (props) => {
     const [commentsVisible, setCommentsVisible] = useState(false)
     const [commentState, setCommentState] = useState({ comment: "" });
     const [createComment,] = useMutation(ADD_COMMENT);
+    const [deletePost,] = useMutation(DELETE_POST);
     const [imageProps, setImageProps] = useState(true)
+    const { data: userData, } = useQuery(QUERY_USER);
+
+
+    const isUsersPost = () => {
+        return user._id === userData.user._id
+    }
 
     const handleChange = event => {
         setCommentState(event.target.value);
@@ -38,14 +46,28 @@ const Post = (props) => {
         e.target.style.height = '9vh';
     }
 
+    // PROCESS NEEDS "ARE YOU SURE?" WINDOW
+    const handleDelete = () => {
+        deletePost({
+            variables: {
+                _id: _id
+            }
+        })
+        window.location.reload()
+    }
+
     return (<>
         <Card className='m-1'>
             <Card.Header as='h5'>
                 {user.username}
-
-                <Card.Text>
-                    <small className="text-muted">{whatGym}</small>
-                </Card.Text>
+                <div className='cardHead'>
+                    <Card.Text>
+                        <small className="text-muted">{whatGym}</small>
+                    </Card.Text>
+                    {userData && isUsersPost() && <Card.Text>
+                        <Button variant="outline-danger" onClick={handleDelete} size="sm">Remove</Button>
+                    </Card.Text>}
+                </div>
             </Card.Header>
 
             <Card.Body>
