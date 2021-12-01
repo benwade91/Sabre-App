@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { FloatingLabel, Form, Button, Alert } from 'react-bootstrap'
 import { useMutation, useQuery } from "@apollo/client";
 import axios from 'axios'
-import Dropzone, { useDropzone } from 'react-dropzone';
+import Dropzone from 'react-dropzone';
 import './style.css'
 import { ADD_POST } from '../../utils/mutations';
 import { QUERY_USER } from '../../utils/queries';

@@ -6,6 +6,7 @@
 .postImgBig {
     position: absolute;
     left: 0;
+    margin-top: 50%;
     width: 100%;
     z-index: 2;
     background-color: #fff;
