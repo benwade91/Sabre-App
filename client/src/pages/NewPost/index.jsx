@@ -1,29 +1,36 @@
-import React, { useState } from 'react'
-import { FloatingLabel, Form, Button } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
+import { FloatingLabel, Form, Button, Alert } from 'react-bootstrap'
 import { useMutation, useQuery } from "@apollo/client";
 import axios from 'axios'
-import { useDropzone } from 'react-dropzone';
+import Dropzone, { useDropzone } from 'react-dropzone';
 import './style.css'
 import { ADD_POST } from '../../utils/mutations';
 import { QUERY_USER } from '../../utils/queries';
 
 const NewPost = () => {
+    const [error, setError] = useState(undefined)
     const { data, } = useQuery(QUERY_USER);
-    const [file, setFile] = useState(null)
+    const [file, setFile] = useState(undefined)
     const [content, setContent] = useState('')
     const [createPost,] = useMutation(ADD_POST);
+
+    // data && console.log(data.user);
 
     const handleDrop = async files => {
         setFile(files[0])
     }
-console.log(data.user);
+
     const handleChange = event => {
         setContent(event.target.value)
     }
 
     const submit = async () => {
         var photoID = null
-        if (file !== null) {
+        if (content.trim().length === 0) {
+            setError('Maybe add some text?')
+            return;
+        }
+        if (file !== undefined) {
             const formData = new FormData()
             formData.append('file', file)
             formData.append('upload_preset', "tq0g6exd")
@@ -31,7 +38,6 @@ console.log(data.user);
             photoID = response.data.public_id;
             console.log(response);
         }
-
         try {
             createPost({
                 variables: {
@@ -41,8 +47,7 @@ console.log(data.user);
                     announcement: false
                 }
             });
-            console.log('it worked!');
-            // window.location = '/message-board';
+            window.location = '/message-board';
         }
         catch (e) {
             console.error(e);
@@ -50,17 +55,13 @@ console.log(data.user);
 
     }
 
-    const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
-
-    const files = acceptedFiles.map(file => (
-        <li key={file.path}>
-            {file.path} - {file.size} bytes
-        </li>
-    ));
 
     return <>
 
         <Form className='m-3'>
+            {error && <Alert className='mx-5' variant='warning'>
+                {error}
+            </Alert>}
             {/* <FloatingLabel controlId="floatingTextarea" label="Title" className="mb-3">
                 <Form.Control placeholder='title' />
             </FloatingLabel> */}
@@ -70,6 +71,7 @@ console.log(data.user);
                     as="textarea"
                     placeholder='fill me up buttercup...'
                     style={{ height: '40vh' }}
+                    className='mb-2'
                 />
             </FloatingLabel>
             {/* <Form.Group controlId="formFile" className="mb-3">
@@ -77,27 +79,29 @@ console.log(data.user);
                 <Form.Control type="file" onChange={e => console.log(e)} accept="image/*" />
             </Form.Group> */}
 
-                {file == null && <div onDrop={handleDrop} {...getRootProps({ className: 'dropzone' })}>
+            {/* <div  {...getRootProps({ className: 'dropzone' })} onDrop={handleDrop}>
                     <input accept="image/png, image/jpeg" {...getInputProps()} />
                     <p>click here to add an image</p>
-                </div>}
+                </div>
                 <aside>
-                    <ul>{files}</ul>
-                </aside>
+                    
+                </aside> */}
 
 
-            {/* <Dropzone onDrop={handleDrop}>
+            <Dropzone onDrop={handleDrop}>
                 {({ getRootProps, getInputProps }) => (
-                    <div className='dropzone' {...getRootProps()}>
+                    <div {...getRootProps({ className: 'dropzone' })}>
                         <input accept="image/*" {...getInputProps()} />
                         <p>click here to add an image</p>
+                        {file && <span>{file.path} --READY--</span>}
                     </div>
                 )}
-            </Dropzone> */}
+            </Dropzone>
 
-            {console.log(files)}
-
-            <Button onClick={submit}>Post</Button>
+            {/* {console.log(files)} */}
+            <div className='buttonContainer'>
+                <Button className='mt-2' onClick={submit}>Post</Button>
+            </div>
         </Form>
     </>
 }

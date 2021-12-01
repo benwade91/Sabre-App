@@ -10,7 +10,7 @@ import Auth from '../../utils/auth';
 
 
 export const Signup = () => {
-    const [formState, setFormState] = useState({ username: "", beltColor:'White', whatGym: '', email: "", password1: "", password2: "", error: undefined });
+    const [formState, setFormState] = useState({ username: "", beltColor:'White', whatGym: 'Sabre', email: "", password1: "", password2: "", error: undefined });
     const [errFlags,] = useState({ emailError: false });
     const [createUser,] = useMutation(ADD_USER);
     const [, dispatch] = useStoreContext();
@@ -29,9 +29,7 @@ export const Signup = () => {
         if(formState.password1 !== formState.password2){
             setFormState({ ...formState, error: 'Passwords do not match' });
         }
-        else if(formState.whatGym == ''){
-            setFormState({ ...formState, error: 'Select a gym option!' });
-        }
+        
         else if (!errFlags.emailError) {
             try {
                 const { data } = await createUser({
@@ -58,7 +56,7 @@ export const Signup = () => {
                     setFormState({ ...formState, error: 'Theres already an account with that email!' });
                 }else {
                     setFormState({ ...formState, error: 'Something went wrong!' });
-
+                    console.log(e.message);
                 }
             }
         }
@@ -90,7 +88,6 @@ export const Signup = () => {
 
                     <FloatingLabel className="mb-3" controlId="floatingSelect" label="Home Gym">
                         <Form.Select onChange={handleChange} name='whatGym' aria-label="Floating label select example">
-                            <option>Select your home gym</option>
                             <option value="Sabre">Sabre</option>
                             <option value="T4L">T4L</option>
                             <option value="East Bay Academy">East Bay Academy</option>

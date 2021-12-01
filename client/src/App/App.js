@@ -21,6 +21,7 @@ import Footer from '../components/Footer'
 import { Signup } from "../pages/Signup";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Auth from '../utils/auth';
+import { ViewImage } from "../pages/ViewImage";
 
 const client = new ApolloClient({
   request: (operation) => {
