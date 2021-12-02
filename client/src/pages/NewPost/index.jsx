@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FloatingLabel, Form, Button, Alert } from 'react-bootstrap'
+import { FloatingLabel, Form, Button, Alert, ToggleButton } from 'react-bootstrap'
 import { useMutation, useQuery } from "@apollo/client";
 import axios from 'axios'
 import Dropzone from 'react-dropzone';
@@ -8,14 +8,14 @@ import { ADD_POST } from '../../utils/mutations';
 import { QUERY_USER } from '../../utils/queries';
 
 const NewPost = () => {
+    const [checked, setChecked] = useState(false)
     const [error, setError] = useState(undefined)
     const { data, } = useQuery(QUERY_USER);
     const [file, setFile] = useState(undefined)
     const [content, setContent] = useState('')
     const [createPost,] = useMutation(ADD_POST);
 
-    // data && console.log(data.user);
-
+    data && console.log(data.user);
     const handleDrop = async files => {
         setFile(files[0])
     }
@@ -44,10 +44,10 @@ const NewPost = () => {
                     content: content,
                     photoID: photoID,
                     whatGym: data.user.whatGym,
-                    announcement: false
+                    announcement: checked
                 }
             });
-            window.location = '/message-board';
+            // window.location = '/message-board';
         }
         catch (e) {
             console.error(e);
@@ -101,6 +101,17 @@ const NewPost = () => {
             {/* {console.log(files)} */}
             <div className='buttonContainer'>
                 <Button className='mt-2' onClick={submit}>Post</Button>
+                {data && data.user.administrator &&
+                <ToggleButton
+                    className="mt-2"
+                    id="toggle-check"
+                    type="checkbox"
+                    variant="outline-danger"
+                    checked={checked}
+                    value="1"
+                    onChange={() => setChecked(!checked)}>
+                    Team Announcement {checked && '✔️'}
+                </ToggleButton>}
             </div>
         </Form>
     </>
