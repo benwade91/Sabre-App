@@ -62,7 +62,7 @@ const Login = () => {
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" onChange={handleChange} name='password' value={formState.password} />
+                    <Form.Control type="password" autoComplete="on" placeholder="Password" onChange={handleChange} name='password' value={formState.password} />
                 </Form.Group>
                 <div className='buttonflex'>
                     <Button className='mx-1' variant='primary' type="submit" onClick={handleFormSubmit}>
