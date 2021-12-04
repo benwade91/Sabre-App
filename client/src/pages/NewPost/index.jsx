@@ -15,29 +15,40 @@ const NewPost = () => {
     const [content, setContent] = useState('')
     const [createPost,] = useMutation(ADD_POST);
 
-    data && console.log(data.user);
     const handleDrop = async files => {
-        setFile(files[0])
+        if (!file) {
+            setFile([files[0]])
+        } else {
+            setFile([...file, files[0]])
+        }
     }
 
     const handleChange = event => {
         setContent(event.target.value)
     }
 
+    const uploadImgFiles = async () => {
+        let photoID = []
+        if (!file) { return photoID }
+        else {
+            return Promise.all(file.map(async (imgFile) => {
+                let formData = new FormData()
+                formData.append('file', imgFile)
+                formData.append('upload_preset', "tq0g6exd")
+                let response = await axios.post(`https://api.cloudinary.com/v1_1/benwade/image/upload`, formData)
+                console.log(response);
+                return response.data.public_id;
+            }))
+        }
+
+    }
+
     const submit = async () => {
-        var photoID = null
         if (content.trim().length === 0) {
             setError('Maybe add some text?')
             return;
         }
-        if (file !== undefined) {
-            const formData = new FormData()
-            formData.append('file', file)
-            formData.append('upload_preset', "tq0g6exd")
-            const response = await axios.post(`https://api.cloudinary.com/v1_1/benwade/image/upload`, formData)
-            photoID = response.data.public_id;
-            console.log(response);
-        }
+        uploadImgFiles().then(photoID =>{
         try {
             createPost({
                 variables: {
@@ -47,11 +58,13 @@ const NewPost = () => {
                     announcement: checked
                 }
             });
-            // window.location = '/message-board';
+
+            console.log(photoID);
+            window.location = '/message-board';
         }
         catch (e) {
             console.error(e);
-        }
+        }})
 
     }
 
@@ -93,7 +106,7 @@ const NewPost = () => {
                     <div {...getRootProps({ className: 'dropzone' })}>
                         <input accept="image/*" {...getInputProps()} />
                         <p>click here to add an image</p>
-                        {file && <span>{file.path} --READY--</span>}
+                        {file && file.map((file, index) => <span key={index}>{file.path} --READY--</span>)}
                     </div>
                 )}
             </Dropzone>
@@ -102,16 +115,16 @@ const NewPost = () => {
             <div className='buttonContainer'>
                 <Button className='mt-2' onClick={submit}>Post</Button>
                 {data && data.user.administrator &&
-                <ToggleButton
-                    className="mt-2"
-                    id="toggle-check"
-                    type="checkbox"
-                    variant="outline-danger"
-                    checked={checked}
-                    value="1"
-                    onChange={() => setChecked(!checked)}>
-                    Team Announcement {checked && '✔️'}
-                </ToggleButton>}
+                    <ToggleButton
+                        className="mt-2"
+                        id="toggle-check"
+                        type="checkbox"
+                        variant="outline-danger"
+                        checked={checked}
+                        value="1"
+                        onChange={() => setChecked(!checked)}>
+                        Team Announcement {checked && '✔️'}
+                    </ToggleButton>}
             </div>
         </Form>
     </>

@@ -33,7 +33,7 @@ const typeDefs = gql `
     _id: ID
     title: String
     content: String
-    photoID: String
+    photoID: [String]
     announcement: Boolean
     user: User
     whatGym: String
@@ -86,7 +86,7 @@ const typeDefs = gql `
     addNewPost(
       title: String
       content: String!
-      photoID: String
+      photoID: [String]
       announcement: Boolean!
       whatGym: String!
       comments: [ID]

@@ -48,7 +48,7 @@ export const ADD_POST = gql`
 mutation addNewPost(
   $title: String
   $content: String!
-  $photoID: String
+  $photoID: [String]
   $announcement: Boolean!
   $whatGym:String!
 ){

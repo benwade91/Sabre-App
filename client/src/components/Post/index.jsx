@@ -16,7 +16,7 @@ const Post = (props) => {
     const [deletePost,] = useMutation(DELETE_POST);
     const [imageProps, setImageProps] = useState(true)
     const { data: userData, } = useQuery(QUERY_USER);
-
+    console.log(photoID);
 
     const isUsersPost = () => {
         return user._id === userData.user._id
@@ -72,11 +72,12 @@ const Post = (props) => {
 
             <Card.Body>
 
-                <div className={imageProps ? undefined : 'postImgBigBg'}>
-                    {photoID && <Image onClick={() => setImageProps(!imageProps)} className={imageProps ? 'postImg' : 'postImgBig'} cloudName={"benwade"} publicId={photoID}></Image>}
+                <div className={imageProps ? 'postImgSmBg' : 'postImgBigBg'}>
+                    {photoID && photoID.map((imgId, key) =>
+                        <Image key={key} onClick={() => setImageProps(!imageProps)} className={imageProps ? 'postImg mx-auto' : 'postImgBig'} cloudName={"benwade"} publicId={imgId}></Image>)}
                 </div>
 
-                <Card.Text className='mt-5'>{content}</Card.Text>
+                <Card.Text className={photoID ? 'cardContent mt-5': 'mt-3'}>{content}</Card.Text>
                 {comments.length > 0 && !commentsVisible && <Button onClick={() => setCommentsVisible(true)} variant="outline-secondary" size="sm">{comments.length} Comments</Button>}
                 {commentsVisible && comments.map((comment, index) => <Comment key={index} props={comment} />)}
             </Card.Body>

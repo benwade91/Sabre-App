@@ -9,10 +9,10 @@ const postSchema = new Schema({
     required: false,
     trim: true,
   },
-  photoID: {
+  photoID: [{
     type: String,
     required: false
-  },
+  }],
   content: {
     type: String,
     required: true,
