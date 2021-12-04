@@ -37,3 +37,19 @@
     padding-top: 5px;
     border-top: #000 solid 1px;
 }
+
+.alertBackground{
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(211, 211, 211, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.alertBox{
+    width: 95vw;
+}

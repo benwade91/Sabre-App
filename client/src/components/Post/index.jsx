@@ -1,5 +1,5 @@
 import React, { useState, } from 'react';
-import { Card, Form, Button, FloatingLabel } from 'react-bootstrap'
+import { Card, Form, Button, FloatingLabel, Alert } from 'react-bootstrap'
 import { Comment } from '../Comment'
 import { Image } from 'cloudinary-react';
 import './style.css';
@@ -10,6 +10,7 @@ import { QUERY_USER } from '../../utils/queries';
 const Post = (props) => {
     const { content, user, whatGym, comments, photoID, _id } = props.props;
     const [chat, setChat] = useState(false)
+    const [showDeleteAlert, setShowDeleteAlert] = useState(false)
     const [commentsVisible, setCommentsVisible] = useState(false)
     const [commentState, setCommentState] = useState({ comment: "" });
     const [createComment,] = useMutation(ADD_COMMENT);
@@ -65,7 +66,7 @@ const Post = (props) => {
                         <small className="text-muted">{whatGym}</small>
                     </Card.Text>
                     {userData && isUsersPost() && <Card.Text>
-                        <Button variant="outline-danger" onClick={handleDelete} size="sm">Remove</Button>
+                        <Button variant="outline-danger" onClick={() => setShowDeleteAlert(true)} size="sm">Remove</Button>
                     </Card.Text>}
                 </div>
             </Card.Header>
@@ -77,7 +78,7 @@ const Post = (props) => {
                         <Image key={key} onClick={() => setImageProps(!imageProps)} className={imageProps ? 'postImg mx-auto' : 'postImgBig'} cloudName={"benwade"} publicId={imgId}></Image>)}
                 </div>
 
-                <Card.Text className={photoID ? 'cardContent mt-5': 'mt-3'}>{content}</Card.Text>
+                <Card.Text className={photoID ? 'cardContent mt-5' : 'mt-3'}>{content}</Card.Text>
                 {comments.length > 0 && !commentsVisible && <Button onClick={() => setCommentsVisible(true)} variant="outline-secondary" size="sm">{comments.length} Comments</Button>}
                 {commentsVisible && comments.map((comment, index) => <Comment key={index} props={comment} />)}
             </Card.Body>
@@ -120,6 +121,25 @@ const Post = (props) => {
                     </Button>}
             </Form>
         </Card>
+
+        {showDeleteAlert &&
+            <div className="alertBackground">
+                <Alert className='alertBox' show={true} variant="danger">
+                    <Alert.Heading>Are you sure?</Alert.Heading>
+                    <p>
+                        Its gonna be gone forever and you'll never see it again
+                    </p>
+                    <hr />
+                    <div className="d-flex justify-content-end">
+                        <Button onClick={handleDelete} className='me-auto' variant="outline-danger">
+                            I'm Sure!
+                        </Button>
+                        <Button onClick={()=> setShowDeleteAlert(!showDeleteAlert)} variant="success">
+                            Nevermind!
+                        </Button>
+                    </div>
+                </Alert>
+            </div>}
     </>
 
     )
