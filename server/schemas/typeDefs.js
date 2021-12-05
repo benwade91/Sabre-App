@@ -38,6 +38,7 @@ const typeDefs = gql `
     user: User
     whatGym: String
     comments: [Comment]
+    viewedBy: [User]
   }
 
   type Comment {
@@ -90,14 +91,12 @@ const typeDefs = gql `
       announcement: Boolean!
       whatGym: String!
       comments: [ID]
+      viewedBy: [ID]
     ): Post
 
     editExistingPost(
       _id: ID!
-      title: String
-      content: String
-      announcement: Boolean
-      whatGym: String
+      viewedBy: [ID]
     ): Post
 
     deletePost(_id: ID!):Post

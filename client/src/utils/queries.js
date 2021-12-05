@@ -26,6 +26,9 @@ export const QUERY_ALL_POSTS = gql `
   content
   announcement
   whatGym
+  viewedBy{
+    _id
+  }
   comments{
     content
     username

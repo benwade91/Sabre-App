@@ -1,23 +1,23 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Form, Button, FloatingLabel, Alert } from 'react-bootstrap'
 import { Comment } from '../Comment'
 import { Image } from 'cloudinary-react';
 import './style.css';
-import { ADD_COMMENT, DELETE_POST } from '../../utils/mutations';
+import { ADD_COMMENT, DELETE_POST, EDIT_POST } from '../../utils/mutations';
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_USER } from '../../utils/queries';
 
 const Post = (props) => {
-    const { content, user, whatGym, comments, photoID, _id } = props.props;
+    const { content, user, whatGym, comments, photoID, _id, viewedBy } = props.props;
     const [chat, setChat] = useState(false)
     const [showDeleteAlert, setShowDeleteAlert] = useState(false)
     const [commentsVisible, setCommentsVisible] = useState(false)
     const [commentState, setCommentState] = useState({ comment: "" });
     const [createComment,] = useMutation(ADD_COMMENT);
+    const [editPost,] = useMutation(EDIT_POST);
     const [deletePost,] = useMutation(DELETE_POST);
     const [imageProps, setImageProps] = useState(true)
     const { data: userData, } = useQuery(QUERY_USER);
-    console.log(photoID);
 
     const isUsersPost = () => {
         return user._id === userData.user._id
@@ -47,7 +47,6 @@ const Post = (props) => {
         e.target.style.height = '9vh';
     }
 
-    // PROCESS NEEDS "ARE YOU SURE?" WINDOW
     const handleDelete = () => {
         deletePost({
             variables: {
@@ -56,6 +55,19 @@ const Post = (props) => {
         })
         window.location.reload()
     }
+
+    useEffect(() => {
+        let obj
+        userData && (obj = viewedBy.find(x => x._id === userData.user._id))
+        if (!obj) {
+            userData && editPost({
+                variables: {
+                    _id: _id,
+                    viewedBy: [...viewedBy, userData.user._id]
+                }
+            })
+        }
+    }, [userData])
 
     return (<>
         <Card className='m-1'>
@@ -134,7 +146,7 @@ const Post = (props) => {
                         <Button onClick={handleDelete} className='me-auto' variant="outline-danger">
                             I'm Sure!
                         </Button>
-                        <Button onClick={()=> setShowDeleteAlert(!showDeleteAlert)} variant="success">
+                        <Button onClick={() => setShowDeleteAlert(!showDeleteAlert)} variant="success">
                             Nevermind!
                         </Button>
                     </div>

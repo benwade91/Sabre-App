@@ -69,6 +69,31 @@ mutation addNewPost(
 }
 `;
 
+export const EDIT_POST = gql`
+mutation editExistingPost(
+  $_id: ID!
+  $viewedBy:[ID]
+){
+  editExistingPost(
+    _id: $_id
+    viewedBy: $viewedBy
+  ){
+    _id
+    title
+    content
+    photoID
+    announcement
+    whatGym
+    viewedBy{
+      _id
+    }
+    user{
+      _id
+    }
+  }
+}
+`;
+
 export const DELETE_POST = gql`
 mutation deletePost($_id:ID!){
   deletePost(_id:$_id){

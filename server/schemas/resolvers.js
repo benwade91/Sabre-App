@@ -1,6 +1,16 @@
-const {AuthenticationError} = require("apollo-server-express");
-const {User, Post, Comment, MessageThread, Message} = require("../models");
-const {signToken} = require("../utils/auth");
+const {
+  AuthenticationError
+} = require("apollo-server-express");
+const {
+  User,
+  Post,
+  Comment,
+  MessageThread,
+  Message
+} = require("../models");
+const {
+  signToken
+} = require("../utils/auth");
 
 const resolvers = {
   Query: {
@@ -11,7 +21,7 @@ const resolvers = {
           })
           .select("-__v -password")
           .populate({
-            path:"posts",
+            path: "posts",
             model: "Post",
           })
         // console.log("heres stuff", userdata)
@@ -34,9 +44,11 @@ const resolvers = {
       return user;
     },
 
-    getComments: async ( parent, idList) => {
+    getComments: async (parent, idList) => {
       const comments = await Comment.find({
-        "_id": {$in: idList}
+        "_id": {
+          $in: idList
+        }
       }).populate({
         path: "comment",
         model: "Comment",
@@ -78,18 +90,22 @@ const resolvers = {
     getPostByGym: async (parent, what_Gym) => {
       console.log(what_Gym)
       const posts = await Post.where(what_Gym)
-      .populate({
-        path: "post",
-        model: "Post",
-      });
+        .populate({
+          path: "post",
+          model: "Post",
+        });
       return posts;
     },
 
-    getMessageThread: async (parent, {_id}) => {
-      const messageThread = await MessageThread.findById({_id})
-      .populate({
-        path: "content",
-      });
+    getMessageThread: async (parent, {
+      _id
+    }) => {
+      const messageThread = await MessageThread.findById({
+          _id
+        })
+        .populate({
+          path: "content",
+        });
       return messageThread;
     },
   },
@@ -123,10 +139,13 @@ const resolvers = {
           ...args,
           user: context.user._id,
         });
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { posts: post._id } }
-        );
+        await User.findByIdAndUpdate({
+          _id: context.user._id
+        }, {
+          $push: {
+            posts: post._id
+          }
+        });
 
         return post;
       }
@@ -136,21 +155,27 @@ const resolvers = {
 
     editExistingPost: async (parent, args, context) => {
       if (context.user) {
-        const { _id, postData } = args;
-        const post = await Post.findByIdAndUpdate(
+        const {
           _id,
-          postData,
-          { new: true }
+          viewedBy,
+        } = args;
+        console.log(args);
+        const post = await Post.findByIdAndUpdate(
+          _id, {
+            viewedBy: viewedBy,
+          }
         );
         return post;
       }
 
       throw new AuthenticationError("Not logged in");
     },
-    
+
     deletePost: async (parent, args, context) => {
       if (context.user) {
-        const {_id} = args;
+        const {
+          _id
+        } = args;
         const post = await Post.findByIdAndDelete(_id);
         return post;
       }
@@ -163,10 +188,13 @@ const resolvers = {
           user: context.user._id,
           username: context.user.username,
         });
-        await Post.findByIdAndUpdate(
-          { _id: args.post },
-          { $push: { comments: comment._id } }
-        );
+        await Post.findByIdAndUpdate({
+          _id: args.post
+        }, {
+          $push: {
+            comments: comment._id
+          }
+        });
 
         return comment;
       }
@@ -181,10 +209,13 @@ const resolvers = {
         const messageThread = await MessageThread.create({
           ...args
         });
-        await User.findByIdAndUpdate(
-          { _id: args._id },
-          { $push: { privateMessages: messageThread._id } }
-        );
+        await User.findByIdAndUpdate({
+          _id: args._id
+        }, {
+          $push: {
+            privateMessages: messageThread._id
+          }
+        });
         return messageThread;
       }
       throw new AuthenticationError("Not logged in");
@@ -195,10 +226,13 @@ const resolvers = {
         const message = await Message.create({
           ...args
         });
-        await MessageThread.findByIdAndUpdate(
-          { _id: args._id },
-          { $push: { content: message._id } }
-        );
+        await MessageThread.findByIdAndUpdate({
+          _id: args._id
+        }, {
+          $push: {
+            content: message._id
+          }
+        });
         return message;
       }
       throw new AuthenticationError("Not logged in");
