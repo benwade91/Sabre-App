@@ -21,7 +21,7 @@ const Footer = () => {
             type: SET_CURRENT_USER,
             currentUser: data.user
         })
-    }, [data])
+    }, [data, dispatch])
     // console.log(state.currentUser);
 
     return (

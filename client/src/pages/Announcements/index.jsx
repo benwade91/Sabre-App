@@ -14,7 +14,7 @@ useEffect(() => {
             type: NEW_ANNOUNCEMENT,
             newAnnouncement: false
         })
-}, [])
+}, [dispatch])
 
     return <div>
         {postLoading && <h1>LOADING</h1>}

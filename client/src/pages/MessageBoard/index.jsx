@@ -19,7 +19,7 @@ const MessageBoard = () => {
     
         let newAnnouncement = false;
         announcements && announcements.forEach(post => {
-            if (!post.viewedBy.find(x => x._id === state.currentUser._id)) {
+            if (!post.viewedBy.find(x => x === state.currentUser._id)) {
                 newAnnouncement = true
             };
         });
@@ -27,8 +27,7 @@ const MessageBoard = () => {
             type: NEW_ANNOUNCEMENT,
             newAnnouncement: true
         });
-        console.log(announcements);
-    }, [data, state.currentUser])
+    }, [data, state.currentUser, dispatch])
 
     return <div>
         {loading ? <h1>LOADING</h1>

@@ -51,6 +51,7 @@ mutation addNewPost(
   $photoID: [String]
   $announcement: Boolean!
   $whatGym:String!
+  $viewedBy: [String]
 ){
   addNewPost(
     title: $title
@@ -58,6 +59,7 @@ mutation addNewPost(
     photoID: $photoID
     announcement:$announcement
     whatGym:$whatGym
+    viewedBy: $viewedBy
   ){
     _id
     title
@@ -72,7 +74,7 @@ mutation addNewPost(
 export const EDIT_POST = gql`
 mutation editExistingPost(
   $_id: ID!
-  $viewedBy:[ID]
+  $viewedBy:[String]
 ){
   editExistingPost(
     _id: $_id
@@ -84,9 +86,7 @@ mutation editExistingPost(
     photoID
     announcement
     whatGym
-    viewedBy{
-      _id
-    }
+    viewedBy
     user{
       _id
     }

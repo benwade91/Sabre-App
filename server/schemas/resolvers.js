@@ -67,7 +67,7 @@ const resolvers = {
         path: "comments",
         model: "Comment",
       });
-      console.log(posts.filter(post => post.announcement));
+      // console.log(posts.filter(post => post.announcement));
       return posts;
     },
 

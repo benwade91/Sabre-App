@@ -57,7 +57,7 @@ const Post = (props) => {
 
     useEffect(() => {
         let obj
-        userData && (obj = viewedBy.find(x => x._id === userData.user._id))
+        userData && (obj = viewedBy.find(x => x === userData.user._id))
         if (!obj) {
             userData && editPost({
                 variables: {
@@ -66,7 +66,7 @@ const Post = (props) => {
                 }
             })
         }
-    }, [userData])
+    }, [userData, _id, editPost, viewedBy])
 
     return (<>
         <Card className='m-1'>
