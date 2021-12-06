@@ -5,13 +5,14 @@ import { useStoreContext } from '../../utils/GlobalState';
 import homePng from './images/home.png';
 import createPostPng from './images/add.png';
 import announcementPng from './images/bell.png';
+import newAnnouncementPng from './images/bell-notification.png';
 import settingsPng from './images/settings.png';
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_USER } from '../../utils/queries';
 import { SET_CURRENT_USER } from "../../utils/actions";
 
 const Footer = () => {
-    const [, dispatch] = useStoreContext();
+    const [state, dispatch] = useStoreContext();
     const { data } = useQuery(QUERY_USER);
 
     // console.log(data);
@@ -20,17 +21,19 @@ const Footer = () => {
             type: SET_CURRENT_USER,
             currentUser: data.user
         })
-    }, [data, dispatch])
+    }, [data])
     // console.log(state.currentUser);
 
     return (
         <>
             <div className='mainMenu'>
-                <Link className='mainMenuBtnCase' to='/message-board'>
+                <div className='mainMenuBtnCase' to='/message-board'>
                     <div className='mainMenuBtn messageBoardBtn'>
+                    <a href='/message-board'>
                         <img className='mainMenuBtnPng' src={homePng} alt="team message board" />
+                        </a>
                     </div>
-                </Link>
+                </div>
 
                 <Link className='mainMenuBtnCase' to='/new-post'>
                     <div className='mainMenuBtn'>
@@ -40,7 +43,7 @@ const Footer = () => {
 
                 <Link className='mainMenuBtnCase' to='/announcements'>
                     <div className='mainMenuBtn announcementsBtn'>
-                        <img className='mainMenuBtnPng' src={announcementPng} alt="announcements" />
+                        <img className='mainMenuBtnPng' src={state.newAnnouncement ? newAnnouncementPng : announcementPng} alt="announcements" />
                     </div>
                 </Link>
 

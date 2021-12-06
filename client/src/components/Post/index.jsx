@@ -28,7 +28,6 @@ const Post = (props) => {
     };
 
     const handleCommentSubmit = () => {
-        console.log('clicked')
         createComment({
             variables: {
                 content: commentState,

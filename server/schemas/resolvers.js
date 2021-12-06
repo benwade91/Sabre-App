@@ -67,7 +67,7 @@ const resolvers = {
         path: "comments",
         model: "Comment",
       });
-
+      console.log(posts.filter(post => post.announcement));
       return posts;
     },
 
@@ -159,7 +159,7 @@ const resolvers = {
           _id,
           viewedBy,
         } = args;
-        console.log(args);
+        // console.log(args);
         const post = await Post.findByIdAndUpdate(
           _id, {
             viewedBy: viewedBy,

@@ -7,7 +7,7 @@ const { Provider } = StoreContext;
 
 const StoreProvider = ({ value = [], ...props }) => {
     const [state, dispatch] = useModalReducer({
-        menu: false,
+        newAnnouncement: false,
         currentUser: undefined,
         loggedIn: false
     });
