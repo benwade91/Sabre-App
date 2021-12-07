@@ -8,7 +8,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_USER } from '../../utils/queries';
 
 const Post = (props) => {
-    const { content, user, whatGym, comments, photoID, _id, viewedBy } = props.props;
+    const { content, user, whatGym, comments, photoID, _id, viewedBy, youtubeLink } = props.props;
     const [chat, setChat] = useState(false)
     const [showDeleteAlert, setShowDeleteAlert] = useState(false)
     const [commentsVisible, setCommentsVisible] = useState(false)
@@ -83,13 +83,18 @@ const Post = (props) => {
             </Card.Header>
 
             <Card.Body>
+                <Card.Text className={photoID ? 'cardContent mb-5' : 'mb-3'}>{content}</Card.Text>
 
+                {/* CONDITIONALLY RENDERS YOUTUBE VIDEOS */}
+                {youtubeLink && youtubeLink !== '' &&
+                    <iframe width="100%" src={`https://www.youtube.com/embed/${youtubeLink}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>}
+
+                {/* CONDITIONALLY RENDERS PHOTOS */}
                 <div className={imageProps ? 'postImgSmBg' : 'postImgBigBg'}>
                     {photoID && photoID.map((imgId, key) =>
                         <Image key={key} onClick={() => setImageProps(!imageProps)} className={imageProps ? 'postImg mx-auto' : 'postImgBig'} cloudName={"benwade"} publicId={imgId}></Image>)}
                 </div>
 
-                <Card.Text className={photoID ? 'cardContent mt-5' : 'mt-3'}>{content}</Card.Text>
                 {comments.length > 0 && !commentsVisible && <Button onClick={() => setCommentsVisible(true)} variant="outline-secondary" size="sm">{comments.length} Comments</Button>}
                 {commentsVisible && comments.map((comment, index) => <Comment key={index} props={comment} />)}
             </Card.Body>

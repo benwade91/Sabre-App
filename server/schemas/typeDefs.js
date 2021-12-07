@@ -39,6 +39,7 @@ const typeDefs = gql `
     whatGym: String
     comments: [Comment]
     viewedBy: [String]
+    youtubeLink: String
   }
 
   type Comment {
@@ -92,6 +93,7 @@ const typeDefs = gql `
       whatGym: String!
       comments: [ID]
       viewedBy: [String]
+      youtubeLink: String
     ): Post
 
     editExistingPost(

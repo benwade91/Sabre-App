@@ -13,6 +13,7 @@ const NewPost = () => {
     const { data, } = useQuery(QUERY_USER);
     const [file, setFile] = useState(undefined)
     const [content, setContent] = useState('')
+    const [link, setLink] = useState('')
     const [createPost,] = useMutation(ADD_POST);
 
     const handleDrop = async files => {
@@ -25,6 +26,12 @@ const NewPost = () => {
 
     const handleChange = event => {
         setContent(event.target.value)
+    }
+
+    const handleYTLink = (event) => {
+        //eslint-disable-next-line
+        let yTLink = event.target.value.match(/([^\/]+$)/)[0]
+        setLink(yTLink)
     }
 
     const uploadImgFiles = async () => {
@@ -55,7 +62,8 @@ const NewPost = () => {
                     content: content,
                     photoID: photoID,
                     whatGym: data.user.whatGym,
-                    announcement: checked
+                    announcement: checked,
+                    youtubeLink: link
                 }
             });
 
@@ -83,7 +91,15 @@ const NewPost = () => {
                     onChange={handleChange}
                     as="textarea"
                     placeholder='fill me up buttercup...'
-                    style={{ height: '40vh' }}
+                    style={{ height: '35vh' }}
+                    className='mb-2'
+                />
+            </FloatingLabel>
+            <FloatingLabel controlId="floatingTextarea2" label='youtube link'>
+                <Form.Control
+                    onChange={handleYTLink}
+                    as="input"
+                    placeholder='fill me up buttercup...'
                     className='mb-2'
                 />
             </FloatingLabel>
@@ -105,7 +121,7 @@ const NewPost = () => {
                 {({ getRootProps, getInputProps }) => (
                     <div {...getRootProps({ className: 'dropzone' })}>
                         <input accept="image/*" {...getInputProps()} />
-                        <p>click here to add an image</p>
+                        <p>Click here to add an image</p>
                         {file && file.map((file, index) => <span key={index}>{file.path} --READY--</span>)}
                     </div>
                 )}

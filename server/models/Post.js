@@ -37,6 +37,11 @@ const postSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   }],
+  youtubeLink: {
+    type: String,
+    required: false,
+    trim: true,
+  },
 });
 
 const Post = model("Post", postSchema);

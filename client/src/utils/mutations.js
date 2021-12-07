@@ -52,6 +52,7 @@ mutation addNewPost(
   $announcement: Boolean!
   $whatGym:String!
   $viewedBy: [String]
+  $youtubeLink: String
 ){
   addNewPost(
     title: $title
@@ -60,6 +61,7 @@ mutation addNewPost(
     announcement:$announcement
     whatGym:$whatGym
     viewedBy: $viewedBy
+    youtubeLink: $youtubeLink
   ){
     _id
     title
