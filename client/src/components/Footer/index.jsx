@@ -27,13 +27,11 @@ const Footer = () => {
     return (
         <>
             <div className='mainMenu'>
-                <div className='mainMenuBtnCase' to='/message-board'>
+                <Link className='mainMenuBtnCase' to='/message-board'>
                     <div className='mainMenuBtn messageBoardBtn'>
-                    <a href='/message-board'>
                         <img className='mainMenuBtnPng' src={homePng} alt="team message board" />
-                        </a>
                     </div>
-                </div>
+                </Link>
 
                 <Link className='mainMenuBtnCase' to='/new-post'>
                     <div className='mainMenuBtn'>

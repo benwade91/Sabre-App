@@ -95,7 +95,7 @@ const Post = (props) => {
                         <Image key={key} onClick={() => setImageProps(!imageProps)} className={imageProps ? 'postImg mx-auto' : 'postImgBig'} cloudName={"benwade"} publicId={imgId}></Image>)}
                 </div>
 
-                {comments.length > 0 && !commentsVisible && <Button onClick={() => setCommentsVisible(true)} variant="outline-secondary" size="sm">{comments.length} Comments</Button>}
+                {comments.length > 0 && !commentsVisible && <Button className='mt-3' onClick={() => setCommentsVisible(true)} variant="outline-secondary" size="sm">{comments.length} Comments</Button>}
                 {commentsVisible && comments.map((comment, index) => <Comment key={index} props={comment} />)}
             </Card.Body>
 
