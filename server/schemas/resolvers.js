@@ -173,11 +173,12 @@ const resolvers = {
 
     deletePost: async (parent, args, context) => {
       if (context.user) {
-        const {
-          _id
-        } = args;
+        const { _id } = args;
+        // DELETES COMMENTS ASSOCIATED WITH THE POST
+        const commentArr = await Comment.deleteMany({'post': _id})
+        // DELETES THE POST ITSELF
         const post = await Post.findByIdAndDelete(_id);
-        return post;
+        return (post);
       }
     },
 
