@@ -8,7 +8,6 @@ import Post from '../../components/Post';
 
 const MessageBoard = () => {
     const { loading, data , refetch} = useQuery(QUERY_ALL_POSTS);
-    // data && console.log(data.getAllPosts.slice(0))
     const [state, dispatch] = useStoreContext();
 
     // UPDATES GLOBAL STATE FOR "NEW ANNOUNCEMENTS" WHEN THERE ARE UNSEEN ANNOUNCEMENTS
@@ -25,8 +24,6 @@ const MessageBoard = () => {
             }
         });
 
-        newAnnouncement && console.log(newAnnouncement);
-        console.log(announcements);
         newAnnouncement && dispatch({
             type: NEW_ANNOUNCEMENT,
             newAnnouncement: true
