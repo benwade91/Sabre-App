@@ -25,6 +25,8 @@ const MessageBoard = () => {
             }
         });
 
+        newAnnouncement && console.log(newAnnouncement);
+        console.log(announcements);
         newAnnouncement && dispatch({
             type: NEW_ANNOUNCEMENT,
             newAnnouncement: true

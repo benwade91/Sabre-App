@@ -5,7 +5,8 @@ import axios from 'axios'
 import Dropzone from 'react-dropzone';
 import './style.css'
 import { ADD_POST } from '../../utils/mutations';
-import { QUERY_USER } from '../../utils/queries';
+import { QUERY_USER, QUERY_ALL_POSTS } from '../../utils/queries';
+import { useHistory } from "react-router-dom";
 
 const NewPost = () => {
     const [checked, setChecked] = useState(false)
@@ -15,7 +16,7 @@ const NewPost = () => {
     const [content, setContent] = useState('')
     const [link, setLink] = useState('')
     const [createPost,] = useMutation(ADD_POST);
-
+    const history = useHistory();
     const handleDrop = async files => {
         if (!file) {
             setFile([files[0]])
@@ -64,11 +65,12 @@ const NewPost = () => {
                     whatGym: data.user.whatGym,
                     announcement: checked,
                     youtubeLink: link
-                }
+                },
+                refetchQueries: [{ query: QUERY_ALL_POSTS }],
             });
 
             console.log(photoID);
-            window.location = '/message-board';
+            history.push('/message-board')
         }
         catch (e) {
             console.error(e);

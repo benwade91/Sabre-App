@@ -5,7 +5,7 @@ import { Image } from 'cloudinary-react';
 import './style.css';
 import { ADD_COMMENT, DELETE_POST, EDIT_POST } from '../../utils/mutations';
 import { useMutation, useQuery } from "@apollo/client";
-import { QUERY_USER } from '../../utils/queries';
+import { QUERY_USER, QUERY_ALL_POSTS } from '../../utils/queries';
 
 const Post = (props) => {
     const { content, user, whatGym, comments, photoID, _id, viewedBy, youtubeLink } = props.props;
@@ -63,7 +63,8 @@ const Post = (props) => {
                 variables: {
                     _id: _id,
                     viewedBy: [...viewedBy, userData.user._id]
-                }
+                },
+                refetchQueries: [{ query: QUERY_ALL_POSTS }],
             })
         }
     }, [userData, _id, editPost, viewedBy])
