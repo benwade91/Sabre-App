@@ -7,7 +7,7 @@ import { useStoreContext } from "../../utils/GlobalState";
 
 const Announcements = () => {
     const { loading: postLoading, data: postData } = useQuery(QUERY_ALL_POSTS);
-    const[state,dispatch] = useStoreContext()
+    const[,dispatch] = useStoreContext()
 
 useEffect(() => {
     dispatch({

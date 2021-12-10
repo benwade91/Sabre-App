@@ -203,6 +203,24 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
 
+    deleteComment: async (parent, args, context) => {
+      if (context.user) {
+        const { _id, post } = args;
+
+        // REMOVES COMMENT FROM POST'S ARRAY OF COMMENTS
+        await Post.findByIdAndUpdate({
+          _id: post
+        }, {
+          $pull: {
+            comments: _id
+          }
+        });
+        // DELETES THE COMMENT ITSELF
+        const comment = await Comment.findByIdAndDelete(_id);
+        return (comment);
+      }
+    },
+
     // STILL HAVE TO FIGURE OUT HOW TO ADD BOTH USERS WHEN UPDATING USER MODEL
 
     addNewMessageThread: async (parent, args, context) => {

@@ -111,6 +111,11 @@ const typeDefs = gql `
       post: ID!
     ): Comment
 
+    deleteComment(
+      post: ID!
+      _id: ID!
+    ): Comment
+
     addNewMessageThread(
       _id: ID
       content: [ID]

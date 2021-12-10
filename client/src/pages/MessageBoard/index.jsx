@@ -7,7 +7,7 @@ import { useStoreContext } from "../../utils/GlobalState";
 import Post from '../../components/Post';
 
 const MessageBoard = () => {
-    const { loading, data , refetch} = useQuery(QUERY_ALL_POSTS);
+    const { loading, data } = useQuery(QUERY_ALL_POSTS);
     const [state, dispatch] = useStoreContext();
 
     // UPDATES GLOBAL STATE FOR "NEW ANNOUNCEMENTS" WHEN THERE ARE UNSEEN ANNOUNCEMENTS
