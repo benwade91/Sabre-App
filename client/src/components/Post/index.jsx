@@ -9,15 +9,16 @@ import { QUERY_USER, QUERY_ALL_POSTS } from '../../utils/queries';
 
 const Post = (props) => {
     const { content, user, whatGym, comments, photoID, _id, viewedBy, youtubeLink } = props.props;
+    const [error, setError] = useState(undefined)
     const [chat, setChat] = useState(false)
     const [showDeleteAlert, setShowDeleteAlert] = useState(false)
     const [commentsVisible, setCommentsVisible] = useState(false)
-    const [commentState, setCommentState] = useState({ comment: "" });
+    const [commentState, setCommentState] = useState('');
+    const [imageProps, setImageProps] = useState(true)
+    const { data: userData, } = useQuery(QUERY_USER);
     const [createComment,] = useMutation(ADD_COMMENT);
     const [editPost,] = useMutation(EDIT_POST);
     const [deletePost,] = useMutation(DELETE_POST);
-    const [imageProps, setImageProps] = useState(true)
-    const { data: userData, } = useQuery(QUERY_USER);
 
     const isUsersPost = () => {
         return user._id === userData.user._id
@@ -28,14 +29,20 @@ const Post = (props) => {
     };
 
     const handleCommentSubmit = () => {
-        createComment({
-            variables: {
-                content: commentState,
-                post: _id
-            },
-            refetchQueries: [{ query: QUERY_ALL_POSTS }],
-        });
-        // window.location = '/message-board'
+        if (commentState === '') {
+            setError(true)
+        } else {
+            createComment({
+                variables: {
+                    content: commentState,
+                    post: _id
+                },
+                refetchQueries: [{ query: QUERY_ALL_POSTS }],
+            });
+            setCommentState('')
+            setError(false)
+        }
+
     }
 
     const handleSelect = e => {
@@ -51,9 +58,9 @@ const Post = (props) => {
         deletePost({
             variables: {
                 _id: _id
-            }
+            },
+            refetchQueries: [{ query: QUERY_ALL_POSTS }],
         })
-        window.location.reload()
     }
 
     useEffect(() => {
@@ -98,10 +105,14 @@ const Post = (props) => {
                 </div>
 
                 {comments.length > 0 && !commentsVisible && <Button className='mt-3' onClick={() => setCommentsVisible(true)} variant="outline-secondary" size="sm">{comments.length} Comments</Button>}
-                {commentsVisible && comments.map((comment, index) => <Comment key={index} props={comment} postId={_id}/>)}
+                {commentsVisible && comments.map((comment, index) => <Comment key={index} user={user} props={comment} postId={_id} />)}
             </Card.Body>
 
             <Form className='m-1'>
+            {error && 
+                <Alert className='alertBox' show={true} variant="danger">
+                    <p className='m-auto'>You gotta write something foo</p>
+                </Alert>}
                 {comments.length === 0 ? <FloatingLabel controlId="floatingTextarea2" label='Comment'>
                     <Form.Control
                         as="textarea"
@@ -113,6 +124,7 @@ const Post = (props) => {
                         onSelect={handleSelect}
                         onBlur={handleBlur}
                         onChange={handleChange}
+                        value={commentState}
                         className='m-1'
                     />
                 </FloatingLabel>
@@ -128,6 +140,7 @@ const Post = (props) => {
                             onSelect={handleSelect}
                             onBlur={handleBlur}
                             onChange={handleChange}
+                            value={commentState}
                             className='m-1'
                         />
                     </FloatingLabel>}
