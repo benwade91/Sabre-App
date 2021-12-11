@@ -32,9 +32,10 @@ const Post = (props) => {
             variables: {
                 content: commentState,
                 post: _id
-            }
+            },
+            refetchQueries: [{ query: QUERY_ALL_POSTS }],
         });
-        window.location = '/message-board'
+        // window.location = '/message-board'
     }
 
     const handleSelect = e => {
@@ -97,7 +98,7 @@ const Post = (props) => {
                 </div>
 
                 {comments.length > 0 && !commentsVisible && <Button className='mt-3' onClick={() => setCommentsVisible(true)} variant="outline-secondary" size="sm">{comments.length} Comments</Button>}
-                {commentsVisible && comments.map((comment, index) => <Comment key={index} props={comment} />)}
+                {commentsVisible && comments.map((comment, index) => <Comment key={index} props={comment} postId={_id}/>)}
             </Card.Body>
 
             <Form className='m-1'>

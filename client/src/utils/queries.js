@@ -31,6 +31,7 @@ export const QUERY_ALL_POSTS = gql `
   comments{
     content
     username
+    _id
   }
   user{
     _id

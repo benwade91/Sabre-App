@@ -44,7 +44,7 @@ export const ADD_USER = gql `
   }
 `;
 
-export const ADD_POST = gql`
+export const ADD_POST = gql `
 mutation addNewPost(
   $title: String
   $content: String!
@@ -73,7 +73,7 @@ mutation addNewPost(
 }
 `;
 
-export const EDIT_POST = gql`
+export const EDIT_POST = gql `
 mutation editExistingPost(
   $_id: ID!
   $viewedBy:[String]
@@ -96,7 +96,7 @@ mutation editExistingPost(
 }
 `;
 
-export const DELETE_POST = gql`
+export const DELETE_POST = gql `
 mutation deletePost($_id:ID!){
   deletePost(_id:$_id){
     _id
@@ -108,7 +108,7 @@ mutation deletePost($_id:ID!){
 }
 `;
 
-export const ADD_COMMENT = gql`
+export const ADD_COMMENT = gql `
 mutation addNewComment(
   $content: String!
   $likes: [ID]
@@ -125,6 +125,20 @@ mutation addNewComment(
       _id
       username
     }
+  }
+}
+`;
+
+export const DELETE_COMMENT = gql `
+mutation deleteComment(
+  $_id:ID!
+  $post: ID!
+  ){
+  deleteComment(
+    _id:$_id
+    post: $post
+    ){
+    _id
   }
 }
 `;
