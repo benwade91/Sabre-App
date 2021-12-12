@@ -129,6 +129,13 @@ const typeDefs = gql `
       seen: Boolean
     ): MessageThread
 
+    helpMessage(
+      user: String
+      email: String
+      helpWith: String
+      content: String
+    ): String
+
     login(email: String!, password: String!): Auth
   }
 

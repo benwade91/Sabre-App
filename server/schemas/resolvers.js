@@ -11,6 +11,7 @@ const {
 const {
   signToken
 } = require("../utils/auth");
+const nodemailer = require('nodemailer');
 
 const resolvers = {
   Query: {
@@ -173,9 +174,13 @@ const resolvers = {
 
     deletePost: async (parent, args, context) => {
       if (context.user) {
-        const { _id } = args;
+        const {
+          _id
+        } = args;
         // DELETES COMMENTS ASSOCIATED WITH THE POST
-        const commentArr = await Comment.deleteMany({'post': _id})
+        const commentArr = await Comment.deleteMany({
+          'post': _id
+        })
         // DELETES THE POST ITSELF
         const post = await Post.findByIdAndDelete(_id);
         return (post);
@@ -205,7 +210,10 @@ const resolvers = {
 
     deleteComment: async (parent, args, context) => {
       if (context.user) {
-        const { _id, post } = args;
+        const {
+          _id,
+          post
+        } = args;
 
         // REMOVES COMMENT FROM POST'S ARRAY OF COMMENTS
         await Post.findByIdAndUpdate({
@@ -255,6 +263,45 @@ const resolvers = {
         return message;
       }
       throw new AuthenticationError("Not logged in");
+    },
+
+    helpMessage: async (parent, {
+      user,
+      email,
+      content,
+      helpWith
+    }) => {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.HOST_EMAIL,
+          pass: process.env.HOST_PW
+        }
+      });
+
+      let mailOptions;
+      // DECIDES WHO TO SEND MESSAGE TO
+      helpWith == 'app' ? 
+      mailOptions = {
+        from: process.env.HOST_EMAIL,
+        to: process.env.TO_EMAIL,
+        subject: `Help request from ${user}`,
+        text: content
+      }:
+      mailOptions = {
+        from: process.env.HOST_EMAIL,
+        to: process.env.TO_EMAIL,
+        subject: `Help request from ${user}`,
+        text: `${content} from ${email}`
+      }
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          return(error);
+        } else {
+          return 'mailOptions';
+        }
+      });
     },
 
     login: async (parent, {

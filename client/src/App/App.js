@@ -14,6 +14,8 @@ import Announcements from '../pages/Announcements';
 import MessageBoard from '../pages/MessageBoard'
 import MyMessages from '../pages/MyMessages';
 import Settings from '../pages/Settings';
+import About from '../pages/About';
+import Help from '../pages/Help';
 import NewPost from '../pages/NewPost';
 import NoMatch from "../pages/NoMatch";
 import Nav from '../components/Nav'
@@ -53,6 +55,8 @@ function App() {
               <Route exact path="/message-board" component={MessageBoard}></Route>
               <Route exact path="/new-post" component={NewPost}></Route>
               <Route exact path="/settings" component={Settings}></Route>
+              <Route exact path="/about" component={About}></Route>
+              <Route exact path="/help" component={Help}></Route>
               <Route exact path="/signup" component={Signup}></Route>
               <Route component={NoMatch} />
             </Switch>

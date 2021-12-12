@@ -129,6 +129,22 @@ mutation addNewComment(
 }
 `;
 
+export const HELP_MESSAGE = gql `
+mutation helpMessage(
+  $user: String
+  $email: String
+  $helpWith: String
+  $content: String
+){
+  helpMessage(
+    user: $user
+    email: $email
+    helpWith: $helpWith
+    content: $content
+  )
+}
+`;
+
 export const DELETE_COMMENT = gql `
 mutation deleteComment(
   $_id:ID!

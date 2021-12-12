@@ -97,11 +97,11 @@ const NewPost = () => {
                     className='mb-2'
                 />
             </FloatingLabel>
-            <FloatingLabel controlId="floatingTextarea2" label='youtube link'>
+            <FloatingLabel controlId="floatingTextarea2" label='youtube link (optional)'>
                 <Form.Control
                     onChange={handleYTLink}
                     as="input"
-                    placeholder='fill me up buttercup...'
+                    placeholder='youtube link (optional)'
                     className='mb-2'
                 />
             </FloatingLabel>
