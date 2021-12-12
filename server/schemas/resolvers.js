@@ -58,7 +58,8 @@ const resolvers = {
     },
 
     getAllPosts: async (parent) => {
-      const posts = await Post.find().populate({
+      const posts = await Post.find().sort({date: 1})
+      .populate({
         path: "post",
         model: "Post",
       }).populate({
@@ -139,6 +140,7 @@ const resolvers = {
         const post = await Post.create({
           ...args,
           user: context.user._id,
+          date: Date.now()
         });
         await User.findByIdAndUpdate({
           _id: context.user._id
@@ -193,10 +195,12 @@ const resolvers = {
           ...args,
           user: context.user._id,
           username: context.user.username,
+          date: Date.now()
         });
         await Post.findByIdAndUpdate({
           _id: args.post
         }, {
+          date: Date.now(),
           $push: {
             comments: comment._id
           }

@@ -17,6 +17,7 @@ const NewPost = () => {
     const [link, setLink] = useState('')
     const [createPost,] = useMutation(ADD_POST);
     const history = useHistory();
+    
     const handleDrop = async files => {
         if (!file) {
             setFile([files[0]])

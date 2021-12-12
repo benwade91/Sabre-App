@@ -28,6 +28,7 @@ export const QUERY_ALL_POSTS = gql `
   whatGym
   viewedBy
   youtubeLink
+  date
   comments{
     content
     username

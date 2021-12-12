@@ -42,6 +42,11 @@ const postSchema = new Schema({
     required: false,
     trim: true,
   },
+  date: {
+    type: String,
+    required: false,
+    trim: true,
+  },
 });
 
 const Post = model("Post", postSchema);

@@ -40,6 +40,7 @@ const typeDefs = gql `
     comments: [Comment]
     viewedBy: [String]
     youtubeLink: String
+    date: String
   }
 
   type Comment {
