@@ -26,7 +26,12 @@ const commentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Post",
     required: true,
-  }
+  },
+  date: {
+    type: String,
+    required: false,
+    trim: true,
+  },
 });
 
 const Comment = model("Comment", commentSchema);

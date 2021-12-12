@@ -50,7 +50,8 @@ const resolvers = {
         "_id": {
           $in: idList
         }
-      }).populate({
+      }).sort({date: 1})
+      .populate({
         path: "comment",
         model: "Comment",
       });
@@ -68,6 +69,7 @@ const resolvers = {
       }).populate({
         path: "comments",
         model: "Comment",
+        options: { sort: { 'date': -1 } }
       });
       // console.log(posts.filter(post => post.announcement));
       return posts;

@@ -50,6 +50,7 @@ const typeDefs = gql `
     user: User
     username: String
     post: Post
+    date: String
   }
 
   type Auth {
