@@ -4,6 +4,7 @@ import { QUERY_ALL_POSTS } from '../../utils/queries';
 import { useMutation } from "@apollo/client";
 import { Button, Alert } from 'react-bootstrap';
 import { useStoreContext } from "../../utils/GlobalState";
+import { formatDate } from '../../utils/helpers';
 import './style.css';
 
 export const Comment = ({ props, postId, user }) => {
@@ -24,9 +25,10 @@ export const Comment = ({ props, postId, user }) => {
 
     return (<>
         <div>
-            <p className='ms-3'>{props.content} -
+            <p className='ms-3'>{props.content} <br/>-
                 <span className='fw-light'>{props.username}</span>
                 {state.currentUser._id === props.user._id && <span onClick={() => setShowDeleteAlert(true)}>  ❌</span>}
+                <span className='text-muted'> - {formatDate(props.date)}</span>
             </p>
         </div>
 
