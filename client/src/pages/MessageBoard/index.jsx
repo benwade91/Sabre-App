@@ -9,8 +9,6 @@ import Post from '../../components/Post';
 const MessageBoard = () => {
     const { loading, data } = useQuery(QUERY_ALL_POSTS);
     const [state, dispatch] = useStoreContext();
-
-    console.log(data);
     
     // UPDATES GLOBAL STATE FOR "NEW ANNOUNCEMENTS" WHEN THERE ARE UNSEEN ANNOUNCEMENTS
     useEffect(() => {

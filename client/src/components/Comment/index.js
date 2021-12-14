@@ -25,7 +25,7 @@ export const Comment = ({ props, postId, user }) => {
 
     return (<>
         <div>
-            <p className='ms-3'>{props.content} <br/>-
+            <p className='ms-3 mt-2'>{props.content} <br/>-
                 <span className='fw-light'>{props.username}</span>
                 {state.currentUser._id === props.user._id && <span onClick={() => setShowDeleteAlert(true)}>  ❌</span>}
                 <span className='text-muted'> - {formatDate(props.date)}</span>
