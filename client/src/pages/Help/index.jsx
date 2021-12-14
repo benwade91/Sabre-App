@@ -65,7 +65,7 @@ const Help = () => {
 
                 <FloatingLabel className='mt-2' controlId="floatingTextarea2" label={
                     helpWith === 'app' ? 
-                    'Message to White Belt Ben:':
+                    'Bugs? Suggestions? Message to Ben:':
                     'Message to Coach Bryant:'
                 }>
                     <Form.Control
