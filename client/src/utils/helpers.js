@@ -1,6 +1,5 @@
 export function formatDate(str) {
-    let now = new Date()
-    let date = new Date(parseInt(str));
+    
     let difference = Math.floor((new Date() - str) / 1000);
 
     let interval = difference / 31536000;

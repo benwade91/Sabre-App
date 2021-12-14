@@ -53,3 +53,7 @@
 .alertBox{
     width: 95vw;
 }
+
+iframe{
+    max-width: 100%;
+}

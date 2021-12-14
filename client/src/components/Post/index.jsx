@@ -6,9 +6,10 @@ import './style.css';
 import { ADD_COMMENT, DELETE_POST, EDIT_POST } from '../../utils/mutations';
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_USER, QUERY_ALL_POSTS } from '../../utils/queries';
+import ReactHtmlParser from 'react-html-parser';
 
 const Post = (props) => {
-    const { content, user, whatGym, comments, photoID, _id, viewedBy, youtubeLink } = props.props;
+    const { content, user, whatGym, comments, photoID, _id, viewedBy } = props.props;
     const [error, setError] = useState(undefined)
     const [chat, setChat] = useState(false)
     const [showDeleteAlert, setShowDeleteAlert] = useState(false)
@@ -61,6 +62,7 @@ const Post = (props) => {
             },
             refetchQueries: [{ query: QUERY_ALL_POSTS }],
         })
+        setShowDeleteAlert(false)
     }
 
     useEffect(() => {
@@ -92,11 +94,10 @@ const Post = (props) => {
             </Card.Header>
 
             <Card.Body>
-                <Card.Text className={photoID ? 'cardContent mb-5' : 'mb-3'}>{content}</Card.Text>
-
+                <Card.Text className={photoID ? 'cardContent mb-5' : 'mb-3'}>{ReactHtmlParser(content)}</Card.Text>
                 {/* CONDITIONALLY RENDERS YOUTUBE VIDEOS */}
-                {youtubeLink && youtubeLink !== '' &&
-                    <iframe width="100%" src={`https://www.youtube.com/embed/${youtubeLink}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>}
+                {/* {youtubeLink && youtubeLink !== '' &&
+                    <iframe width="100%" src={`https://www.youtube.com/embed/${youtubeLink}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>} */}
 
                 {/* CONDITIONALLY RENDERS PHOTOS */}
                 <div className={imageProps ? 'postImgSmBg' : 'postImgBigBg'}>

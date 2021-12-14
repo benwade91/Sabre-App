@@ -14,7 +14,7 @@ const NewPost = () => {
     const { data, } = useQuery(QUERY_USER);
     const [file, setFile] = useState(undefined)
     const [content, setContent] = useState('')
-    const [link, setLink] = useState('')
+    
     const [createPost,] = useMutation(ADD_POST);
     const history = useHistory();
     
@@ -30,11 +30,7 @@ const NewPost = () => {
         setContent(event.target.value)
     }
 
-    const handleYTLink = (event) => {
-        //eslint-disable-next-line
-        let yTLink = event.target.value.match(/([^\/]+$)/)[0]
-        setLink(yTLink)
-    }
+
 
     const uploadImgFiles = async () => {
         let photoID = []
@@ -65,7 +61,6 @@ const NewPost = () => {
                     photoID: photoID,
                     whatGym: data.user.whatGym,
                     announcement: checked,
-                    youtubeLink: link
                 },
                 refetchQueries: [{ query: QUERY_ALL_POSTS }],
             });
@@ -98,14 +93,7 @@ const NewPost = () => {
                     className='mb-2'
                 />
             </FloatingLabel>
-            <FloatingLabel controlId="floatingTextarea2" label='youtube link (optional)'>
-                <Form.Control
-                    onChange={handleYTLink}
-                    as="input"
-                    placeholder='youtube link (optional)'
-                    className='mb-2'
-                />
-            </FloatingLabel>
+
             {/* <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Add a photo to your post</Form.Label>
                 <Form.Control type="file" onChange={e => console.log(e)} accept="image/*" />

@@ -14,3 +14,13 @@
 .commentAlertBox{
     width: 85vw;
 }
+
+.commentBox{
+    display: flex;
+    flex-direction: column;
+}
+
+.commentAuthor{
+    font-weight: lighter;
+    align-self: flex-end;
+}
