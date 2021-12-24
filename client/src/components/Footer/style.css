@@ -16,3 +16,8 @@
     padding: 3px;
     height: 35px;
 }
+@media screen and (orientation: landscape){
+    .mainMenu {
+        height: 11vw;
+    }
+}

@@ -1,13 +1,15 @@
 header {
-    margin:6px 0 0 0;
+    margin: 6px 0 0 0;
     height: 8vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.nav{
+
+.nav {
     height: 9vh;
 }
+
 .sabreLogo {
     height: 8vh;
     margin-left: 10px;
@@ -17,7 +19,8 @@ header {
     margin-right: 0;
     height: fit-content;
 }
-.messagePng{
+
+.messagePng {
     height: 35px;
     padding: 10px;
 }
@@ -31,7 +34,7 @@ header {
     justify-content: center;
 }
 
-.menuItemContainer{
+.menuItemContainer {
     width: 100%;
 }
 
@@ -42,4 +45,18 @@ header {
     text-align: center;
     padding: 10px;
     border-radius: 5px;
+}
+
+@media screen and (orientation: landscape) {
+    header {
+        height: 8vw;
+    }
+
+    .nav {
+        height: 9vw;
+    }
+
+    .sabreLogo {
+        height: 8vw;
+    }
 }
