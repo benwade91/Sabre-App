@@ -47,7 +47,9 @@ const Post = (props) => {
     }
 
     const handleSelect = e => {
-        e.target.style.height = 'inherit';
+        // e.target.style.height = 'inherit';
+        // e.target.className += ' here';
+        // console.log(e.target.className);
         // e.target.style.height = `${e.target.scrollHeight}px`;
         setChat(true)
     }
@@ -120,7 +122,7 @@ const Post = (props) => {
                         placeholder='Comment'
                         style={{
                             height: '9vh',
-                            width: '95vw'
+                            width: '99%'
                         }}
                         onSelect={handleSelect}
                         onBlur={handleBlur}
@@ -136,7 +138,7 @@ const Post = (props) => {
                             placeholder='Comment'
                             style={{
                                 height: '9vh',
-                                width: '95vw'
+                                width: '99%'
                             }}
                             onSelect={handleSelect}
                             onBlur={handleBlur}

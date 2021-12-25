@@ -20,7 +20,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    background-color:#D3D3D3;
+    background-color: #D3D3D3;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -33,12 +33,13 @@
     display: flex;
     justify-content: space-between;
 }
-.cardContent{
+
+.cardContent {
     padding-bottom: 5px;
     border-bottom: #000 solid 1px;
 }
 
-.alertBackground{
+.alertBackground {
     z-index: 2;
     position: absolute;
     top: 0;
@@ -50,10 +51,7 @@
     justify-content: space-evenly;
     align-items: center;
 }
-.alertBox{
-    width: 95vw;
-}
 
-iframe{
+iframe {
     max-width: 100%;
 }
