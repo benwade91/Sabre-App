@@ -7,6 +7,8 @@ import { ADD_COMMENT, DELETE_POST, EDIT_POST } from '../../utils/mutations';
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERY_USER, QUERY_ALL_POSTS } from '../../utils/queries';
 import ReactHtmlParser from 'react-html-parser';
+import Auth from '../../utils/auth';
+import { useHistory } from "react-router-dom";
 
 const Post = (props) => {
     const { content, user, whatGym, comments, photoID, _id, viewedBy } = props.props;
@@ -20,7 +22,8 @@ const Post = (props) => {
     const [createComment,] = useMutation(ADD_COMMENT);
     const [editPost,] = useMutation(EDIT_POST);
     const [deletePost,] = useMutation(DELETE_POST);
-
+    const history = useHistory();
+    
     const isUsersPost = () => {
         return user._id === userData.user._id
     }
@@ -32,7 +35,10 @@ const Post = (props) => {
     const handleCommentSubmit = () => {
         if (commentState === '') {
             setError(true)
-        } else {
+        } else if(!Auth.loggedIn()){
+            history.push('/login')
+        }
+        else {
             createComment({
                 variables: {
                     content: commentState,

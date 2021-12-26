@@ -22,7 +22,7 @@ import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import { Signup } from "../pages/Signup";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Auth from '../utils/auth';
+// import Auth from '../utils/auth';
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -49,7 +49,8 @@ function App() {
             <Nav />
           <div className='appEnclosure'>
             <Switch>
-              <Route exact path="/" component={Home}></Route>
+              <Route exact path="/" component={MessageBoard}></Route>
+              <Route exact path="/login" component={Home}></Route>
               <Route exact path="/announcements" component={Announcements}></Route>
               <Route exact path="/my-messages" component={MyMessages}></Route>
               <Route exact path="/message-board" component={MessageBoard}></Route>
@@ -61,7 +62,7 @@ function App() {
               <Route component={NoMatch} />
             </Switch>
           </div>
-          {Auth.loggedIn() && <Footer />}
+          <Footer />
         </StoreProvider>
         </div>
       </Router>

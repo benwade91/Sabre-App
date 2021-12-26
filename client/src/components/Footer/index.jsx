@@ -10,6 +10,7 @@ import settingsPng from './images/settings.png';
 import { useQuery } from "@apollo/react-hooks";
 import { QUERY_USER } from '../../utils/queries';
 import { SET_CURRENT_USER } from "../../utils/actions";
+import Auth from '../../utils/auth';
 
 const Footer = () => {
     const [state, dispatch] = useStoreContext();
@@ -33,11 +34,18 @@ const Footer = () => {
                     </div>
                 </Link>
 
+                {Auth.loggedIn() ?
                 <Link className='mainMenuBtnCase' to='/new-post'>
                     <div className='mainMenuBtn'>
                         <img className='mainMenuBtnPng' src={createPostPng} alt="private messages" />
                     </div>
+                </Link> :
+                <Link className='mainMenuBtnCase' to='/login'>
+                    <div className='mainMenuBtn'>
+                        <img className='mainMenuBtnPng' src={createPostPng} alt="private messages" />
+                    </div>
                 </Link>
+                }
 
                 <Link className='mainMenuBtnCase' to='/announcements'>
                     <div className='mainMenuBtn announcementsBtn'>
