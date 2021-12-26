@@ -47,7 +47,7 @@ header {
     border-radius: 5px;
 }
 
-@media screen and (orientation: landscape) {
+@media screen and (max-width: 1000px) and (orientation: landscape){
     header {
         height: 8vw;
     }

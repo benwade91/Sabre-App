@@ -12,7 +12,7 @@
     overflow: scroll;
 }
 
-@media screen and (orientation: landscape) {
+@media screen and (max-width: 1000px) and (orientation: landscape){
     html {
       transform: rotate(-90deg);
       transform-origin: left top;
