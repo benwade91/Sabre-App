@@ -12,6 +12,7 @@
     overflow: scroll;
 }
 
+/* UX IS TERRIBLE WITH THIS ENABLED
 @media screen and (max-width: 1000px) and (orientation: landscape){
     html {
       transform: rotate(-90deg);
@@ -26,4 +27,4 @@
         height: 80vw;
         overflow: scroll;
     }
-  }
+  } */

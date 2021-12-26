@@ -16,8 +16,10 @@
     padding: 3px;
     height: 35px;
 }
+
+/* UX IS TERRIBLE WITH THIS ENABLED
 @media screen and (max-width: 1000px) and (orientation: landscape){
     .mainMenu {
         height: 11vw;
     }
-}
+} */

@@ -47,6 +47,7 @@ header {
     border-radius: 5px;
 }
 
+/* UX IS TERRIBLE WITH THIS ENABLED
 @media screen and (max-width: 1000px) and (orientation: landscape){
     header {
         height: 8vw;
@@ -59,4 +60,4 @@ header {
     .sabreLogo {
         height: 8vw;
     }
-}
+} */
