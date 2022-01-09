@@ -1,4 +1,4 @@
-.commentAlertBackground{
+.commentAlertBackground {
     z-index: 5;
     position: fixed;
     top: 0;
@@ -11,16 +11,24 @@
     justify-content: space-evenly;
     align-items: center;
 }
-.commentAlertBox{
+
+.commentAlertBox {
     width: 85vw;
 }
 
-.commentBox{
+.commentBox {
     display: flex;
     flex-direction: column;
 }
 
-.commentAuthor{
+.commentBody {
+    background-color: rgba(211,211,211, 0.4);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 0;
+}
+
+.commentAuthor {
     font-weight: lighter;
     align-self: flex-end;
 }
