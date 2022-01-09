@@ -1,5 +1,6 @@
 .socialPng{
     height: 40px;
+    margin: 10px;
 }
 
 .aboutSection {
@@ -7,4 +8,9 @@
     flex-direction: column;
     align-items: center;
     margin: 25vh 0;
+}
+
+.aboutSection a {
+    margin-top: 20px;
+    font-size: 30px;
 }
