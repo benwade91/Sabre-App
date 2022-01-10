@@ -9,7 +9,7 @@ const StoreProvider = ({ value = [], ...props }) => {
     const [state, dispatch] = useModalReducer({
         newAnnouncement: false,
         currentUser: undefined,
-        loggedIn: false
+        loggedIn: false,
     });
     return <Provider value={[state, dispatch]} {...props} />;
 };

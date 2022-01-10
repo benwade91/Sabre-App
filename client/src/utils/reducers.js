@@ -4,7 +4,7 @@ import {
     REDIRECT_ON_LOGIN,
     SET_LOADING,
     NEW_ANNOUNCEMENT,
-    LOGIN_STATUS
+    LOGIN_STATUS,
 } from "./actions";
 
 export const reducer = (state, action) => {
