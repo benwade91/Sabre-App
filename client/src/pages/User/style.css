@@ -1,0 +1,25 @@
+.userPage{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-height: 10vh;
+}
+.userHeader{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 2vh;
+    margin-bottom: 3vh;
+}
+.userHeader h1{
+    font-size: 12vw;
+    max-width: 75vw;
+    overflow: hidden;
+}
+
+.userPost span{
+    margin-right: 10px;
+}
+.beltImg{
+    height: 70px;
+    filter: drop-shadow(0 0 5px #000);
+}

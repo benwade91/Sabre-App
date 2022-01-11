@@ -13,7 +13,6 @@ export const Comment = ({ props, postId, user }) => {
   const [deleteComment] = useMutation(DELETE_COMMENT)
   const [state, ] = useStoreContext()
   const history = useHistory()
-  console.log(state)
 
   const handleDelete = () => {
     deleteComment({
@@ -25,7 +24,7 @@ export const Comment = ({ props, postId, user }) => {
     })
     setShowDeleteAlert(false)
   }
-  
+
   const handleUserClick = (id) => {
     history.push({
       pathname: `/user/${id}`
