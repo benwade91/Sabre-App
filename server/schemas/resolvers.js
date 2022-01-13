@@ -32,6 +32,15 @@ const resolvers = {
       throw new AuthenticationError("Error verifying user");
     },
 
+    getUserByUsername: async (parent, {
+      username
+    }) => {
+      const user = await User.findOne({
+        username
+      });
+      return user;
+    },
+
     getUserById: async (parent, {
       _id
     }) => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_USER_BY_ID } from '../../utils/queries';
 import { formatDate } from '../../utils/helpers';
@@ -12,7 +12,7 @@ import './style.css';
 
 export const User = (props) => {
   const userId = props.match.params.id
-  const { loading, data } = useQuery(QUERY_USER_BY_ID, {
+  const { data } = useQuery(QUERY_USER_BY_ID, {
     variables: { _id: userId },
   })
   const beltHelper = (belt) => {
@@ -26,7 +26,6 @@ export const User = (props) => {
     return belts[belt]
   }
 
-  data && console.log(data.getUserById)
   return (
     <div>
       {data ? (

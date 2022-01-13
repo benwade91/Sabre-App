@@ -46,6 +46,20 @@ export const QUERY_ALL_POSTS = gql`
   }
 `
 
+export const QUERY_USER_BY_USERNAME = gql`
+  query getUserByUsername($username: String!) {
+    getUserByUsername(username: $username) {
+      username
+      administrator
+      posts {
+        _id
+        title
+      }
+      _id
+    }
+  }
+`
+
 export const QUERY_USER_BY_ID = gql`
   query getUserById($_id: ID!) {
     getUserById(_id: $_id) {
