@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './style.css'
-import { Form, Button, FloatingLabel, Alert } from 'react-bootstrap'
+import { Form, Button, FloatingLabel, Alert, Feedback } from 'react-bootstrap'
 import { useStoreContext } from '../../utils/GlobalState'
 import { useMutation, useQuery } from '@apollo/client'
 import { ADD_USER } from '../../utils/mutations'
@@ -17,7 +17,13 @@ export const Signup = () => {
     email: '',
     password1: '',
     password2: '',
-    error: undefined,
+    error: {
+        passwordMatch: true,
+        emailTaken: false,
+        generalError: false,
+        usernameTaken: false
+    },
+    usernameTaken: false,
   })
   const [errFlags] = useState({ emailError: false })
   const [createUser] = useMutation(ADD_USER)
@@ -28,15 +34,17 @@ export const Signup = () => {
 
   useEffect(() => {
     refetch()
+    // checks username against database
     data && data.getUserByUsername ?
-      setFormState({
-        ...formState,
-        error: 'Theres already a user with that username!',
-      }):
-      setFormState({
-        ...formState,
-        error: undefined,
-      })
+      setFormState({ ...formState, error : {
+        ...formState.error,
+        usernameTaken: true,
+      }})
+      :
+      setFormState({ ...formState, error : {
+        ...formState.error,
+        usernameTaken: false,
+      }})
   }, [formState.username, data])
 
   const handleChange = (event) => {
@@ -44,16 +52,28 @@ export const Signup = () => {
     const { name, value } = event.target
     // update state
     setFormState({ ...formState, [name]: value })
-    // name == 'username' && refetch()
+  }
+
+  const checkPassword = () => {
+    if (formState.password1 !== formState.password2) {
+        setFormState({ ...formState, error : {
+            ...formState.error,
+            passwordMatch: false 
+          }})
+          console.log('password no match');
+      } else {
+        setFormState({ ...formState, error : {
+            ...formState.error,
+            passwordMatch: true 
+          }})
+      }
   }
 
   const handleFormSubmit = async (event) => {
     console.log(formState)
     event.preventDefault()
     // if no errors, await response from backend, get token, and login
-    if (formState.password1 !== formState.password2) {
-      setFormState({ ...formState, error: 'Passwords do not match' })
-    } else if (!errFlags.emailError) {
+     if (!errFlags.emailError) {
       try {
         const { data } = await createUser({
           variables: {
@@ -75,12 +95,15 @@ export const Signup = () => {
       } catch (e) {
         let errorMsg = e.graphQLErrors[0].message
         if (errorMsg.includes('E11000 duplicate key')) {
-          setFormState({
-            ...formState,
-            error: 'Theres already an account with that email!',
-          })
+          setFormState({ ...formState, error : {
+            ...formState.error,
+            emailTaken: true 
+          }})
         } else {
-          setFormState({ ...formState, error: 'Something went wrong!' })
+            setFormState({ ...formState, error : {
+                ...formState.error,
+                generalError: true 
+              }})
           console.log(e.message)
         }
       }
@@ -92,9 +115,9 @@ export const Signup = () => {
       <div className="signup-form">
         <h2>Register</h2>
         <p className="hint-text">Create your account.</p>
-        {formState.error && (
+        {formState.error.generalError && (
           <Alert className="mx-5" variant="warning">
-            {formState.error}
+          Something went wrong!
           </Alert>
         )}
         <Form>
@@ -110,7 +133,11 @@ export const Signup = () => {
               type="text"
               placeholder="Username"
               value={formState.username}
+              isInvalid={formState.error.usernameTaken}
             />
+            <Form.Control.Feedback type="invalid">
+            Username Taken!
+            </Form.Control.Feedback>
           </FloatingLabel>
 
           <FloatingLabel
@@ -162,7 +189,11 @@ export const Signup = () => {
               type="email"
               placeholder="Enter email"
               value={formState.email}
+              isInvalid={formState.error.emailTaken}
             />
+            <Form.Control.Feedback type="invalid">
+            Email address in use!
+            </Form.Control.Feedback>
           </FloatingLabel>
 
           <FloatingLabel
@@ -177,7 +208,11 @@ export const Signup = () => {
               type="password"
               placeholder="Password"
               value={formState.password1}
+              isInvalid={formState.error.passwordLength}
             />
+            <Form.Control.Feedback type="invalid">
+            Password must be greater than 6 characters!
+            </Form.Control.Feedback>
           </FloatingLabel>
 
           <FloatingLabel
@@ -187,12 +222,17 @@ export const Signup = () => {
           >
             <Form.Control
               onChange={handleChange}
+              onBlur={checkPassword}
               autoComplete='new-password'
               name="password2"
               type="password"
               placeholder="Password"
               value={formState.password2}
+              isInvalid={!formState.error.passwordMatch}
             />
+            <Form.Control.Feedback type="invalid">
+            Passwords don't match!
+            </Form.Control.Feedback>
           </FloatingLabel>
 
           <div className="text-center">
