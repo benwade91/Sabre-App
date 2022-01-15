@@ -249,7 +249,7 @@ export const Signup = () => {
               variant="outline-primary"
               type="button"
               onClick={() => {
-                window.location = '/'
+                window.location = '/login'
               }}
             >
               Log In
