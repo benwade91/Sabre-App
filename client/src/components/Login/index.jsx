@@ -51,8 +51,8 @@ const Login = () => {
 
             {Auth.loggedIn() && window.location.assign('/message-board') }
 
-            {error && <Alert className='mx-5' variant='warning'>
-                We werent able to find an account with those credentials! Try again!
+            {error && <Alert className='mx-5 alert' variant='danger'>
+                Something went wrong! <br/>Try again!
             </Alert>}
             <Form className='signInForm'>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
