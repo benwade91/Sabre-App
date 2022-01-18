@@ -35,8 +35,10 @@ export const Comment = ({ props, postId, user }) => {
     <>
       <div className="commentBox">
         <p className="ms-3 mt-2 commentBody">{props.content}</p>
-        <p onClick={() => handleUserClick(user._id)} className="commentAuthor">
+        <p  className="commentAuthor">
+        <span onClick={() => handleUserClick(user._id)}>
           - {props.username}
+        </span>
           {state.currentUser._id === props.user._id && (
             <span onClick={() => setShowDeleteAlert(true)}> ❌</span>
           )}

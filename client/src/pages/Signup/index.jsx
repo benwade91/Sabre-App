@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './style.css'
-import { Form, Button, FloatingLabel, Alert, Feedback } from 'react-bootstrap'
+import { Form, Button, FloatingLabel, Alert } from 'react-bootstrap'
 import { useStoreContext } from '../../utils/GlobalState'
 import { useMutation, useQuery } from '@apollo/client'
 import { ADD_USER } from '../../utils/mutations'
