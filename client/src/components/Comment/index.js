@@ -6,6 +6,7 @@ import { Button, Alert } from 'react-bootstrap';
 import { useStoreContext } from '../../utils/GlobalState';
 import { formatDate } from '../../utils/helpers';
 import { useHistory } from 'react-router-dom';
+import ReactHtmlParser from 'react-html-parser'
 import './style.css';
 
 export const Comment = ({ props, postId, user }) => {
@@ -34,7 +35,7 @@ export const Comment = ({ props, postId, user }) => {
   return (
     <>
       <div className="commentBox">
-        <p className="ms-3 mt-2 commentBody">{props.content}</p>
+        <p className="ms-3 mt-2 commentBody">{ReactHtmlParser(props.content)}</p>
         <p  className="commentAuthor">
         <span onClick={() => handleUserClick(user._id)}>
           - {props.username}

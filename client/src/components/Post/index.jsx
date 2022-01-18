@@ -24,6 +24,7 @@ const Post = (props) => {
     _id,
     viewedBy,
   } = props.props
+  const [tempString, setTempString] = useState('')
   const [error, setError] = useState(undefined)
   const [userSearch, setUserSearch] = useState('')
   const [usersReferenced, setUsersReferenced] = useState([])
@@ -37,15 +38,15 @@ const Post = (props) => {
   const [editPost] = useMutation(EDIT_POST)
   const [deletePost] = useMutation(DELETE_POST)
   const history = useHistory()
-  
+
   const { loading, error: error1, data, refetch } = useQuery(
     QUERY_USER_BY_USERNAME,
     {
       variables: { username: userSearch },
       onCompleted: (data) => {
         data.getUserByUsername &&
-        usersReferenced.indexOf(data.getUserByUsername) === -1 &&
-        setUsersReferenced([...usersReferenced, data.getUserByUsername])
+          usersReferenced.indexOf(data.getUserByUsername) === -1 &&
+          setUsersReferenced([...usersReferenced, data.getUserByUsername])
       },
     },
   )
@@ -70,14 +71,10 @@ const Post = (props) => {
     } else if (!Auth.loggedIn()) {
       history.push('/login')
     } else {
-      for (let userR in usersReferenced){
-        console.log(commentState.replace(`@${user.username}`, `<a className='userReference' href="/user/${user._id}">@${user.username}</a>`));
-        setCommentState(commentState.replace(`@${user.username}`, `<a className='userReference' href="/user/${user._id}">@${user.username}</a>`))
-      }
-      console.log(commentState);
+      console.log(tempString)
       createComment({
         variables: {
-          content: commentState,
+          content: tempString,
           post: _id,
         },
         refetchQueries: [{ query: QUERY_ALL_POSTS }],
@@ -129,6 +126,19 @@ const Post = (props) => {
         })
     }
   }, [userData, _id, editPost, viewedBy])
+
+  useEffect(() => {
+    // console.log(usersReferenced)
+    let temp = commentState
+    usersReferenced.forEach((user_) => {
+      console.log(user_)
+      // setTempString(commentState.replace(`@${usersReferenced[userR].username}`, `<a href="/user/${usersReferenced[userR]._id}" className="userReference">@${usersReferenced[userR].username}</a>`))
+      temp = temp.replace(`@${user_.username}`, `<a href="/user/${user_._id}">@${user_.username}</a>`)
+    })
+    setTempString(temp)
+  }, [commentState])
+
+  console.log(tempString);
 
   return (
     <>
