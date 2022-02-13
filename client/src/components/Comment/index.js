@@ -31,13 +31,12 @@ export const Comment = ({ props, postId, user }) => {
       pathname: `/user/${id}`
     })
   }
-
   return (
     <>
       <div className="commentBox">
         <p className="ms-3 mt-2 commentBody">{ReactHtmlParser(props.content)}</p>
         <p  className="commentAuthor">
-        <span onClick={() => handleUserClick(user._id)}>
+        <span>
           - {props.username}
         </span>
           {state.currentUser._id === props.user._id && (

@@ -4,7 +4,7 @@ import { Comment } from '../Comment'
 import { Image } from 'cloudinary-react'
 import './style.css'
 import { ADD_COMMENT, DELETE_POST, EDIT_POST } from '../../utils/mutations'
-import { useMutation, useQuery, useLazyQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import {
   QUERY_USER,
   QUERY_ALL_POSTS,
@@ -185,7 +185,7 @@ const Post = (props) => {
               ))}
           </div>
 
-          {comments.length > 0 && !commentsVisible && (
+          {Auth.loggedIn() && comments.length > 0 && !commentsVisible && (
             <Button
               className="mt-3"
               onClick={() => setCommentsVisible(true)}
@@ -195,7 +195,7 @@ const Post = (props) => {
               {comments.length} Comments
             </Button>
           )}
-          {commentsVisible &&
+          {Auth.loggedIn() && commentsVisible &&
             comments.map((comment, index) => (
               <Comment key={index} user={user} props={comment} postId={_id} />
             ))}
@@ -207,7 +207,7 @@ const Post = (props) => {
               <p className="m-auto">You gotta write something foo</p>
             </Alert>
           )}
-          {comments.length === 0 ? (
+          {Auth.loggedIn() && comments.length === 0 ? (
             <FloatingLabel controlId="floatingTextarea2" label="Comment">
               <Form.Control
                 as="textarea"

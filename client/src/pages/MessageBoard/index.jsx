@@ -9,6 +9,7 @@ import Post from '../../components/Post';
 const MessageBoard = () => {
     const { loading, data } = useQuery(QUERY_ALL_POSTS);
     const [state, dispatch] = useStoreContext();
+    console.log(data);
     
     // UPDATES GLOBAL STATE FOR "NEW ANNOUNCEMENTS" WHEN THERE ARE UNSEEN ANNOUNCEMENTS
     useEffect(() => {
@@ -31,8 +32,7 @@ const MessageBoard = () => {
     }, [data, state.currentUser, dispatch, loading])
 
     return <div>
-        {loading ? <h1>LOADING</h1>
-            : data.getAllPosts.slice(0).reverse().map((post, index) => !post.announcement && <Post props={post} key={index} />)}
+        {data ? data.getAllPosts.slice(0).reverse().map((post, index) => !post.announcement && <Post props={post} key={index} />):<h1>LOADING</h1>}
         {/* {postData && postData.getAllPosts.slice(0).reverse().map((post, index) => post.announcement && <Post props={post} key={index}/>)} */}
     </div>
 }
