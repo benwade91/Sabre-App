@@ -43,6 +43,7 @@
     z-index: 2;
     position: absolute;
     top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     background-color: rgba(211, 211, 211, 0.9);
@@ -54,4 +55,10 @@
 
 iframe {
     max-width: 100%;
+}
+
+@media screen and (max-width: 600px){
+    .alertBox {
+        width: 95vw;
+    }
 }
