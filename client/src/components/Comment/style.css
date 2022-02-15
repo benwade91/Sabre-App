@@ -13,7 +13,7 @@
 }
 
 .commentAlertBox {
-    width: 85vw;
+    width: 500px;
 }
 
 .commentBox {
@@ -31,4 +31,10 @@
 .commentAuthor {
     font-weight: lighter;
     align-self: flex-end;
+}
+
+@media screen and (max-width: 600px){
+    .commentAlertBox {
+        width: 95vw;
+    }
 }

@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { Card, Form, Button, FloatingLabel, Alert } from 'react-bootstrap'
-import { Comment } from '../Comment'
-import { Image } from 'cloudinary-react'
-import './style.css'
-import { ADD_COMMENT, DELETE_POST, EDIT_POST } from '../../utils/mutations'
-import { useMutation, useQuery } from '@apollo/client'
+import React, { useState, useEffect } from 'react';
+import { Card, Form, Button, FloatingLabel, Alert } from 'react-bootstrap';
+import { Comment } from '../Comment';
+import { Image } from 'cloudinary-react';
+import './style.css';
+import { ADD_COMMENT, DELETE_POST, EDIT_POST } from '../../utils/mutations';
+import { useMutation, useQuery } from '@apollo/client';
 import {
   QUERY_USER,
   QUERY_ALL_POSTS,
   QUERY_USER_BY_USERNAME,
-} from '../../utils/queries'
-import ReactHtmlParser from 'react-html-parser'
-import Auth from '../../utils/auth'
-import { useHistory } from 'react-router-dom'
+} from '../../utils/queries';
+import ReactHtmlParser from 'react-html-parser';
+import Auth from '../../utils/auth';
+import { useHistory } from 'react-router-dom';
 
 const Post = (props) => {
   const {
