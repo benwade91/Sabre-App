@@ -11,9 +11,11 @@
     margin-bottom: 3vh;
 }
 .userHeader h1{
-    font-size: 12vw;
+    font-size: 5vw;
+    width: 100%;
     max-width: 75vw;
     overflow: hidden;
+    margin-bottom: 0;
 }
 
 .userPost span{
@@ -22,4 +24,10 @@
 .beltImg{
     height: 70px;
     filter: drop-shadow(0 0 5px #000);
+}
+
+@media screen and (max-width: 600px) {
+    .userHeader h1{
+        font-size: 12vw;
+    }
 }
