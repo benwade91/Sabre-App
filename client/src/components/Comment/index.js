@@ -6,7 +6,8 @@ import { Button, Alert } from 'react-bootstrap';
 import { useStoreContext } from '../../utils/GlobalState';
 import { formatDate } from '../../utils/helpers';
 import { useHistory } from 'react-router-dom';
-import ReactHtmlParser from 'react-html-parser'
+import ReactHtmlParser from 'react-html-parser';
+import Auth from '../../utils/auth';
 import './style.css';
 
 export const Comment = ({ props, postId, user }) => {
@@ -31,6 +32,7 @@ export const Comment = ({ props, postId, user }) => {
       pathname: `/user/${id}`
     })
   }
+  
   return (
     <>
       <div className="commentBox">
@@ -39,8 +41,8 @@ export const Comment = ({ props, postId, user }) => {
         <span>
           - {props.username}
         </span>
-          {state.currentUser._id === props.user._id && (
-            <span onClick={() => setShowDeleteAlert(true)}> ❌</span>
+          {state.currentUser && state.currentUser._id === props.user._id && (
+            <span onClick={() => setShowDeleteAlert(true)}> ❌ </span>
           )}
           <span className="text-muted"> - {formatDate(props.date)}</span>
         </p>

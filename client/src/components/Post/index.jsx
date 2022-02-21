@@ -71,7 +71,6 @@ const Post = (props) => {
     } else if (!Auth.loggedIn()) {
       history.push('/login')
     } else {
-      console.log(tempString)
       createComment({
         variables: {
           content: tempString,
@@ -138,8 +137,6 @@ const Post = (props) => {
     setTempString(temp)
   }, [commentState])
 
-  console.log(tempString);
-
   return (
     <>
       <Card className="m-1">
@@ -185,7 +182,7 @@ const Post = (props) => {
               ))}
           </div>
 
-          {Auth.loggedIn() && comments.length > 0 && !commentsVisible && (
+          {comments.length > 0 && !commentsVisible && (
             <Button
               className="mt-3"
               onClick={() => setCommentsVisible(true)}
@@ -195,7 +192,7 @@ const Post = (props) => {
               {comments.length} Comments
             </Button>
           )}
-          {Auth.loggedIn() && commentsVisible &&
+          {commentsVisible &&
             comments.map((comment, index) => (
               <Comment key={index} user={user} props={comment} postId={_id} />
             ))}
