@@ -56,7 +56,7 @@ const Post = (props) => {
   }
 
   const handleChange = (event) => {
-    let taggedUsers = [...event.target.value.matchAll(/(?<=@)(\w{1,15})\b/g)]
+    let taggedUsers = [...event.target.value.matchAll(/^@?(\w){1,15}$/g)]
     taggedUsers &&
       taggedUsers.forEach((user) => {
         setUserSearch(user[0])
