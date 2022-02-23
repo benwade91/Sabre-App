@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
-import { DELETE_COMMENT } from '../../utils/mutations';
-import { QUERY_ALL_POSTS } from '../../utils/queries';
-import { useMutation } from '@apollo/client';
-import { Button, Alert } from 'react-bootstrap';
-import { useStoreContext } from '../../utils/GlobalState';
-import { formatDate } from '../../utils/helpers';
-import { useHistory } from 'react-router-dom';
-import ReactHtmlParser from 'react-html-parser';
-import Auth from '../../utils/auth';
-import './style.css';
+import React, { useState } from 'react'
+import { DELETE_COMMENT } from '../../utils/mutations'
+import { QUERY_ALL_POSTS } from '../../utils/queries'
+import { useMutation } from '@apollo/client'
+import { Button, Alert } from 'react-bootstrap'
+import { useStoreContext } from '../../utils/GlobalState'
+import { formatDate } from '../../utils/helpers'
+import { useHistory } from 'react-router-dom'
+import ReactHtmlParser from 'react-html-parser'
+import './style.css'
 
 export const Comment = ({ props, postId, user }) => {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false)
   const [deleteComment] = useMutation(DELETE_COMMENT)
-  const [state, ] = useStoreContext()
+  const [state] = useStoreContext()
   const history = useHistory()
 
   const handleDelete = () => {
@@ -27,20 +26,22 @@ export const Comment = ({ props, postId, user }) => {
     setShowDeleteAlert(false)
   }
 
-  const handleUserClick = (id) => {
+  const handleUserClick = () => {
+    let id = props.user._id;
+
     history.push({
-      pathname: `/user/${id}`
-    })
+      pathname: `/user/${id}`,
+    });
   }
-  
+
   return (
     <>
       <div className="commentBox">
-        <p className="ms-3 mt-2 commentBody">{ReactHtmlParser(props.content)}</p>
-        <p  className="commentAuthor">
-        <span>
-          - {props.username}
-        </span>
+        <p className="ms-3 mt-2 commentBody">
+          {ReactHtmlParser(props.content)}
+        </p>
+        <p className="commentAuthor">
+          <span onClick={handleUserClick}>- {props.username}</span>
           {state.currentUser && state.currentUser._id === props.user._id && (
             <span onClick={() => setShowDeleteAlert(true)}> ❌ </span>
           )}

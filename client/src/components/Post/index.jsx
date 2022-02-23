@@ -189,7 +189,7 @@ const Post = (props) => {
               variant="outline-secondary"
               size="sm"
             >
-              {comments.length} Comments
+              {comments.length > 1 ?  `${comments.length} Comments` : "1 Comment"} 
             </Button>
           )}
           {commentsVisible &&
