@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Form, Button, FloatingLabel, Alert } from 'react-bootstrap';
-import { Comment } from '../Comment';
-import { Image } from 'cloudinary-react';
-import './style.css';
-import { ADD_COMMENT, DELETE_POST, EDIT_POST } from '../../utils/mutations';
-import { useMutation, useQuery } from '@apollo/client';
+import React, { useState, useEffect } from 'react'
+import { Card, Form, Button, FloatingLabel, Alert } from 'react-bootstrap'
+import { Comment } from '../Comment'
+import { Image } from 'cloudinary-react'
+import './style.css'
+import { ADD_COMMENT, DELETE_POST, EDIT_POST } from '../../utils/mutations'
+import { useMutation, useQuery } from '@apollo/client'
 import {
   QUERY_USER,
   QUERY_ALL_POSTS,
   QUERY_USER_BY_USERNAME,
-} from '../../utils/queries';
-import ReactHtmlParser from 'react-html-parser';
-import Auth from '../../utils/auth';
-import { useHistory } from 'react-router-dom';
+} from '../../utils/queries'
+import ReactHtmlParser from 'react-html-parser'
+import Auth from '../../utils/auth'
+import { useHistory } from 'react-router-dom'
 
 const Post = (props) => {
   const {
@@ -132,7 +132,10 @@ const Post = (props) => {
     usersReferenced.forEach((user_) => {
       console.log(user_)
       // setTempString(commentState.replace(`@${usersReferenced[userR].username}`, `<a href="/user/${usersReferenced[userR]._id}" className="userReference">@${usersReferenced[userR].username}</a>`))
-      temp = temp.replace(`@${user_.username}`, `<a href="/user/${user_._id}">@${user_.username}</a>`)
+      temp = temp.replace(
+        `@${user_.username}`,
+        `<a href="/user/${user_._id}">@${user_.username}</a>`,
+      )
     })
     setTempString(temp)
   }, [commentState])
@@ -169,9 +172,9 @@ const Post = (props) => {
                     <iframe width="100%" src={`https://www.youtube.com/embed/${youtubeLink}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>} */}
 
           {/* CONDITIONALLY RENDERS PHOTOS */}
-          <div className={imageProps ? 'postImgSmBg' : 'postImgBigBg'}>
-            {photoID &&
-              photoID.map((imgId, key) => (
+          {photoID.length > 0 && (
+            <div className={imageProps ? 'postImgSmBg' : 'postImgBigBg'}>
+              {photoID.map((imgId, key) => (
                 <Image
                   key={key}
                   onClick={() => setImageProps(!imageProps)}
@@ -180,7 +183,8 @@ const Post = (props) => {
                   publicId={imgId}
                 ></Image>
               ))}
-          </div>
+            </div>
+          )}
 
           {comments.length > 0 && !commentsVisible && (
             <Button
@@ -189,7 +193,9 @@ const Post = (props) => {
               variant="outline-secondary"
               size="sm"
             >
-              {comments.length > 1 ?  `${comments.length} Comments` : "1 Comment"} 
+              {comments.length > 1
+                ? `${comments.length} Comments`
+                : '1 Comment'}
             </Button>
           )}
           {commentsVisible &&
