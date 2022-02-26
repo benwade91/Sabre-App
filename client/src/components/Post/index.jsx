@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Form, Button, FloatingLabel, Alert } from 'react-bootstrap'
+import { Card, Button, Alert } from 'react-bootstrap'
 import { Comment } from '../Comment'
 import { Image } from 'cloudinary-react'
 import './style.css'
@@ -8,11 +8,11 @@ import { useMutation, useQuery } from '@apollo/client'
 import {
   QUERY_USER,
   QUERY_ALL_POSTS,
-  QUERY_USER_BY_USERNAME,
 } from '../../utils/queries'
 import ReactHtmlParser from 'react-html-parser'
-import Auth from '../../utils/auth'
+import Auth from '../../utils/auth';
 import { useHistory } from 'react-router-dom'
+import CommentInput from '../CommentInput'
 
 const Post = (props) => {
   const {
@@ -39,66 +39,14 @@ const Post = (props) => {
   const [deletePost] = useMutation(DELETE_POST)
   const history = useHistory()
 
-  const { loading, error: error1, data, refetch } = useQuery(
-    QUERY_USER_BY_USERNAME,
-    {
-      variables: { username: userSearch },
-      onCompleted: (data) => {
-        data.getUserByUsername &&
-          usersReferenced.indexOf(data.getUserByUsername) === -1 &&
-          setUsersReferenced([...usersReferenced, data.getUserByUsername])
-      },
-    },
-  )
-
   const isUsersPost = () => {
     return user._id === userData.user._id
-  }
-
-  const handleChange = (event) => {
-    let taggedUsers = [...event.target.value.matchAll(/^@?(\w){1,15}$/g)]
-    taggedUsers &&
-      taggedUsers.forEach((user) => {
-        setUserSearch(user[0])
-        refetch()
-      })
-    setCommentState(event.target.value)
-  }
-
-  const handleCommentSubmit = () => {
-    if (commentState === '') {
-      setError(true)
-    } else if (!Auth.loggedIn()) {
-      history.push('/login')
-    } else {
-      createComment({
-        variables: {
-          content: tempString,
-          post: _id,
-        },
-        refetchQueries: [{ query: QUERY_ALL_POSTS }],
-      })
-      setCommentState('')
-      setError(false)
-    }
-  }
-
-  const handleSelect = (e) => {
-    // e.target.style.height = 'inherit';
-    // e.target.className += ' here';
-    // console.log(e.target.className);
-    // e.target.style.height = `${e.target.scrollHeight}px`;
-    setChat(true)
   }
 
   const handleUserClick = (id) => {
     history.push({
       pathname: `/user/${id}`,
     })
-  }
-
-  const handleBlur = (e) => {
-    e.target.style.height = '9vh'
   }
 
   const handleDelete = () => {
@@ -138,7 +86,7 @@ const Post = (props) => {
       )
     })
     setTempString(temp)
-  }, [commentState])
+  }, [commentState, usersReferenced])
 
   return (
     <>
@@ -204,58 +152,21 @@ const Post = (props) => {
             ))}
         </Card.Body>
 
-        <Form className="m-1">
-          {error && (
-            <Alert className="alertBox" show={true} variant="danger">
-              <p className="m-auto">You gotta write something foo</p>
-            </Alert>
-          )}
-          {Auth.loggedIn() && comments.length === 0 ? (
-            <FloatingLabel controlId="floatingTextarea2" label="Comment">
-              <Form.Control
-                as="textarea"
-                placeholder="Comment"
-                style={{
-                  height: '9vh',
-                  width: '99%',
-                }}
-                onSelect={handleSelect}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={commentState}
-                className="m-1"
-              />
-            </FloatingLabel>
-          ) : (
-            commentsVisible && (
-              <FloatingLabel controlId="floatingTextarea2" label="Comment">
-                <Form.Control
-                  as="textarea"
-                  placeholder="Comment"
-                  style={{
-                    height: '9vh',
-                    width: '99%',
-                  }}
-                  onSelect={handleSelect}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={commentState}
-                  className="m-1"
-                />
-              </FloatingLabel>
-            )
-          )}
-
-          {chat && (
-            <Button
-              onClick={handleCommentSubmit}
-              variant="primary"
-              type="button"
-            >
-              Comment
-            </Button>
-          )}
-        </Form>
+        <CommentInput
+          props={
+            (tempString,
+            error,
+            setError,
+            userSearch,
+            setUserSearch,
+            setUsersReferenced,
+            chat,
+            setChat,
+            setCommentState,
+            createComment,
+            Auth)
+          }
+        />
       </Card>
 
       {showDeleteAlert && (

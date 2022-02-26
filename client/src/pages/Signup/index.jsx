@@ -45,7 +45,7 @@ export const Signup = () => {
         ...formState.error,
         usernameTaken: false,
       }})
-  }, [formState.username, data])
+  }, [formState.username, data, refetch, formState])
 
   const handleChange = (event) => {
     // destructure event target
