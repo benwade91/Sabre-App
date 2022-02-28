@@ -1,54 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Button, FloatingLabel, Alert } from 'react-bootstrap'
-import { useQuery } from '@apollo/client'
 import { QUERY_ALL_POSTS, QUERY_USER_BY_USERNAME } from '../../utils/queries'
+import { ADD_COMMENT} from '../../utils/mutations'
+import { useMutation, useQuery } from '@apollo/client'
 import { useHistory } from 'react-router-dom'
+import Auth from '../../utils/auth';
 
-const CommentInput = ({
-  _id,
-  comments,
-  tempString,
-  error,
-  setError,
-  userSearch,
-  setUserSearch,
-  setUsersReferenced,
-  chat,
-  setChat,
-  setCommentState,
-  createComment,
-  Auth,
-}) => {
-  const [commentState] = useState('')
-  const [usersReferenced] = useState([])
+const CommentInput = (props) => {
+    const {_id, comments, commentsVisible} = props.props;
+
+  const [commentState, setCommentState] = useState('')
+  const [tempString, setTempString] = useState('')
+  const [userSearch, setUserSearch] = useState('')
+  const [chat, setChat] = useState(false)
+  const [usersReferenced, setUsersReferenced] = useState([])
+  const [createComment] = useMutation(ADD_COMMENT)
   const history = useHistory()
-  const [commentsVisible] = useState(false)
+  const [error, setError] = useState(undefined)
 
-  const { loading, error: error1, data, refetch } = useQuery(
+  const { error: error1,data , refetch } = useQuery(
     QUERY_USER_BY_USERNAME,
     {
       variables: { username: userSearch },
       onCompleted: (data) => {
+          
         data.getUserByUsername &&
           usersReferenced.indexOf(data.getUserByUsername) === -1 &&
           setUsersReferenced([...usersReferenced, data.getUserByUsername])
       },
     },
   )
-
-  loading && console.log(loading)
-  error1 && console.log(error1)
-  data && console.log(data)
+ 
 
   const handleChange = (event) => {
-    let taggedUsers = [...event.target.value.matchAll(/^@?(\w){1,15}$/g)]
+    let taggedUsers = [...event.target.value.matchAll(/(^|[^@\w])@(\w{1,15})\b/g)]
     taggedUsers &&
       taggedUsers.forEach((user) => {
-        setUserSearch(user[0])
+        setUserSearch(user[2])
         refetch()
       })
     setCommentState(event.target.value)
   }
+
   const handleCommentSubmit = () => {
     if (commentState === '') {
       setError(true)
@@ -67,16 +60,24 @@ const CommentInput = ({
     }
   }
 
-  const handleSelect = (e) => {
-    // e.target.style.height = 'inherit';
-    // e.target.className += ' here';
-    // console.log(e.target.className);
-    // e.target.style.height = `${e.target.scrollHeight}px`;
+  const handleSelect = () => {
     setChat(true)
   }
+
   const handleBlur = (e) => {
     e.target.style.height = '9vh'
   }
+
+  useEffect(() => {
+    let temp = commentState
+    usersReferenced.forEach((user_) => {
+      temp = temp.replace(
+        `@${user_.username}`,
+        `<a href="/user/${user_._id}">@${user_.username}</a>`,
+      )
+    })
+    setTempString(temp)
+  }, [commentState, usersReferenced])
 
   return (
     <div>
@@ -86,7 +87,7 @@ const CommentInput = ({
             <p className="m-auto">You gotta write something foo</p>
           </Alert>
         )}
-        {Auth.loggedIn() && comments.length === 0 ? (
+        {Auth.loggedIn() && comments && comments.length === 0 ? (
           <FloatingLabel controlId="floatingTextarea2" label="Comment">
             <Form.Control
               as="textarea"

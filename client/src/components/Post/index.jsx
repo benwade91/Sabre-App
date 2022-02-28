@@ -3,14 +3,10 @@ import { Card, Button, Alert } from 'react-bootstrap'
 import { Comment } from '../Comment'
 import { Image } from 'cloudinary-react'
 import './style.css'
-import { ADD_COMMENT, DELETE_POST, EDIT_POST } from '../../utils/mutations'
+import { DELETE_POST, EDIT_POST } from '../../utils/mutations'
 import { useMutation, useQuery } from '@apollo/client'
-import {
-  QUERY_USER,
-  QUERY_ALL_POSTS,
-} from '../../utils/queries'
+import { QUERY_USER, QUERY_ALL_POSTS } from '../../utils/queries'
 import ReactHtmlParser from 'react-html-parser'
-import Auth from '../../utils/auth';
 import { useHistory } from 'react-router-dom'
 import CommentInput from '../CommentInput'
 
@@ -24,17 +20,11 @@ const Post = (props) => {
     _id,
     viewedBy,
   } = props.props
-  const [tempString, setTempString] = useState('')
-  const [error, setError] = useState(undefined)
-  const [userSearch, setUserSearch] = useState('')
-  const [usersReferenced, setUsersReferenced] = useState([])
-  const [chat, setChat] = useState(false)
+
   const [showDeleteAlert, setShowDeleteAlert] = useState(false)
   const [commentsVisible, setCommentsVisible] = useState(false)
-  const [commentState, setCommentState] = useState('')
   const [imageProps, setImageProps] = useState(true)
   const { data: userData } = useQuery(QUERY_USER)
-  const [createComment] = useMutation(ADD_COMMENT)
   const [editPost] = useMutation(EDIT_POST)
   const [deletePost] = useMutation(DELETE_POST)
   const history = useHistory()
@@ -60,7 +50,7 @@ const Post = (props) => {
   }
 
   useEffect(() => {
-    let obj
+    let obj;
     userData && (obj = viewedBy.find((x) => x === userData.user._id))
     if (!obj) {
       userData &&
@@ -73,20 +63,6 @@ const Post = (props) => {
         })
     }
   }, [userData, _id, editPost, viewedBy])
-
-  useEffect(() => {
-    // console.log(usersReferenced)
-    let temp = commentState
-    usersReferenced.forEach((user_) => {
-      console.log(user_)
-      // setTempString(commentState.replace(`@${usersReferenced[userR].username}`, `<a href="/user/${usersReferenced[userR]._id}" className="userReference">@${usersReferenced[userR].username}</a>`))
-      temp = temp.replace(
-        `@${user_.username}`,
-        `<a href="/user/${user_._id}">@${user_.username}</a>`,
-      )
-    })
-    setTempString(temp)
-  }, [commentState, usersReferenced])
 
   return (
     <>
@@ -115,10 +91,6 @@ const Post = (props) => {
           <Card.Text className={photoID ? 'cardContent mb-5' : 'mb-3'}>
             {ReactHtmlParser(content)}
           </Card.Text>
-          {/* CONDITIONALLY RENDERS YOUTUBE VIDEOS */}
-          {/* {youtubeLink && youtubeLink !== '' &&
-                    <iframe width="100%" src={`https://www.youtube.com/embed/${youtubeLink}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>} */}
-
           {/* CONDITIONALLY RENDERS PHOTOS */}
           {photoID.length > 0 && (
             <div className={imageProps ? 'postImgSmBg' : 'postImgBigBg'}>
@@ -152,21 +124,9 @@ const Post = (props) => {
             ))}
         </Card.Body>
 
-        <CommentInput
-          props={
-            (tempString,
-            error,
-            setError,
-            userSearch,
-            setUserSearch,
-            setUsersReferenced,
-            chat,
-            setChat,
-            setCommentState,
-            createComment,
-            Auth)
-          }
-        />
+        {/* INPUT AREA FOR COMMENTS */}
+        <CommentInput props={{ _id, comments, commentsVisible }} />
+
       </Card>
 
       {showDeleteAlert && (

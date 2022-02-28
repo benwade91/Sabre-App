@@ -60,7 +60,6 @@ export const Signup = () => {
             ...formState.error,
             passwordMatch: false 
           }})
-          console.log('password no match');
       } else {
         setFormState({ ...formState, error : {
             ...formState.error,
@@ -70,7 +69,6 @@ export const Signup = () => {
   }
 
   const handleFormSubmit = async (event) => {
-    console.log(formState)
     event.preventDefault()
     // if no errors, await response from backend, get token, and login
      if (!errFlags.emailError) {
@@ -104,7 +102,6 @@ export const Signup = () => {
                 ...formState.error,
                 generalError: true 
               }})
-          console.log(e.message)
         }
       }
     }
