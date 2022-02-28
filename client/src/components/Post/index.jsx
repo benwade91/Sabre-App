@@ -9,6 +9,7 @@ import { QUERY_USER, QUERY_ALL_POSTS } from '../../utils/queries'
 import ReactHtmlParser from 'react-html-parser'
 import { useHistory } from 'react-router-dom'
 import CommentInput from '../CommentInput'
+import Auth from '../../utils/auth';
 
 const Post = (props) => {
   const {
@@ -125,7 +126,7 @@ const Post = (props) => {
         </Card.Body>
 
         {/* INPUT AREA FOR COMMENTS */}
-        <CommentInput props={{ _id, comments, commentsVisible }} />
+        {Auth.loggedIn() && <CommentInput props={{ _id, comments, commentsVisible }} />}
 
       </Card>
 
