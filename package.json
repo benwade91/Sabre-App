@@ -8,7 +8,8 @@
     "start:prod": "cd server && npm start",
     "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "heroku-postbuild": "cd client && npm run build",
-    "install": "cd server && npm i && cd ../client && npm i --legacy-peer-deps"
+    "install": "cd server && npm i && cd bot && npm i && cd ../../client && npm i --legacy-peer-deps",
+    "gobot": "if-env NODE_ENV=production && cd server && cd bot && node prod.js || cd server && cd bot && node dev.js"
   },
   "repository": {
     "type": "git",

@@ -18,7 +18,7 @@ const CommentInput = (props) => {
   const history = useHistory()
   const [error, setError] = useState(undefined)
 
-  const { error: error1,data , refetch } = useQuery(
+  const { refetch } = useQuery(
     QUERY_USER_BY_USERNAME,
     {
       variables: { username: userSearch },
