@@ -27,7 +27,7 @@ const Footer = () => {
 
     return (
         <>
-            <div className='mainMenu'>
+            {!state.portalPage && <div className='mainMenu'>
                 <Link className='mainMenuBtnCase' to='/message-board'>
                     <div className='mainMenuBtn messageBoardBtn'>
                         <img className='mainMenuBtnPng' src={homePng} alt="team message board" />
@@ -58,7 +58,7 @@ const Footer = () => {
                         <img className='mainMenuBtnPng' src={settingsPng} alt="settings" />
                     </div>
                 </Link>
-            </div>
+            </div>}
         </>
     )
 }

@@ -10,6 +10,7 @@ const StoreProvider = ({ value = [], ...props }) => {
         newAnnouncement: false,
         currentUser: undefined,
         loggedIn: false,
+        portalPage:false
     });
     return <Provider value={[state, dispatch]} {...props} />;
 };

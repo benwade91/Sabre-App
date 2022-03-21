@@ -11,20 +11,3 @@
     height: 80vh;
     overflow: scroll;
 }
-
-/* UX IS TERRIBLE WITH THIS ENABLED
-@media screen and (max-width: 1000px) and (orientation: landscape){
-    html {
-      transform: rotate(-90deg);
-      transform-origin: left top;
-      width: 100vh;
-      overflow-x: hidden;
-      position: absolute;
-      top: 100%;
-      left: 0;
-    }
-    .appEnclosure {
-        height: 80vw;
-        overflow: scroll;
-    }
-  } */

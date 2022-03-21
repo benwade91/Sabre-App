@@ -1,7 +1,12 @@
 import React from 'react'
 import { ApolloProvider } from '@apollo/react-hooks'
 import ApolloClient from 'apollo-boost'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useLocation,
+} from 'react-router-dom'
 import { StoreProvider } from '../utils/GlobalState'
 import './style.css'
 
@@ -16,6 +21,7 @@ import NewPost from '../pages/NewPost'
 import NoMatch from '../pages/NoMatch'
 import { User } from '../pages/User'
 import { Signup } from '../pages/Signup'
+import GymPortal from '../pages/GymPortal'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -39,6 +45,19 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="app">
+        {console.log(window.location)}
+          {window.location.pathname == "/gymportal" && (
+            <style>{`
+    .app{
+    max-width: 100vw;
+    width: 100vw;
+}
+.appEnclosure {
+    height: 90vh;
+}
+
+    `}</style>
+          )}
           <StoreProvider>
             <Nav />
             <div className="appEnclosure">
@@ -62,6 +81,7 @@ function App() {
                 <Route exact path="/help" component={Help}></Route>
                 <Route exact path="/signup" component={Signup}></Route>
                 <Route path="/user/:id" component={User}></Route>
+                <Route path="/gymportal" component={GymPortal}></Route>
                 <Route component={NoMatch} />
               </Switch>
             </div>

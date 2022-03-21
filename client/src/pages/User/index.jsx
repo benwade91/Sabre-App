@@ -25,7 +25,7 @@ export const User = (props) => {
     }
     return belts[belt]
   }
-
+  
   return (
     <div>
       {data ? (

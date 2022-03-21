@@ -5,6 +5,7 @@ import {
     SET_LOADING,
     NEW_ANNOUNCEMENT,
     LOGIN_STATUS,
+    SET_PORTAL
 } from "./actions";
 
 export const reducer = (state, action) => {
@@ -34,6 +35,11 @@ export const reducer = (state, action) => {
                     ...state,
                     loggedIn: action.loggedIn
                 }
+        case SET_PORTAL:
+            return{
+                ...state,
+                portalPage: !state.portalPage
+            }
         default:
             return state;
     }
