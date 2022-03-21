@@ -9,7 +9,7 @@ import './style.css'
 const GymPortal = () => {
   const [data, setData] = useState('No result')
   const [, dispatch] = useStoreContext()
-  const { loading, error, data: userData, refetch } = useQuery(
+  const { error, data: userData, refetch } = useQuery(
     QUERY_USER_BY_ID,
     {
       variables: { _id: data },
@@ -26,7 +26,7 @@ const GymPortal = () => {
 
   useEffect(() => {
     refetch()
-  }, [data])
+  }, [data, refetch])
 
   console.log(userData)
 

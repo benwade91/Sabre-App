@@ -8,7 +8,7 @@ import './style.css'
 // import Auth from "../../utils/auth";
 
 const Nav = () => {
-  const [state, dispatch] = useStoreContext()
+  const [state,] = useStoreContext()
 
   // const handleMenu = () => {
   //     dispatch({

@@ -5,7 +5,6 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  useLocation,
 } from 'react-router-dom'
 import { StoreProvider } from '../utils/GlobalState'
 import './style.css'
@@ -22,6 +21,7 @@ import NoMatch from '../pages/NoMatch'
 import { User } from '../pages/User'
 import { Signup } from '../pages/Signup'
 import GymPortal from '../pages/GymPortal'
+import CheckIn from '../pages/CheckIn'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -45,8 +45,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="app">
-        {console.log(window.location)}
-          {window.location.pathname == "/gymportal" && (
+          {window.location.pathname === "/gymportal" && (
             <style>{`
     .app{
     max-width: 100vw;
@@ -82,6 +81,7 @@ function App() {
                 <Route exact path="/signup" component={Signup}></Route>
                 <Route path="/user/:id" component={User}></Route>
                 <Route path="/gymportal" component={GymPortal}></Route>
+                <Route path="/checkin" component={CheckIn}></Route>
                 <Route component={NoMatch} />
               </Switch>
             </div>
