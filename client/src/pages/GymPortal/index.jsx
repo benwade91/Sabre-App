@@ -4,19 +4,21 @@ import { SET_PORTAL } from '../../utils/actions'
 import { QUERY_USER_BY_ID } from '../../utils/queries'
 import { useQuery } from '@apollo/react-hooks'
 import { useStoreContext } from '../../utils/GlobalState'
+import { Button } from 'react-bootstrap'
 import './style.css'
 
 const GymPortal = () => {
   const [data, setData] = useState('No result')
+  const [showQr, setShowQr] = useState(false)
   const [, dispatch] = useStoreContext()
-  const { error, data: userData, refetch } = useQuery(
+  const { error: qrError, data: userData, refetch } = useQuery(
     QUERY_USER_BY_ID,
     {
       variables: { _id: data },
     },
   )
 
-  error && console.log('error')
+  if (qrError) console.log(qrError.message);
 
   useEffect(() => {
     dispatch({
@@ -28,23 +30,38 @@ const GymPortal = () => {
     refetch()
   }, [data, refetch])
 
+  useEffect(() => {
+    if (showQr) {
+        setTimeout(()=> {
+            setShowQr(false)
+            setData("Please scan QR code")
+        }, 20000);
+    }
+  }, [showQr])
+
   console.log(userData)
 
   return (
     <div className="qrPage">
-      <QrReader
+{showQr ? <QrReader
         className="qrWindow"
         onResult={(result, error) => {
           if (!!result) {
             setData(result?.text)
+            // setShowQr(false)
           }
 
           if (!!error) {
             //   console.info(error);
           }
         }}
-      />
-      <p>{userData ? userData.getUserById.username : data}</p>
+      /> :
+      <Button
+            variant="success"
+            className="logOutBtn"
+            onClick={()=>setShowQr(true)}
+          >Check-in</Button>}
+      {showQr && <p>{userData ? userData.getUserById.username : data}</p>}
     </div>
   )
 }
