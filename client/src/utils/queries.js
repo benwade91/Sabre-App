@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const QUERY_USER = gql`
+export const QUERY_USER = gql `
   {
     user {
       _id
@@ -16,8 +16,21 @@ export const QUERY_USER = gql`
     }
   }
 `
+export const QUERY_ALL_CHECKINS = gql `
+{
+  getCheckIn {
+    _id
+    gym 
+    user {
+      _id
+      username
+    }
+    date 
+  }
+}
+`
 
-export const QUERY_ALL_POSTS = gql`
+export const QUERY_ALL_POSTS = gql `
   {
     getAllPosts {
       _id
@@ -46,7 +59,7 @@ export const QUERY_ALL_POSTS = gql`
   }
 `
 
-export const QUERY_USER_BY_USERNAME = gql`
+export const QUERY_USER_BY_USERNAME = gql `
   query getUserByUsername($username: String!) {
     getUserByUsername(username: $username) {
       username
@@ -60,7 +73,7 @@ export const QUERY_USER_BY_USERNAME = gql`
   }
 `
 
-export const QUERY_USER_BY_ID = gql`
+export const QUERY_USER_BY_ID = gql `
   query getUserById($_id: ID!) {
     getUserById(_id: $_id) {
       username

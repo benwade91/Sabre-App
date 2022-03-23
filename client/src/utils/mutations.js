@@ -108,6 +108,24 @@ mutation deletePost($_id:ID!){
 }
 `;
 
+export const ADD_CHECK_IN = gql `
+mutation addCheckIn(
+  $user: ID
+  $gym: String
+){
+  addCheckIn(
+    user:$user
+    gym:$gym
+  ){
+    gym
+    date
+    user{
+      _id
+      username
+    }
+  }
+}
+`
 export const ADD_COMMENT = gql `
 mutation addNewComment(
   $content: String!

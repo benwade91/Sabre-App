@@ -25,6 +25,7 @@ const userSchema = new Schema({
   },
   privateMessages: [{ type: Schema.Types.ObjectId, ref: "MessageThread" }],
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+  checkIn: [{ type: Schema.Types.ObjectId, ref: "CheckIn" }],
 });
 
 // set up pre-save middleware to create password

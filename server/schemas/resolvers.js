@@ -1,12 +1,13 @@
 const {
   AuthenticationError
 } = require("apollo-server-express");
+const CheckIn = require("../models/CheckIn");
 const {
   User,
   Post,
   Comment,
   MessageThread,
-  Message
+  Message,
 } = require("../models");
 const {
   signToken
@@ -24,6 +25,10 @@ const resolvers = {
           .populate({
             path: "posts",
             model: "Post",
+          })
+          .populate({
+            path: "checkIn",
+            model: "CheckIn",
           })
         // console.log("heres stuff", userdata)
         return userdata;
@@ -49,9 +54,26 @@ const resolvers = {
       }).populate({
         path: "posts",
         model: "Post",
+      })
+      .populate({
+        path: "checkIn",
+        model: "CheckIn",
       });
 
       return user;
+    },
+
+    getCheckIn: async (parent) => {
+      const checkIns = await CheckIn.find().sort({date: 1})
+      .populate({
+        path: "checkin",
+        model: "CheckIn",
+      }).populate({
+        path: "user",
+        model: "User",
+      })
+      // console.log(posts.filter(post => post.announcement));
+      return checkIns;
     },
 
     getComments: async (parent, idList) => {
@@ -144,6 +166,23 @@ const resolvers = {
         }
       );
       return user;
+    },
+
+    addCheckIn: async(parent, args) => {
+      const checkIn = await CheckIn.create({
+        ...args,
+        date: Date.now()
+      });
+      console.log(checkIn);
+      await User.findByIdAndUpdate({
+        _id: args.user
+      },{
+        $push: {
+          checkIn: checkIn._id
+        }
+      });
+
+      return checkIn;
     },
 
     addNewPost: async (parent, args, context) => {

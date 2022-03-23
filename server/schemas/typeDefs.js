@@ -14,6 +14,7 @@ const typeDefs = gql `
     posts: [Post]
     privateMessages: [Message]
     beltColor: String
+    checkIn:[CheckIn]
   }
 
   type MessageThread {
@@ -58,6 +59,13 @@ const typeDefs = gql `
     user: User
   }
 
+  type CheckIn {
+    _id: ID
+    gym: String
+    user: User
+    date: String
+  }
+
   type Query {
     user: User
     getUserByUsername(username: String!): User
@@ -67,6 +75,7 @@ const typeDefs = gql `
     getPostByGym(whatGym:String!): [Post]
     getComments: [Comment]
     getMessageThread(_id: ID!): MessageThread
+    getCheckIn: [CheckIn]
   }
 
   type Mutation {
@@ -98,6 +107,11 @@ const typeDefs = gql `
       viewedBy: [String]
       youtubeLink: String
     ): Post
+
+    addCheckIn(
+      gym: String!
+      user: ID!
+    ): CheckIn
 
     editExistingPost(
       _id: ID!
