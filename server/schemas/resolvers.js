@@ -72,7 +72,6 @@ const resolvers = {
         path: "user",
         model: "User",
       })
-      // console.log(posts.filter(post => post.announcement));
       return checkIns;
     },
 
