@@ -21,7 +21,7 @@ import CheckIn from '../pages/CheckIn'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import 'bootstrap/dist/css/bootstrap.min.css'
-// import Auth from '../utils/auth';
+import Auth from '../utils/auth';
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -81,7 +81,7 @@ function App() {
                 <Route exact path="/signup" component={Signup}></Route>
                 <Route path="/user/:id" component={User}></Route>
                 <Route path="/gymportal/:gym" component={GymPortal}></Route>
-                <Route path="/checkin" component={CheckIn}></Route>
+                {Auth.loggedIn() && <Route path="/checkin" component={CheckIn}></Route>}
                 <Route component={NoMatch} />
               </Switch>
             </div>

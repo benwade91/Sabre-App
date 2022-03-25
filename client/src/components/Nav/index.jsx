@@ -6,10 +6,10 @@ import logo from './images/sabre_logo_w_name.png'
 import checkin from './images/menu.png'
 // import messenger from './images/messenger.png';
 import './style.css'
-import Auth from "../../utils/auth";
+import Auth from '../../utils/auth'
 
 const Nav = () => {
-  const [state,] = useStoreContext()
+  const [state] = useStoreContext()
 
   // const handleMenu = () => {
   //     dispatch({
@@ -32,9 +32,12 @@ const Nav = () => {
           </Link>
         )}
         {/* <div className='menuDropBtn' onClick={handleMenu}> */}
-        <Link to='/checkin'>
-            <img className='checkIn' src={checkin} alt="messages"/>
-            </Link>
+        {Auth.loggedIn() && (
+          <Link to="/checkin">
+            <img className="checkIn" src={checkin} alt="messages" />
+          </Link>
+        )}
+
         {/* </div> */}
       </nav>
       {/* </header> */}
