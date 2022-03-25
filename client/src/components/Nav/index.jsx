@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 // import { OPEN_MENU } from "../../utils/actions";
 import { useStoreContext } from '../../utils/GlobalState'
 import logo from './images/sabre_logo_w_name.png'
+import checkin from './images/menu.png'
 // import messenger from './images/messenger.png';
 import './style.css'
-// import Auth from "../../utils/auth";
+import Auth from "../../utils/auth";
 
 const Nav = () => {
   const [state,] = useStoreContext()
@@ -31,9 +32,9 @@ const Nav = () => {
           </Link>
         )}
         {/* <div className='menuDropBtn' onClick={handleMenu}> */}
-        {/* <Link to='/my-messages'>
-            <img className='messagePng' src={messenger} alt="messages"/>
-            </Link> */}
+        <Link to='/checkin'>
+            <img className='checkIn' src={checkin} alt="messages"/>
+            </Link>
         {/* </div> */}
       </nav>
       {/* </header> */}

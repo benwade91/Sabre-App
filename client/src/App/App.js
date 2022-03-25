@@ -1,11 +1,7 @@
 import React from 'react'
 import { ApolloProvider } from '@apollo/react-hooks'
 import ApolloClient from 'apollo-boost'
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { StoreProvider } from '../utils/GlobalState'
 import './style.css'
 
@@ -45,21 +41,21 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="app">
-        {/* CHANGE LOCATION PATHNAME TO CAPTURE MORE GYMS */}
-          {window.location.pathname === "/gymportal/sabre" && (
+          {/* CHANGE LOCATION PATHNAME TO CAPTURE MORE GYMS */}
+          {window.location.pathname === '/gymportal/sabre' && (
             <style>{`
-    .app{
-    max-width: 100vw;
-    width: 100vw;
-}
-.appEnclosure {
-    height: 90vh;
-}
-iframe{
-  display: none;
-}
+            .app{
+            max-width: 100vw;
+            width: 100vw;
+            }
+            .appEnclosure {
+                height: 90vh;
+            }
+            iframe{
+              display: none;
+            }
 
-    `}</style>
+            `}</style>
           )}
           <StoreProvider>
             <Nav />

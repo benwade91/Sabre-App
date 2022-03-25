@@ -15,6 +15,13 @@ header {
     margin-left: 10px;
 }
 
+.checkIn{
+    background-color: lightgrey;
+    height: 35px;
+    padding: 5px;
+    margin: 0 10px 9px 0;
+}
+
 .menuDropBtn {
     margin-right: 0;
     height: fit-content;
