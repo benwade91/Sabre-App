@@ -15,6 +15,7 @@ const typeDefs = gql `
     privateMessages: [Message]
     beltColor: String
     checkIn:[CheckIn]
+    paid: String
   }
 
   type MessageThread {

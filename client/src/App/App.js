@@ -45,7 +45,8 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="app">
-          {window.location.pathname === "/gymportal" && (
+        {/* CHANGE LOCATION PATHNAME TO CAPTURE MORE GYMS */}
+          {window.location.pathname === "/gymportal/sabre" && (
             <style>{`
     .app{
     max-width: 100vw;
@@ -53,6 +54,9 @@ function App() {
 }
 .appEnclosure {
     height: 90vh;
+}
+iframe{
+  display: none;
 }
 
     `}</style>
@@ -80,7 +84,7 @@ function App() {
                 <Route exact path="/help" component={Help}></Route>
                 <Route exact path="/signup" component={Signup}></Route>
                 <Route path="/user/:id" component={User}></Route>
-                <Route path="/gymportal" component={GymPortal}></Route>
+                <Route path="/gymportal/:gym" component={GymPortal}></Route>
                 <Route path="/checkin" component={CheckIn}></Route>
                 <Route component={NoMatch} />
               </Switch>

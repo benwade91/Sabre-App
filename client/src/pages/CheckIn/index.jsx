@@ -3,7 +3,7 @@ import { QUERY_USER } from '../../utils/queries';
 import { useQuery } from "@apollo/client";
 import './style.css';
 
-const CheckIn = () => {
+const QrScan = () => {
     const { data, } = useQuery(QUERY_USER);
     data?.user?._id && console.log(data.user._id);
   return (
@@ -13,4 +13,4 @@ const CheckIn = () => {
   )
 }
 
-export default CheckIn
+export default QrScan

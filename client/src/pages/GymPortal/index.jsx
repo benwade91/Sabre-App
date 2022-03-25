@@ -7,7 +7,9 @@ import { useStoreContext } from '../../utils/GlobalState'
 import { Button } from 'react-bootstrap'
 import './style.css'
 
-const GymPortal = () => {
+const GymPortal = (props) => {
+  const location = props.match.params.gym
+  console.log(location);
   const [data, setData] = useState('No result')
   const [showQr, setShowQr] = useState(false)
   const [, dispatch] = useStoreContext()

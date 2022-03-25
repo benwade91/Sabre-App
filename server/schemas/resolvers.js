@@ -101,7 +101,7 @@ const resolvers = {
         model: "Comment",
         options: { sort: { 'date': -1 } }
       });
-      // console.log(posts.filter(post => post.announcement));
+      
       return posts;
     },
 
@@ -172,7 +172,7 @@ const resolvers = {
         ...args,
         date: Date.now()
       });
-      console.log(checkIn);
+      // console.log(checkIn);
       await User.findByIdAndUpdate({
         _id: args.user
       },{
