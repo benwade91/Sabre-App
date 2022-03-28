@@ -55,7 +55,6 @@ const GymPortal = (props) => {
     }
   }, [showQr])
 
-  console.log(userData)
 
   return (
     <div className="qrPage">
