@@ -23,6 +23,7 @@ const GymPortal = (props) => {
   )
 
   if (qrError) console.log(qrError.message)
+  if (loading) console.log(loading.message)
 
   useEffect(() => {
     dispatch({
