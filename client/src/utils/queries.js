@@ -24,6 +24,7 @@ export const QUERY_ALL_CHECKINS = gql `
     user {
       _id
       username
+      paid
     }
     date 
   }
