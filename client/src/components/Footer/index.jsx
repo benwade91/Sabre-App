@@ -7,7 +7,7 @@ import createPostPng from './images/add.png';
 import announcementPng from './images/bell.png';
 import newAnnouncementPng from './images/bell-notification.png';
 import settingsPng from './images/settings.png';
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { QUERY_USER } from '../../utils/queries';
 import { SET_CURRENT_USER } from "../../utils/actions";
 import Auth from '../../utils/auth';

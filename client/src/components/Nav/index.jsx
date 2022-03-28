@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 // import { OPEN_MENU } from "../../utils/actions";
 import { useStoreContext } from '../../utils/GlobalState'
 import logo from './images/sabre_logo_w_name.png'
-import checkin from './images/menu.png'
+// import checkin from './images/menu.png'
 // import messenger from './images/messenger.png';
 import './style.css'
 import Auth from '../../utils/auth'
@@ -22,7 +22,7 @@ const Nav = () => {
     <>
       {/* <header> */}
       <nav className="nav navbar bg-dark">
-        {state.gymPortal ? (
+        {!state.portalPage ? (
           <Link to="/">
             <img className="sabreLogo" src={logo} alt="Sabre Logo" />
           </Link>
@@ -34,7 +34,7 @@ const Nav = () => {
         {/* <div className='menuDropBtn' onClick={handleMenu}> */}
         {Auth.loggedIn() && (
           <Link to="/checkin">
-            <img className="checkIn" src={checkin} alt="messages" />
+            <img className="checkIn" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=$Sabre" alt="messages" />
           </Link>
         )}
 

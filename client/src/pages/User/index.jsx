@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { QUERY_USER_BY_ID } from '../../utils/queries';
 import { formatDate } from '../../utils/helpers';
 import ReactHtmlParser from 'react-html-parser';

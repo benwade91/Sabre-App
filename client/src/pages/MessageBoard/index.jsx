@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { QUERY_ALL_POSTS } from '../../utils/queries';
 import { NEW_ANNOUNCEMENT } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
