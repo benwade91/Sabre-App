@@ -25,6 +25,12 @@ const MessageBoard = () => {
           About
         </Button>
 
+        {Auth.loggedIn() && <Button
+          variant="outline-primary"
+          className="logOutBtn"
+          onClick={() => history.push('/traininglog')}
+        >Training Log</Button>}
+
         {Auth.loggedIn() ? (
           <Button
             variant="outline-danger"

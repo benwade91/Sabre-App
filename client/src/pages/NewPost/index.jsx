@@ -88,7 +88,7 @@ const NewPost = () => {
                 <Form.Control
                     onChange={handleChange}
                     as="textarea"
-                    placeholder='fill me up buttercup...'
+                    placeholder="what's on your mind?"
                     style={{ height: '35vh' }}
                     className='mb-2'
                 />
