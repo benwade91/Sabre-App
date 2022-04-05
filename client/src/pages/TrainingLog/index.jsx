@@ -45,10 +45,11 @@ const TrainingLog = () => {
         <tbody>
           {memberTable &&
             memberTable.map((user, index) => {
+              let a = new Date(user.date*1);
               return (
                 <tr key={index}>
                   <td>{user.user.username}</td>
-                  <td>{user.date}</td>
+                  <td>{`${a.getMonth()+1}/${a.getDate()}  ${a.toLocaleTimeString()}`}</td>
                   <td>{user.gym}</td>
                 </tr>
               )

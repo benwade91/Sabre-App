@@ -124,7 +124,6 @@ const resolvers = {
     },
 
     getPostByGym: async (parent, what_Gym) => {
-      console.log(what_Gym)
       const posts = await Post.where(what_Gym)
         .populate({
           path: "post",
