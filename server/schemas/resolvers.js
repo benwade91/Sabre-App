@@ -63,7 +63,7 @@ const resolvers = {
       return user;
     },
 
-    getCheckIn: async (parent) => {
+    getCheckIn: async (parent,args, context) => {
       const checkIns = await CheckIn.find().sort({date: 1})
       .populate({
         path: "checkin",
@@ -72,7 +72,9 @@ const resolvers = {
         path: "user",
         model: "User",
       })
-      return checkIns;
+      // if user is admin, they see all checkins, otherwise they only see their own
+      if(!context.user.administrator)return checkIns.filter((checkIn)=> {return checkIn.user._id == context.user._id});
+      else return checkIns;
     },
 
     getComments: async (parent, idList) => {

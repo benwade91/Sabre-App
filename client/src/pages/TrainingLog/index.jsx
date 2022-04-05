@@ -13,14 +13,6 @@ const TrainingLog = () => {
     data && setMemberTable(data.getCheckIn)
   }, [data])
 
-  useEffect(() => {
-    state.currentUser &&
-      !state.currentUser.administrator &&
-      setMemberTable(memberTable.filter(
-          (user) => {return (user.user._id === state.currentUser._id)},
-        ),);
-  }, [state.currentUser, setMemberTable])
-
   const gymFilter = (event) => {
     const { value } = event.target
     if (value === 'default') {
